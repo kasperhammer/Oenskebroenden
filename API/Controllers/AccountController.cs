@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.DtoModels;
+using Models.Forms;
 using Repo;
 
 namespace API.Controllers
@@ -16,7 +17,7 @@ namespace API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccountAsync(UserDTO user)
+        public async Task<IActionResult> CreateAccountAsync(UserCreateForm user)
         {
             //Jeg for kaldt min CreateAccount Metode med den UserModel som bliver sent med fra brugeren
             //Derefter retunere min metode en boolsk verdi der fortæller mig om det var en success eller ej.

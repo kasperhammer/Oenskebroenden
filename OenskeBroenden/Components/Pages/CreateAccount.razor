@@ -2,15 +2,100 @@
 
 @rendermode InteractiveServer
 <div class="PageCss">
-    <h1 class="Overskrift">Opret</h1>
-    <div class="inputfelt">
-        <EditForm Model="@createForm" OnValidSubmit="ValidSubmit">
-            <InputText placeholder="Skriv dit navn" required="required" autocomplete="off" class="form-control" @bind-Value="createForm.Name" />
-            <InputText type="email" placeholder="Skriv din email" required="required" autocomplete="off" class="form-control" @bind-Value="createForm.Email" />
-            <InputText type="Password" placeholder="Skriv din kode" required="required" autocomplete="off" class="form-control" @bind-Value="createForm.Password" />
-            <input type="submit" class="visually-hidden">
-        </EditForm>
+    <div class="formel">
+
+
+        <h1 class="Overskrift">Opret</h1>
+        <div class="inputfelt">
+            <EditForm Model="@createForm"  OnSubmit="Submit">
+
+                <DataAnnotationsValidator />
+           
+                @if (ShowInput == 0)
+                {
+                    <div class="input-group">
+                        <InputText placeholder="Skriv dit navn"  autocomplete="off" class="form-control input" @bind-Value="createForm.Name" />
+                        <div class="input-group-append">
+                            <div @onclick="(() =>NextInput(1))" class="inputbutton"><span class="input-group-text inputarea"><i class="fa-solid fa-chevron-right"></i></span></div>
+                        </div>
+                    
+                    </div>
+                 
+                }
+                @if (ShowInput == 1)
+                {
+                    <div class="input-group">
+                        <InputText type="email" placeholder="Skriv din email"  autocomplete="off" class="form-control input" @bind-Value="createForm.Email" />
+                        <div class="input-group-append">
+                            <div @onclick="(() =>NextInput(2))" class="inputbutton"><span class="input-group-text inputarea"><i class="fa-solid fa-chevron-right"></i></span></div>
+                        </div>
+                  
+                    </div>
+               
+                }
+                @if (ShowInput == 2)
+                {
+                    <div class="input-group">
+                        <InputText type="Password" placeholder="Skriv din kode"  autocomplete="off" class="form-control input" @bind-Value="createForm.Password" />
+                        <div class="input-group-append">
+                            <button type="submit" class="inputbutton"><span class="input-group-text inputarea"><i class="fa-solid fa-chevron-right"></i></span></button>
+                        </div>
+                      
+                    </div>
+                   
+                }
+
+
+
+
+
+
+
+                <div class="buttons">
+                    @if (ShowInput == 0)
+                    {
+                        <div @onclick="(() =>NextInput(0))" class="square s1"></div>
+                        <div @onclick="(() =>NextInput(1))" class="square "></div>
+                        <div @onclick="(() =>NextInput(2))" class="square"></div>
+                    }
+                    @if (ShowInput == 1)
+                    {
+                        <div @onclick="(() =>NextInput(0))" class="square s1"></div>
+                        <div @onclick="(() =>NextInput(1))" class="square s1"></div>
+                        <div @onclick="(() =>NextInput(2))" class="square "></div>
+                    }
+                    @if (ShowInput == 2)
+                    {
+                        <div @onclick="(() =>NextInput(0))" class="square s1"></div>
+                        <div @onclick="(() =>NextInput(1))" class="square  s1"></div>
+                        <div @onclick="(() =>NextInput(2))" class="square s1"></div>
+                    }
+
+                </div>
+
+
+                <input type="submit" class="visually-hidden">
+                <div class="postion">
+                    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                        <div class="toast-header">
+
+                            <strong class="mr-auto">Errors</strong>
+
+                            <button type="button" class=" close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                            <ValidationSummary />
+                        </div>
+                    </div>
+                </div>
+               
+            </EditForm>
+        </div>
     </div>
+
+    
 </div>
 
 @code {

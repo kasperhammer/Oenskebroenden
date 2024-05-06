@@ -4,5 +4,104 @@
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    flex-direction:column;
+    flex-direction: column;
+    background-image: url("https://cdn.discordapp.com/attachments/1235846535691108414/1237017695115939891/bg.png?ex=663a1e01&is=6638cc81&hm=45a39f0e55e54dc7647dd59b919476b994843c266310881e3598077c1cec8553&")
+}
+
+.formel {
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20vh;
+    flex-direction: column;
+}
+
+.inputarea {
+    height: 100%;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-left: 0px solid black;
+    background-color: #5bc0eb;
+    color: white;
+}
+
+::deep .input {
+    border: 1px solid #dee2e6;
+    font-size: 1.2vw;
+    outline: none !important;
+}
+
+.input-group {
+    font-family: 'Poppins';
+    margin: 2px;
+}
+
+h1 {
+    font-family: 'Poppins';
+    position: relative;
+    bottom: 6vh;
+}
+
+::deep .input:focus {
+    outline: none !important;
+    box-shadow: none;
+    border: 1px solid #dee2e6;
+}
+
+.inputbutton {
+    border: none;
+    padding: 0px;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1vh;
+    justify-content: center;
+}
+
+.square {
+    border-radius: 2px;
+    margin: 4px;
+    width: 10px;
+    height: 10px;
+    background-color: #b9bbc6;
+    cursor: pointer;
+}
+
+.s1 {
+    background-color: #5bc0eb;
+}
+
+.toast {
+ margin:1em;
+ position:absolute;
+ z-index:5;
+}
+
+.postion {
+    position:absolute;
+    z-index:0;
+    height:100vh;
+    width:100vw;
+    top:0px;
+    left:0px;
+    display: flex;
+    align-items:end;
+    justify-content: end;
+
+}
+
+.toast:not(.show) {
+    display: block;
+}
+
+@media only screen and (max-width: 600px) {
+    :: deep .input {
+        font-size: 3vw;
+    }
 }
