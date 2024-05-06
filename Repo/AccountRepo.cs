@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Models.DtoModels;
 using Models.EntityModels;
+using Models.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Repo
             autoMapper = new();
         }
 
-        public async Task<bool> CreateAccountAsync(UserDTO userDto)
+        public async Task<bool> CreateAccountAsync(UserCreateForm userDto)
         {
             if (userDto != null)
             {

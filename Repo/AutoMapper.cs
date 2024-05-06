@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Models.DtoModels;
 using Models.EntityModels;
+using Models.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,10 @@ namespace Repo
                 cfg.CreateMap<WishDTO, Wish>();
                 cfg.CreateMap<WishList, WishListDTO>();
                 cfg.CreateMap<WishListDTO, WishList>();
-              
+                cfg.CreateMap<UserCreateForm, UserDTO>();
+                cfg.CreateMap<UserDTO, UserCreateForm>();
+                cfg.CreateMap<User, UserCreateForm>();
+                cfg.CreateMap<UserCreateForm, User>();
             });
 
             mapper = conf.CreateMapper();
