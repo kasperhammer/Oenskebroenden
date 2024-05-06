@@ -26,6 +26,7 @@ namespace Repo
         {
             if (userDto != null)
             {
+                //Jeg anvender min AutoMapper til at konvertere min DTO model om til en EntityModel
                 User user = autoMapper.mapper.Map<User>(userDto);
                 if (user != null)
                 {
@@ -34,7 +35,9 @@ namespace Repo
                     {
                         try
                         {
+                            //jeg anvender BCrypt til at Hashe brugeres password så det ikke ligger exposed i vores Db
                             user.Password = PasswordHash.HashPassword(user.Password);
+                            //Derefter forsøger jeg at tilføje min bruger til min Db og retuenre så om det var en success eller ej.
                             await dBLayer.Users.AddAsync(user);
                             return await dBLayer.SaveChangesAsync() > 0;
                         }
@@ -46,6 +49,7 @@ namespace Repo
             return false;
         }
 
+        //mine 2 DoesUSerExist Metoder tjekker på om der allerede findes en bruger i system med entet samme navn eller mail
         public async Task<bool> DoesUserExistAsync(User user)
         {
             if (user != null)
