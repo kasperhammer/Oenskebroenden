@@ -1,0 +1,18 @@
+﻿@page "/SignUp"
+
+@rendermode InteractiveServer
+<div class="PageCss">
+    <h1 class="Overskrift">Opret</h1>
+    <div class="inputfelt">
+        <EditForm Model="@createForm" OnValidSubmit="ValidSubmit">
+            <InputText placeholder="Skriv dit navn" required="required" autocomplete="off" class="form-control" @bind-Value="createForm.Name" />
+            <InputText type="email" placeholder="Skriv din email" required="required" autocomplete="off" class="form-control" @bind-Value="createForm.Email" />
+            <InputText type="Password" placeholder="Skriv din kode" required="required" autocomplete="off" class="form-control" @bind-Value="createForm.Password" />
+            <input type="submit" class="visually-hidden">
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+}
