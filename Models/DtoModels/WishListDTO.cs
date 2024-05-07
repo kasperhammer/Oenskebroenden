@@ -13,6 +13,7 @@ namespace Models.DtoModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Emoji { get; set; }
 
         public int OwnerId { get; set; }
 
