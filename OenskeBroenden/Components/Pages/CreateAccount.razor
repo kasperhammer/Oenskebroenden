@@ -18,7 +18,6 @@
                         <div class="input-group-append">
                             <div @onclick="(() =>NextInput(1))" class="inputbutton"><span class="input-group-text inputarea"><i class="fa-solid fa-chevron-right"></i></span></div>
                         </div>
-
                     </div>
 
                 }
@@ -29,7 +28,6 @@
                         <div class="input-group-append">
                             <div @onclick="(() =>NextInput(2))" class="inputbutton"><span class="input-group-text inputarea"><i class="fa-solid fa-chevron-right"></i></span></div>
                         </div>
-
                     </div>
 
                 }
@@ -80,25 +78,28 @@
             </EditForm>
         </div>
     </div>
+    @if(errorMessages.Count != 0)
+    {
+        <div class="postion">
+            <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                <div class="toast-header">
 
-    <div class="postion">
-        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
-            <div class="toast-header">
+                    <strong class="mr-auto">Errors</strong>
 
-                <strong class="mr-auto">Errors</strong>
-
-                <button type="button" class=" close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                @foreach (var item in errorMessages)
-                {
-                    <p>@item</p>
-                }
+                    <button type="button" @onclick="(() => errorMessages = new())" class=" close" data-dismiss="toast" aria-label="Close">
+                        <i class="fa-solid fa-x"></i>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    @foreach (var item in errorMessages)
+                    {
+                        <li style="color:red"> @item</li>
+                    }
+                </div>
             </div>
         </div>
-    </div>
+    }
+    
 </div>
 
 @code {

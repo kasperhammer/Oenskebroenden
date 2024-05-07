@@ -82,6 +82,10 @@ h1 {
 
 }
 
+.toast-header{
+    background-color:#5bc0eb;
+}
+
 .postion {
     
     position:absolute;
@@ -91,6 +95,21 @@ h1 {
 
 .toast:not(.show) {
     display: block;
+}
+.toast-header{
+    color:white;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+}
+
+.close {
+    border: none;
+    background-color: transparent;
+    color: white;
+  
+ 
+    
 }
 
 @media only screen and (max-width: 600px) {

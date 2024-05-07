@@ -11,6 +11,8 @@ namespace OenskeBroenden.Components.Pages
         public int ShowInput = 0;
 
         List<string> errorMessages = new List<string>();
+
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -21,31 +23,8 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task NextInput(int input)
         {
-            if (input == 0)
-            {
-                ShowInput = input;
 
-            }
-            if (input == 1)
-            {
-                if (!string.IsNullOrEmpty(createForm.Name))
-                {
-
-                    ShowInput = input;
-                }
-            }
-            if (input == 2)
-            {
-                if (!string.IsNullOrEmpty(createForm.Email))
-                {
-
-                    ShowInput = input;
-                }
-            }
-
-
-     
-
+            ShowInput = input;
             StateHasChanged();
         }
 
@@ -61,8 +40,8 @@ namespace OenskeBroenden.Components.Pages
             else
             {
                 //get the erroes and put them in the string
-             
-                var test =  model.GetValidationMessages();
+                errorMessages = new();
+                var test = model.GetValidationMessages();
                 foreach (var item in test)
                 {
                     errorMessages.Add(item);
