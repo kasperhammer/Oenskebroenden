@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components;
 using Models.DtoModels;
 using Models.Forms;
 using Repository;
 
 namespace OenskeBroenden.Components.Pages
 {
-    public partial class CreateAccount
+    public partial class LoginPage
     {
         public UserCreateForm createForm { get; set; } = new();
 

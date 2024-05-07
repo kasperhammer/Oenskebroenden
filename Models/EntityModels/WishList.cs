@@ -21,6 +21,7 @@ namespace Models.EntityModels
         public ChatLobby Chat { get; set; }
 
         public string Name { get; set; }
+        public string Emoji { get; set; }
 
     }
 }
