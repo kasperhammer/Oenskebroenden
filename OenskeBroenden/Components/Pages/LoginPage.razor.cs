@@ -44,6 +44,7 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task Submit(EditContext model)
         {
+            errorMessages = new();
             //Lav logik for at tjekke Email !
             if (model.Validate())
             {
@@ -51,22 +52,31 @@ namespace OenskeBroenden.Components.Pages
                 if (await auth.LoginAsync(new UserDTO { Name = createForm.Name,Password = createForm.Password}))
                 {
                     navMan.NavigateTo("/");
-                    errorMessages = new();
-                    StateHasChanged();
+                    
+                  
                     //Navigate to Login or Index
                 }
+                else
+                {
+                    errorMessages.Add("Navn eller kode er forkert");
+                    
+                }
+            
+
             }
             else
             {
                 //get the erroes and put them in the string
-                errorMessages = new();
+              
                 var test = model.GetValidationMessages();
                 foreach (var item in test)
                 {
                     errorMessages.Add(item);
                 }
-                StateHasChanged();
+              
             }
+            createForm = new();
+            StateHasChanged();
         }
     }
 }
