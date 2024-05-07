@@ -17,6 +17,7 @@ namespace Models.DtoModels
         public double Price { get; set; }
         public string Description { get; set; }
         public string PictureURL { get; set; }
+        public int WishListId { get; set; }
         public int? ReservedUserId { get; set; }
     }
 }

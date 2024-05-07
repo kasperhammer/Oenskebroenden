@@ -27,3 +27,22 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+
+:root {
+    --form-bg-color: #EFF0F3;
+    --action-btn-color: #5BC0EB;
+    --secondary-btn-color: #D9D9D9;
+    --main-border-color: #8F8F8F;
+    
+}
+
+.input-name {
+    width: 366px !important;
+    height: 45px !important;
+    border-radius:5px;
+    border:none;
+    padding:13px;
+}
+
+

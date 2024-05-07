@@ -15,8 +15,8 @@ namespace DbAccess
         {
 
 
-            optionsBuilder.UseSqlServer("Server=DESKTOP-G01L98C;Database=H5Diagram;Integrated Security=SSPI;TrustServerCertificate=True;").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            //optionsBuilder.UseSqlServer("Server=localhost;Database=ChatApi;Integrated Security=SSPI;TrustServerCertificate=True;").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            //optionsBuilder.UseSqlServer("Server=DESKTOP-G01L98C;Database=H5Diagram;Integrated Security=SSPI;TrustServerCertificate=True;").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            optionsBuilder.UseSqlServer("Server=localhost;Database=H5Diagram;Integrated Security=SSPI;TrustServerCertificate=True;").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
         }
 

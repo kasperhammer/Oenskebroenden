@@ -1,18 +1,23 @@
-﻿using Models.DtoModels;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Models.DtoModels;
+using Models.Forms;
 
 namespace OenskeBroenden.Components.Pages
 {
     public partial class AuthorPage
     {
 
-        public List<WishListDTO> WishLists { get; set; }
-
+       
+    
+        
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-
+                
+                
+                StateHasChanged();
             }
         }
 

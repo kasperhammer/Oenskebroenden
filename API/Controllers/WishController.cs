@@ -18,7 +18,7 @@ namespace API.Controllers
 
       
 
-        [HttpGet]
+        [HttpGet("GetWishlists")]
         public async Task<IActionResult> GetWishlistsFromUser(int userId)
         {
             List<WishListDTO> rWishlists = await repo.GetWishlistsFromUser(userId);

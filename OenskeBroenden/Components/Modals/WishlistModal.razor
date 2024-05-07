@@ -1,0 +1,40 @@
+﻿<!--Background-->
+<div class="form-bg">
+    <EditForm Model="@NewWishlist" OnValidSubmit="Submit">
+        <!-- form -->
+        <div class="form-body">
+            <!-- Content -->
+            <div class="form-content">
+                <h2>Opret liste</h2>
+                <!-- input felt-->
+                <div class="container-selections">
+                    <div>
+                        <p class="input-description">Navn på listen</p>
+                        <InputText class="input-name" type="text" placeholder="Min nye liste..." @bind-Value="NewWishlist.Name" />
+                    </div>
+                    <div class="container-emoji">
+                        <p class="emoji-description">vælg emoji</p>
+                        <div class="selector-emoji">
+
+                            <p class="emoji-size-selected">@NewWishlist.Emoji</p>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="emoji-draw">
+                    @if (Emojis != null)
+                    {
+                        @foreach (string s in Emojis)
+                        {
+                            <div class="emoji-size-draw" @onclick="()=>EmojiSelected(s)">@s</div>
+                        }
+                    }
+                </div>
+
+                <input type="submit" class="button-submit" value="Opret">
+
+            </div>
+        </div>
+    </EditForm>
+</div>
