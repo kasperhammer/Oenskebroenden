@@ -48,8 +48,12 @@ namespace Repo
             {
                 //Jeg anvender min AutoMapper til at konvertere min DTO model om til en EntityModel
                 WishList wishlist = autoMapper.mapper.Map<WishList>(wishlistDTO);
+                wishlist.Owner = null;
+                
                 if (wishlist != null)
                 {
+                    wishlist.OwnerId = wishlistDTO.OwnerId;
+
                     try
                     {
                         await dBLayer.WishLists.AddAsync(wishlist);
@@ -64,7 +68,7 @@ namespace Repo
 
 
 
-        public async Task<List<WishListDTO>> GetWishlistFromUser(int userId)
+        public async Task<List<WishListDTO>> GetWishlistsFromUser(int userId)
         {
             List<WishList> tWishlists = await dBLayer.WishLists.Where(w => w.OwnerId == userId).Include(w => w.Wishes).ToListAsync();
             List<WishListDTO> rWishlists = new();
