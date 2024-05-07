@@ -12,12 +12,11 @@ namespace Models.DtoModels
     public class WishDTO
     {
         public int Id { get; set; }
-        public WishListDTO WishList { get; set; }
         public string Name { get; set; }
         public string Link { get; set; }
         public double Price { get; set; }
         public string Description { get; set; }
         public string PictureURL { get; set; }
-        public User? ReservedUser { get; set; }
+        public int? ReservedUserId { get; set; }
     }
 }

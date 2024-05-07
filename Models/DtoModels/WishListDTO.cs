@@ -11,14 +11,13 @@ namespace Models.DtoModels
 {
     public class WishListDTO
     {
-    
         public int Id { get; set; }
-      
-        public User Owner { get; set; }
-        public List<WishDTO> Wishes { get; set; }
-  
-        public ChatLobbyDTO Chat { get; set; }
-
         public string Name { get; set; }
+
+        public int OwnerId { get; set; }
+
+        public List<WishDTO>? Wishes { get; set; }
+
+        public ChatLobbyDTO? Chat { get; set; }
     }
 }
