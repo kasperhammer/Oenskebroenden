@@ -49,7 +49,8 @@ namespace Repo
                 //Jeg anvender min AutoMapper til at konvertere min DTO model om til en EntityModel
                 WishList wishlist = autoMapper.mapper.Map<WishList>(wishlistDTO);
                 wishlist.Owner = null;
-                
+                wishlist.Wishes = null;
+                wishlist.Chat = new();
                 if (wishlist != null)
                 {
                     wishlist.OwnerId = wishlistDTO.OwnerId;
