@@ -1,9 +1,10 @@
 using OenskeBroenden.Components;
+using Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
-
+builder.Services.AddScoped<IAccountRepo, AccountRepo>();
 
 var app = builder.Build();
 
