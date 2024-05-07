@@ -18,7 +18,7 @@ namespace API.Controllers
     User.Identity.Name
 
     Get Users Token from Claims : 
-     var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+    var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
     */
 
 
@@ -35,7 +35,7 @@ namespace API.Controllers
 
 
 
-        [HttpPost("/Account/CreateAccount")]
+        [HttpPost("CreateAccount")]
         public async Task<IActionResult> CreateAccountAsync(UserCreateForm user)
         {
             //Jeg for kaldt min CreateAccount Metode med den UserModel som bliver sent med fra brugeren
@@ -56,7 +56,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPost("/Account/Login")]
+        [HttpPost("Login")]
         [AllowAnonymous]
         //Min Login Metode tager imod en persons username og password
         //og usteder så en UserModel med en JWT Token i såfremt at ens credentiels er valid
