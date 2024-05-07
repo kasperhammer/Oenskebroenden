@@ -1,10 +1,26 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Authorization;
 using OenskeBroenden.Components;
+using OenskeBroenden.Utils;
 using Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+
+builder.Services.AddSingleton<TokenUpdateService>();
+builder.Services.AddScoped<TokenRepo>();
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+
+builder.Services.AddScoped<Auth>();
+builder.Services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<Auth>());
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, AuthorizationMiddlewareResultHandler>();
+
+
+builder.Services.AddAuthentication();
+
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -20,7 +36,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
 app.Run();
