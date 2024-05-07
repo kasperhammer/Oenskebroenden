@@ -9,6 +9,8 @@ namespace OenskeBroenden.Components.Pages
         public UserCreateForm createForm { get; set; } = new();
 
         public int ShowInput = 0;
+
+        List<string> errorMessages = new List<string>();
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -54,7 +56,18 @@ namespace OenskeBroenden.Components.Pages
             //Lav logik for at tjekke Email !
             if (model.Validate())
             {
-                
+
+            }
+            else
+            {
+                //get the erroes and put them in the string
+             
+                var test =  model.GetValidationMessages();
+                foreach (var item in test)
+                {
+                    errorMessages.Add(item);
+                }
+                StateHasChanged();
             }
         }
     }
