@@ -8,9 +8,9 @@ namespace Repository
     {
 
         AccountService service;
-        private readonly TokenRepo tokenRepo;
+        public ITokenRepo tokenRepo;
 
-        public AccountRepo(TokenRepo tokenRepo)
+        public AccountRepo(ITokenRepo tokenRepo)
         {
             this.tokenRepo = tokenRepo;
             service = new();

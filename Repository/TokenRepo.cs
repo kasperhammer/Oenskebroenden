@@ -10,10 +10,10 @@ namespace Repository
 {
     public class TokenRepo : ITokenRepo
     {
-        public TokenUpdateService tokenUpdateService;
+        private readonly ITokenUpdateService tokenUpdateService;
         AccountService service;
 
-        public TokenRepo(TokenUpdateService tokenUpdateService)
+        public TokenRepo(ITokenUpdateService tokenUpdateService)
         {
             service = new();
             tokenUpdateService = tokenUpdateService;

@@ -24,16 +24,16 @@ namespace OenskeBroenden.Utils
 
         private readonly ITokenRepo tokenRepo;
 
-        private readonly TokenUpdateService tokenUpdateService;
+        private readonly ITokenUpdateService tokenUpdateService;
 
-        public Auth(ProtectedLocalStorage protectedLocalStorage, IAccountRepo repo, TokenUpdateService tokenUpdateService, ITokenRepo tokenRepo)
+        public Auth(ProtectedLocalStorage protectedLocalStorage, IAccountRepo repo, ITokenUpdateService tokenUpdateService, ITokenRepo tokenRepo)
         {
             this.repo = repo;
             this.protectedLocalStorage = protectedLocalStorage;
             this.tokenUpdateService = tokenUpdateService;
             this.tokenRepo = tokenRepo;
-         
-        
+
+
             tokenUpdateService.tokenUpdated += UpdateToken;
         }
 
@@ -61,7 +61,7 @@ namespace OenskeBroenden.Utils
                             //Såfremt den ikke er udløbet tjekker jeg om token stadig er valid med dens signing key
                             if (await tokenRepo.ValidateTokenAsync(user.Token))
                             {
-                                
+
 
                                 //Her tjekker jeg om token er ved at udløbe så jeg kan få en ny så jeg ikke skal logge ind igen
                                 if (tokenRepo.IsTokenAboutToExpire(user.TokenExpires.Value))
@@ -114,7 +114,7 @@ namespace OenskeBroenden.Utils
                         try
                         {
 
-                          
+
                             await protectedLocalStorage.SetAsync("identity", JsonConvert.SerializeObject(user));
 
                             var identity = CreateIdentityFromUser(user);

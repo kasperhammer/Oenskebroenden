@@ -16,7 +16,7 @@ namespace Repository
             this.cookie = cookie;
         }
     }
-    public class TokenUpdateService
+    public class TokenUpdateService : ITokenUpdateService
     {
         public delegate void TokenHandlerServiceEventHandler(object sender, TokenEventServiceArgs e);
 
