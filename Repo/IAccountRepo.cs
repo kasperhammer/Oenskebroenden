@@ -5,6 +5,6 @@ namespace Repo
 {
     public interface IAccountRepo
     {
-        Task<bool> CreateAccountAsync(UserCreateForm userDto);
+        Task<UserDTO> CreateAccountAsync(UserCreateForm userDto);
     }
 }

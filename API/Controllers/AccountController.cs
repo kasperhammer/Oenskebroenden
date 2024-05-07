@@ -23,7 +23,7 @@ namespace API.Controllers
             //Derefter retunere min metode en boolsk verdi der fortæller mig om det var en success eller ej.
             if (user  != null)
             {
-                if (await repo.CreateAccountAsync(user))
+                if (await repo.CreateAccountAsync(user) != null)
                 {
                     return Ok();
                 }

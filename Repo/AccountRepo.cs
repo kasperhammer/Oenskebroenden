@@ -23,7 +23,7 @@ namespace Repo
             autoMapper = new();
         }
 
-        public async Task<bool> CreateAccountAsync(UserCreateForm userDto)
+        public async Task<UserDTO> CreateAccountAsync(UserCreateForm userDto)
         {
             if (userDto != null)
             {
@@ -40,14 +40,27 @@ namespace Repo
                             user.Password = PasswordHash.HashPassword(user.Password);
                             //Derefter forsøger jeg at tilføje min bruger til min Db og retuenre så om det var en success eller ej.
                             await dBLayer.Users.AddAsync(user);
-                            return await dBLayer.SaveChangesAsync() > 0;
+                         
+                            if (await dBLayer.SaveChangesAsync() > 0)
+                            {
+                                User userEntity = await dBLayer.Users.FirstOrDefaultAsync(x => x.Name == user.Name && x.Email == user.Email);
+                                if (userEntity != null)
+                                {
+                                    UserDTO completeModel = autoMapper.mapper.Map<UserDTO>(userEntity);
+                                    return completeModel;
+                                }
+                               
+                            }
+
+
+
                         }
                         catch
-                        { } 
+                        { }
                     }
                 }
             }
-            return false;
+            return null;
         }
 
         //mine 2 DoesUSerExist Metoder tjekker på om der allerede findes en bruger i system med entet samme navn eller mail
@@ -66,7 +79,7 @@ namespace Repo
                 catch (Exception ex)
                 {
 
-                  
+
                 }
             }
             return false;
