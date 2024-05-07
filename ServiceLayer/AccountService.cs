@@ -47,7 +47,7 @@ namespace ServiceLayer
                 try
                 {
                     HttpClient client = new();
-                    HttpResponseMessage response = await client.PostAsync(URL + $"?userName={userName}&password={passWord}", null);
+                    HttpResponseMessage response = await client.PostAsync(URL + $"Login?userName={userName}&password={passWord}", null);
                     string responseContent = await response.Content.ReadAsStringAsync();
 
                     return JsonConvert.DeserializeObject<UserDTO>(responseContent);
@@ -81,7 +81,7 @@ namespace ServiceLayer
                 {
                     HttpClient client = new();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                    HttpResponseMessage response = await client.GetAsync(URL + "/Validate");
+                    HttpResponseMessage response = await client.GetAsync(URL + "Validate");
                     if (response.IsSuccessStatusCode)
                     {
                         return true;
@@ -102,7 +102,7 @@ namespace ServiceLayer
                     StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                     HttpClient client = new();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", person.Token);
-                    HttpResponseMessage response = await client.PostAsync(URL + "/RefreshToken", content);
+                    HttpResponseMessage response = await client.PostAsync(URL + "RefreshToken", content);
                     if (response.IsSuccessStatusCode)
                     {
                         UserDTO newPerson = new();

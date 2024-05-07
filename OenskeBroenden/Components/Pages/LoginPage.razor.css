@@ -23,24 +23,27 @@
     border-left: 0px solid black;
     background-color: #5bc0eb;
     color: white;
+   display:flex;
+   justify-content:center;
+    width:3vw;
+  
 }
 
 ::deep .input {
     border: 1px solid #dee2e6;
     font-size: 1.2vw;
     outline: none !important;
+    width: 22vw;
+    
+    padding: 1vh;
 }
 
 .input-group {
     font-family: 'Poppins';
     margin: 2px;
+    margin-top:2vh;
 }
 
-h1 {
-    font-family: 'Poppins';
-    position: relative;
-    bottom: 6vh;
-}
 
 ::deep .input:focus {
     outline: none !important;
@@ -52,8 +55,9 @@ h1 {
     border: none;
     padding: 0px;
     height: 100%;
-    cursor: pointer;
+ 
     border-radius: 25px;
+
 }
 
 .buttons {
@@ -106,9 +110,80 @@ h1 {
     background-color: transparent;
     color: white;
 }
+h1 {
+    font-family: 'Poppins';
+    font-weight:bold;
+    
+}
 
+.Logo{
+    width:6vw;
+}
+
+.headerDiv {
+    display: flex;
+    flex-direction: column;
+    height: 20vh;
+    width: 15vw;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+    gap:2vh;
+    bottom:3vh;
+}
+
+.bottombtns{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Poppins';
+    font-size:1.5vw;
+    margin-top:2vh;
+}
+
+.CreateBtn {
+    background-color: white;
+    color: #5bc0eb;
+    border-radius: 10px;
+    border: 2px solid #5bc0eb;
+    cursor: pointer;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top:0.5vh;
+    padding-bottom:0.5vh;
+}
+
+.LoginBtn {
+    border: 2px solid #5bc0eb;
+    background-color: #5bc0eb;
+    color: white;
+    border-radius: 10px;
+    padding-left: 1.5vw;
+    padding-right: 1.5vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+}
 @media only screen and (max-width: 600px) {
+    .headerDiv {
+        height: 20vh;
+        width: 25vw;
+        bottom: 3vh;
+    }
+    .Logo {
+        width: 100%;
+    }
+
+    h1{
+        font-size:6vw;
+    }
     ::deep .input {
         font-size: 3vw;
+        width:70vw;
+      
+    }
+
+    .bottombtns {
+        
+        font-size: 5vw;
+    
     }
 }
