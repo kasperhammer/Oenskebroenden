@@ -1,15 +1,12 @@
-﻿using Models.EntityModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.DtoModels
+namespace Models.Forms
 {
-    public class WishDTO
+    public class WishCreateForm
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,5 +15,7 @@ namespace Models.DtoModels
         public string Description { get; set; }
         public string PictureURL { get; set; }
         public int WishListId { get; set; }
+        public int? ReservedUserId { get; set; }
     }
 }
+

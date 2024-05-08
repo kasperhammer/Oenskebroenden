@@ -11,6 +11,8 @@ builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddSingleton<ITokenUpdateService,TokenUpdateService>();
 builder.Services.AddScoped<ITokenRepo, TokenRepo>();
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+builder.Services.AddScoped<IWishRepo, WishRepo>();
+
 
 builder.Services.AddScoped<Auth>();
 builder.Services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<Auth>());

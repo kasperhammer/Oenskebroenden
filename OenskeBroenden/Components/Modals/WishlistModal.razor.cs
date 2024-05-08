@@ -1,4 +1,6 @@
-﻿using Models.Forms;
+﻿using Microsoft.AspNetCore.Components;
+using Models;
+using Models.Forms;
 
 namespace OenskeBroenden.Components.Modals
 {
@@ -7,7 +9,14 @@ namespace OenskeBroenden.Components.Modals
         public List<string> Emojis { get; set; } = new();
         public WishlistCreateForm NewWishlist { get; set; } = new();
 
+        [Parameter]
+        public Modal Modal { get; set; }
+        [Parameter]
+        public EventCallback CloseModal { get; set; }
+        [Parameter]
+        public EventCallback<WishlistCreateForm> CreateModal { get; set; }
 
+       
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -21,9 +30,13 @@ namespace OenskeBroenden.Components.Modals
 
         public async Task Submit()
         {
-
+            await CreateModal.InvokeAsync(NewWishlist);
         }
 
+        public async void CloseModalAsync()
+        {
+            await CloseModal.InvokeAsync();
+        }
 
         void LoadEmojis()
         {

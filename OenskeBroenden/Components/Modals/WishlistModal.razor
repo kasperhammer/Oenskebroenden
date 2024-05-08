@@ -5,7 +5,15 @@
         <div class="form-body">
             <!-- Content -->
             <div class="form-content">
-                <h2>Opret liste</h2>
+                <div class="form-header">
+                    <div>
+                    </div>
+                    <h2>Opret liste</h2>
+                    <div>
+                        X
+                    </div>
+                </div>
+               
                 <!-- input felt-->
                 <div class="container-selections">
                     <div>
@@ -13,7 +21,7 @@
                         <InputText class="input-name" type="text" placeholder="Min nye liste..." @bind-Value="NewWishlist.Name" />
                     </div>
                     <div class="container-emoji">
-                        <p class="emoji-description">vælg emoji</p>
+                        <p class="emoji-description">Valgt emoji</p>
                         <div class="selector-emoji">
 
                             <p class="emoji-size-selected">@NewWishlist.Emoji</p>
@@ -35,6 +43,7 @@
                 <input type="submit" class="button-submit" value="Opret">
 
             </div>
+            
         </div>
     </EditForm>
 </div>

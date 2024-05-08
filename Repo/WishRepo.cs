@@ -27,6 +27,9 @@ namespace Repo
             {
                 //Jeg anvender min AutoMapper til at konvertere min DTO model om til en EntityModel
                 Wish wish = autoMapper.mapper.Map<Wish>(wishDTO);
+                wish.ReservedUser = null;
+                wish.ReservedUserId = null;
+                wish.WishList = null;
                 if (wish != null)
                 {
                     try
