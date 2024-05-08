@@ -9,13 +9,13 @@
         </div>
 
         <div class="inputfelt">
-            <EditForm Model="@createForm" OnSubmit="Submit">
+            <EditForm Model="@loginForm" OnSubmit="Submit">
 
                 <DataAnnotationsValidator />
 
 
                 <div class="input-group">
-                    <InputText placeholder="Intast navn..." autocomplete="off" class="form-control input" @bind-Value="createForm.Name" />
+                    <InputText placeholder="Intast navn..." autocomplete="off" class="form-control input" @bind-Value="loginForm.Name" />
                     <div class="input-group-append">
                         <div class="inputbutton"><span class="input-group-text inputarea"><i class="fa-solid fa-user"></i></span></div>
                     </div>
@@ -24,7 +24,7 @@
 
 
                 <div class="input-group">
-                    <InputText type="password" placeholder="Intasts adgangskode..." autocomplete="off" class="form-control input" @bind-Value="createForm.Password" />
+                    <InputText type="password" placeholder="Intasts adgangskode..." autocomplete="off" class="form-control input" @bind-Value="loginForm.Password" />
                     <div class="input-group-append">
                         <div class="inputbutton"><span class="input-group-text inputarea"><i class="fa-solid fa-lock"></i></span></div>
                     </div>

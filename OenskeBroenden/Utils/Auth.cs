@@ -26,6 +26,11 @@ namespace OenskeBroenden.Utils
 
         private readonly ITokenUpdateService tokenUpdateService;
 
+        //jeg for med i min constructer 4 services. 1. protectedLocalStorage til at store og loade min Session Cookie.
+        // 2. IAccount repo, dette repo indeholder min Login Metode.
+        // 3. tokenUpdateService TokenUpdate Service indeholder en eventhandler jeg kan subscribe til.
+        // så når der kommer en frisk Jwt token ind bliver min Auth.cs notificieret og ved at den skal opdatere min Cookie
+        // 4. tokenRepo, den indeholder min Validate token metode samt metoden for at refreshe eventuelle tokens.
         public Auth(ProtectedLocalStorage protectedLocalStorage, IAccountRepo repo, ITokenUpdateService tokenUpdateService, ITokenRepo tokenRepo)
         {
             this.repo = repo;
@@ -33,7 +38,7 @@ namespace OenskeBroenden.Utils
             this.tokenUpdateService = tokenUpdateService;
             this.tokenRepo = tokenRepo;
 
-
+            //Subscriber til min TokenUpdate Service.
             tokenUpdateService.tokenUpdated += UpdateToken;
         }
 
@@ -108,17 +113,19 @@ namespace OenskeBroenden.Utils
             {
                 if (!string.IsNullOrEmpty(person.Name) && !string.IsNullOrEmpty(person.Password))
                 {
+                    //Såfremt Login var en Success retunere den et UserObject med min Token i.
                     UserDTO user = await repo.LoginAsync(person.Name, person.Password);
                     if (user != null)
                     {
                         try
                         {
 
-
+                            //Jeg sætter/overskriver den sessioncookie der ligger i med identity med min nyeligt hentet Token.
                             await protectedLocalStorage.SetAsync("identity", JsonConvert.SerializeObject(user));
 
                             var identity = CreateIdentityFromUser(user);
-
+                            //Derefter bliver mit authentication State Opdateret 
+                            //hvilket kalder min GetAuthenticationStateAsync Metode
                             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity))));
 
                             return true;
@@ -138,13 +145,16 @@ namespace OenskeBroenden.Utils
 
         public async Task<bool> LogoutAsync()
         {
+            //Såfremt jeg ønnsker at logge ud cleare jeg bare min Cookie.
             await protectedLocalStorage.DeleteAsync("identity");
+
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new ClaimsPrincipal())));
             return true;
         }
 
         private static ClaimsIdentity CreateIdentityFromUser(UserDTO user)
         {
+            //min cookie som blvier Created indeholder alt mit vigite UserInformation
             return new ClaimsIdentity(new Claim[]
             {
             new (ClaimTypes.Name, user.Name),
@@ -157,6 +167,9 @@ namespace OenskeBroenden.Utils
             }, "IdentityClaim");
         }
 
+        //en hurtig metode der henter mit UserOBject fra min Cookie, istedet for at kontakte serveren og databasen.
+        //user objectet bliver naturligtvis ikke dynamisk opdatet som objektet på databasen, men er godt til data fra useren
+        //som ikke ændre sig tit.
         public async Task<UserDTO> GetUserClaimAsync()
         {
             try
@@ -168,6 +181,10 @@ namespace OenskeBroenden.Utils
             return null;
         }
 
+        //min UpdateToken Metode blvier kaldt såfremt der er sket en Token Update
+        //når der er sket en token Update blvier det nye UserDTO objekt pushede ud til de forskellige subscribers
+        //og sent med i parameteren TokenEventServiceArgs hvor den ligger inde.
+        //Den gamle Cookie bliver så overskrevet med den nye.
         public async void UpdateToken(object source, TokenEventServiceArgs e)
         {
             try

@@ -11,7 +11,7 @@ namespace OenskeBroenden.Components.Pages
     {
         public UserCreateForm createForm { get; set; } = new();
 
-        public int ShowInput = 0;
+        public int showInput = 0;
 
         List<string> errorMessages = new List<string>();
 
@@ -29,7 +29,7 @@ namespace OenskeBroenden.Components.Pages
         public async Task NextInput(int input)
         {
 
-            ShowInput = input;
+            showInput = input;
             StateHasChanged();
         }
 

@@ -20,8 +20,14 @@ namespace Repository
     {
         public delegate void TokenHandlerServiceEventHandler(object sender, TokenEventServiceArgs e);
 
+        //jeg laver et event som har delegaten TokenHandlerServiceEventHandler hvor man kan subscribe til
+        //tokenUpdatet. 
+
         public event TokenHandlerServiceEventHandler tokenUpdated;
 
+
+        //Såfremt man kalder metoden RaiseEvent vil alle der er subscribed til tokenUpdatet få 
+        //et event hvor parameteren UserDTO vil blive sent med.
         public void RaiseEvent(UserDTO cookie)
         {
             OnTokenUpdated(cookie);

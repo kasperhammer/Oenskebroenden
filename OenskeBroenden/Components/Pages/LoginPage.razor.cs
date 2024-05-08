@@ -9,7 +9,8 @@ namespace OenskeBroenden.Components.Pages
 {
     public partial class LoginPage
     {
-        public UserLoginForm createForm { get; set; } = new();
+       
+        public UserLoginForm loginForm { get; set; } = new();
 
 
 
@@ -48,8 +49,9 @@ namespace OenskeBroenden.Components.Pages
             //Lav logik for at tjekke Email !
             if (model.Validate())
             {
-              
-                if (await auth.LoginAsync(new UserDTO { Name = createForm.Name,Password = createForm.Password}))
+                //Jeg kalder min Auth.cs som indeholer min Login Metode hvor min Cookie bliver oprettet mm.
+                  
+                if (await auth.LoginAsync(new UserDTO { Name = loginForm.Name,Password = loginForm.Password}))
                 {
                     navMan.NavigateTo("/");
                     
@@ -75,7 +77,7 @@ namespace OenskeBroenden.Components.Pages
                 }
               
             }
-            createForm = new();
+            loginForm = new();
             StateHasChanged();
         }
     }
