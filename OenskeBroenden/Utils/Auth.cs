@@ -89,6 +89,7 @@ namespace OenskeBroenden.Utils
                                     var identity = CreateIdentityFromUser(user);
                                     principal = new(identity);
                                     //derefter tager jeg den identity og ligger op i min pricipal
+                                   
                                     return new AuthenticationState(principal);
                                 }
                             }

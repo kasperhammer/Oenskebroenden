@@ -23,11 +23,17 @@ namespace OenskeBroenden.Components.Pages
         IWishRepo WishRepo { get; set; }
         [Inject]
         Auth Auth { get; set; }
+
+        bool ready;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
+
+                ready = true;
                 StateHasChanged();
+                
             }
         }
 
