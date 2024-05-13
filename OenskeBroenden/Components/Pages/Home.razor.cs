@@ -60,6 +60,8 @@ namespace OenskeBroenden.Components.Pages
         public async Task CreateWishlist(WishlistCreateForm NewWishlist)
         {
             await wishrepo.CreateWishListAsync(NewWishlist, cookie);
+            cookie.WishLists = await wishrepo.GetUseresWishLists(cookie);
+            await ShowCreateListModal(false);
         }
 
 
