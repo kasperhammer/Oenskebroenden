@@ -32,15 +32,23 @@ namespace Repository
             return false;
         }
 
+        // Denne metode henter ønskelister for en bruger.
         public async Task<List<WishListDTO>> GetUseresWishLists(UserDTO cookie)
         {
+            // Validerer brugerens token ved at kalde TokenValidationPackage fra tokenRepo.
             cookie = await tokenRepo.TokenValidationPackage(cookie);
+
+            // Tjekker om token valideringen var succesfuld.
             if (cookie != null)
             {
+                // Hvis valideringen var succesfuld, hentes ønskelister for brugeren via WishService.
                 return await WishService.GetWishlistsFromUser(cookie);
             }
+
+            // Returnerer null hvis token valideringen fejlede eller hvis brugeren ikke har nogen ønskelister.
             return null;
         }
+
 
         public async Task<bool> CreateWishAsync(WishCreateForm wish, UserDTO cookie)
         {
