@@ -95,29 +95,32 @@ namespace ServiceLayer
 
 
 
-        //public async Task<bool> CreateWishAsync(WishDTO wish)
-        //{
-        //    apiEndpoint = "CreateWishAsync";
-        //    using (HttpClient client = new HttpClient())
-        //    {
+        public async Task<bool> CreateWishAsync(WishCreateForm wish, UserDTO cookie)
+        {
+            apiEndpoint = "CreateWish";
+            using (HttpClient client = new HttpClient())
+            {
 
-        //        // Serialize the object to JSON
-        //        var jsonContent = JsonConvert.SerializeObject(wish);
-        //        var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                // Set JWT token in the Authorization header
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", cookie.Token);
+                // Serialize the object to JSON
+                // Serialize the object to JSON
+                var jsonContent = JsonConvert.SerializeObject(wish);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        //        // Call the API
-        //        var response = await client.PostAsync(apiUrl + apiEndpoint, httpContent);
+                // Call the API
+                var response = await client.PostAsync(apiUrl + apiEndpoint, httpContent);
 
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            Console.WriteLine("Wish created successfully!");
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("Failed to create wish. Status code: " + response.StatusCode);
-        //        }
-        //        return response.IsSuccessStatusCode;
-        //    }
-        //}
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Wish created successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to create wish. Status code: " + response.StatusCode);
+                }
+                return response.IsSuccessStatusCode;
+            }
+        }
     }
 }

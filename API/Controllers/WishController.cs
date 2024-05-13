@@ -37,14 +37,14 @@ namespace API.Controllers
         }
 
         [HttpPost("CreateWishList")]
-        public async Task<IActionResult> CreateWishListAsync(WishlistCreateForm wishlistCF)
+        public async Task<IActionResult> CreateWishListAsync(WishListDTO wishlist)
         {
             var claims = User.Claims;
             string idFromToken = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            wishlistCF.OwnerId = Convert.ToInt32(idFromToken);
-            if(wishlistCF.OwnerId>=0) return BadRequest();
+            wishlist.OwnerId = Convert.ToInt32(idFromToken);
+            if(wishlist.OwnerId<=0) return BadRequest();
 
-            if (await repo.CreateWishlistAsync(wishlistCF))
+            if (await repo.CreateWishlistAsync(wishlist))
             {
                 return Ok();
             }

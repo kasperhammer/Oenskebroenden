@@ -24,14 +24,12 @@ namespace OenskeBroenden.Components.Pages
         [Inject]
         Auth Auth { get; set; }
 
-        bool ready;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
 
-                ready = true;
                 StateHasChanged();
                 
             }
@@ -42,15 +40,18 @@ namespace OenskeBroenden.Components.Pages
 
         private async Task WishlistModalOpen()
         {
+            WishlistModal = new();
             WishlistModal.CssDisplay = "block";
-            WishlistModal.CsslShow = "Show";
+            WishlistModal.CssShow = "Show";
             WishlistModal.ShowModal = true;
             StateHasChanged();
         }
+
         private async Task WishModalOpen()
         {
+            WishModal = new();
             WishModal.CssDisplay = "block";
-            WishModal.CsslShow = "Show";
+            WishModal.CssShow = "Show";
             WishModal.ShowModal = true;
             StateHasChanged();
         }
@@ -77,7 +78,9 @@ namespace OenskeBroenden.Components.Pages
         public async Task CreateWish(WishCreateForm wish)
         {
             UserDTO cookie = await Auth.GetUserClaimAsync();
-           // await WishRepo.create(NewWishlist, cookie);
+            //husk at give wish et wishlist id
+            await WishRepo.CreateWishAsync(wish, cookie);
+
         }
     }
 }

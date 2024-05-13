@@ -11,8 +11,8 @@ namespace Models.Forms
     {
         [Required]
         [MinLength(1)]
+        public int OwnerId { get; set; } = 0;
         public string Name { get; set; }
-        public int OwnerId { get; set; }
         public string Emoji { get; set; }
 
 

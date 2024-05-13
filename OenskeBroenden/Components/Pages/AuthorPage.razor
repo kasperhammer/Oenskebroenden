@@ -2,8 +2,22 @@
 @using ComponentLib
 
 
-@if(ready){
-     //<WishlistModal CloseModal="WishlistModalClose" CreateModal="CreateWishlist"/> 
 
-     <CreateWishModal CloseModal="WishModalClose" CreateModal="CreateWish" /> 
+@if (WishlistModal != null && WishlistModal.ShowModal)
+{
+    <CreateWishlistModal Modal="WishlistModal" CloseModal="WishlistModalClose" CreateModal="CreateWishlist" />
+
 }
+else if (WishModal != null && WishModal.ShowModal)
+{
+    <CreateWishModal Modal="WishModal" CloseModal="WishModalClose" CreateModal="CreateWish" />
+
+}
+
+<div @onclick="WishModalOpen">
+    SHOW WISH
+</div>
+
+<div @onclick="WishlistModalOpen">
+    SHOW WISHLIST
+</div>
