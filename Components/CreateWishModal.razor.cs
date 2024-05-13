@@ -18,6 +18,21 @@ namespace ComponentLib
 
         public bool IsManual { get; set; } = true;
 
+        double price;
+        public string Price { get => price.ToString();
+            set
+            {
+                
+                if(double.TryParse(value, out price))
+                {
+                    Wish.Price = price;
+
+                }
+
+               
+            }
+        }
+
         void OnRadioSelected(string value)
         {
             SelectedValue = value;

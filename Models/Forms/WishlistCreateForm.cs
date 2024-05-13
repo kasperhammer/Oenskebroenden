@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Models.Forms
 {
-    public  class WishlistCreateForm
+    public class WishlistCreateForm
     {
         [Required]
         [MinLength(1)]

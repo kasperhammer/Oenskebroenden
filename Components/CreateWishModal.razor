@@ -9,8 +9,8 @@
             <div class="form-content">
                 <div class="form-header">
                     <div></div>
-                    <h2>Opret Ønske</h2>
-                    <div class="closing">X</div>
+                    <p class="title">Opret Ønske</p>
+                    <div class="closing" @onclick="CloseModal">X</div>
                 </div>
 
                 <div class="toggle-selector">
@@ -29,12 +29,12 @@
                         </div>
                         <div>
                             <p class="input-description">Beskrivelse</p>
-                            <InputText class="input-custom" type="text" placeholder="Skateboard i farven gul..." @bind-Value="@Wish.Name" />
+                            <InputText class="input-custom" type="text" placeholder="Skateboard i farven gul..." @bind-Value="@Wish.Description" />
                         </div>
                         <div>
                             <p class="input-description">Pris</p>
                             <div class="container-price">
-                                <InputText class="input-custom-price" type="number" placeholder="250" @bind-Value="@Wish.Name" />
+                                <InputText class="input-custom-price" type="text" placeholder="250" @bind-Value="@Price" />
                                 <div class="input-custom-price-currency">
                                     DKK
                                 </div>
@@ -43,12 +43,12 @@
                         </div>
                         <div>
                             <p class="input-description">Link til ønsket</p>
-                            <InputText class="input-custom" type="text" placeholder="www.example.dk/ønske..." @bind-Value="@Wish.Name" />
+                            <InputText class="input-custom" type="text" placeholder="www.example.dk/ønske..." @bind-Value="@Wish.Link" />
 
                         </div>
                         <div>
                             <p class="input-description">billede af varen</p>
-                            <InputText class="input-custom" type="text" placeholder="www.example.dk/ønske/ønske.png..." @bind-Value="@Wish.Name" />
+                            <InputText class="input-custom" type="text" placeholder="www.example.dk/ønske/ønske.png..." @bind-Value="@Wish.PictureURL" />
                         </div>
                     </div>
                 }

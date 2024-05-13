@@ -76,7 +76,8 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task CreateWish(WishCreateForm wish)
         {
-            Console.WriteLine(wish.Name);
+            UserDTO cookie = await Auth.GetUserClaimAsync();
+           // await WishRepo.create(NewWishlist, cookie);
         }
     }
 }

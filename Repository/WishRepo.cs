@@ -31,5 +31,10 @@ namespace Repository
             return false;
         }
 
+        //public async Task<bool> CreateWishAsync(WishCreateForm wish, UserDTO cookie)
+        //{
+           
+        //}
+
     }
 }
