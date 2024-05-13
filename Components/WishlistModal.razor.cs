@@ -2,9 +2,9 @@
 using Models;
 using Models.Forms;
 
-namespace OenskeBroenden.Components.Modals
+namespace ComponentLib
 {
-    partial class WishlistModal
+    partial class WishlistModal : ComponentBase
     {
         public List<string> Emojis { get; set; } = new();
         public WishlistCreateForm NewWishlist { get; set; } = new();
@@ -16,8 +16,8 @@ namespace OenskeBroenden.Components.Modals
         [Parameter]
         public EventCallback<WishlistCreateForm> CreateModal { get; set; }
 
-       
 
+      
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)

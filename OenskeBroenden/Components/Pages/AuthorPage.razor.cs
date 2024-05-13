@@ -12,7 +12,7 @@ using Repository;
 namespace OenskeBroenden.Components.Pages
 {
     [Authorize]
-    public partial class AuthorPage
+    public partial class AuthorPage : ComponentBase
     {
 
         public Modal WishlistModal { get; set; }

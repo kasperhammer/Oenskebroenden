@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Models.DtoModels;
 using Models.EntityModels;
+using Models.Forms;
 using Repo;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -35,9 +37,14 @@ namespace API.Controllers
         }
 
         [HttpPost("CreateWishList")]
-        public async Task<IActionResult> CreateWishListAsync(WishListDTO wishListDTO)
+        public async Task<IActionResult> CreateWishListAsync(WishlistCreateForm wishlistCF)
         {
-            if (await repo.CreateWishlistAsync(wishListDTO))
+            var claims = User.Claims;
+            string idFromToken = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            wishlistCF.OwnerId = Convert.ToInt32(idFromToken);
+            if(wishlistCF.OwnerId>=0) return BadRequest();
+
+            if (await repo.CreateWishlistAsync(wishlistCF))
             {
                 return Ok();
             }

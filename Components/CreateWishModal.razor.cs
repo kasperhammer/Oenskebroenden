@@ -2,9 +2,9 @@
 using Models.Forms;
 using Models;
 
-namespace OenskeBroenden.Components.Modals
+namespace ComponentLib
 {
-    public partial class CreateWishModal
+    public partial class CreateWishModal : ComponentBase
     {
         public WishCreateForm Wish { get; set; } = new();
         [Parameter]
@@ -14,6 +14,16 @@ namespace OenskeBroenden.Components.Modals
         [Parameter]
         public EventCallback<WishCreateForm> CreateModal { get; set; }
 
+        public string SelectedValue { get; set; } = "m"; // Set the default selected value, can be "m" or "a"
+
+        public bool IsManual { get; set; } = true;
+
+        void OnRadioSelected(string value)
+        {
+            SelectedValue = value;
+            IsManual = SelectedValue == "m";
+            StateHasChanged();
+        }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
