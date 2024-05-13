@@ -6,7 +6,7 @@ namespace OenskeBroenden.Components.Modals
 {
     public partial class CreateWishModal
     {
-        public WishCreateForm Wish {  get; set; }
+        public WishCreateForm Wish { get; set; } = new();
         [Parameter]
         public Modal Modal { get; set; }
         [Parameter]

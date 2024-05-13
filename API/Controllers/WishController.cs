@@ -56,5 +56,29 @@ namespace API.Controllers
 
             return BadRequest();
         }
+
+        [HttpDelete("DeleteWishlist")]
+        public async Task<IActionResult> DeleteWishlist(int wishlistId)
+        {
+
+            if (await repo.DeleteWishListAsync(wishlistId))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("DeleteWish")]
+        public async Task<IActionResult> DeleteWish(int wishId)
+        {
+
+            if (await repo.DeleteWishAsync(wishId))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
     }
 }

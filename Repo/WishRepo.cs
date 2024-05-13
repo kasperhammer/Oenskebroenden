@@ -82,5 +82,41 @@ namespace Repo
             }
             return rWishlists;
         }
+
+        public async Task<bool> DeleteWishListAsync(int wishlistId)
+        {
+            if (wishlistId != 0)
+            {
+                WishList wishlist = await dBLayer.WishLists.Include(x => x.Wishes).FirstOrDefaultAsync(x => x.Id == wishlistId);
+                try
+                {
+                    if (wishlist != null)
+                    {
+                        dBLayer.WishLists.Remove(wishlist);
+                        return await dBLayer.SaveChangesAsync() > 0;
+                    }
+                }
+                catch{}
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteWishAsync(int wishId)
+        {
+            if (wishId != 0)
+            {
+                Wish wish = await dBLayer.Wishes.FirstOrDefaultAsync(x => x.Id == wishId);
+                if (wish != null)
+                {
+                    try
+                    {
+                        dBLayer.Wishes.Remove(wish);
+                        return await dBLayer.SaveChangesAsync() > 0;
+                    }
+                    catch { }
+                }
+            }
+            return false;
+        }
     }
 }
