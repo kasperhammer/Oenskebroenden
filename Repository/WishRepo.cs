@@ -1,4 +1,5 @@
 ﻿using Models.DtoModels;
+using Models.EntityModels;
 using Models.Forms;
 using ServiceLayer;
 using System;
@@ -30,6 +31,16 @@ namespace Repository
                 return await WishService.CreateWishListAsync(wishList, cookie);
             }
             return false;
+        }
+
+        public async Task<List<WishListDTO>> GetUseresWishLists(UserDTO cookie)
+        {
+            cookie = await tokenRepo.TokenValidationPackage(cookie);
+            if (cookie != null)
+            {
+                return await WishService.GetWishlistsFromUser(cookie);
+            }
+            return null;
         }
 
     }

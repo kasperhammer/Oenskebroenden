@@ -1,11 +1,15 @@
 ﻿@page "/"
 @using ComponentLib.Components
 
+@if (ready)
+{
+    <div class="PageCss">
+        <div class="sideBar">
+            <h1 class="sidebarHeader"><b>Dine</b> Ønskelister</h1>
+            <WishListComp cookie="cookie" ShowCreateModal="ShowCreateListModal" LoadWishList="LoadWishlistAsync" />
+        </div>
+        <div class="mainpage"></div>
 
-<div class="PageCss" >
-    <div  class="sideBar">
-       <WishListComp />
     </div>
-    <div class="mainpage"></div>
 
-</div>
+}
