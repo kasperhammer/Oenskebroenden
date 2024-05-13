@@ -3,6 +3,8 @@
     width: 100vw;
     height: 100vh;
     flex-direction: column;
+    background-repeat:no-repeat;
+    background-size:cover;
     background-image: url("https://cdn.discordapp.com/attachments/1235846535691108414/1237017695115939891/bg.png?ex=663a1e01&is=6638cc81&hm=45a39f0e55e54dc7647dd59b919476b994843c266310881e3598077c1cec8553&")
 }
 
