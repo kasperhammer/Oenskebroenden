@@ -46,18 +46,18 @@ namespace Repo
         }
 
 
-        public async Task<bool> CreateWishlistAsync(WishlistCreateForm wishlistCF)
+        public async Task<bool> CreateWishlistAsync(WishListDTO wishlistDto)
         {
-            if (wishlistCF != null)
+            if (wishlistDto != null)
             {
                 //Jeg anvender min AutoMapper til at konvertere min DTO model om til en EntityModel
-                WishList wishlist = autoMapper.mapper.Map<WishList>(wishlistCF);
+                WishList wishlist = autoMapper.mapper.Map<WishList>(wishlistDto);
                 wishlist.Owner = null;
                 wishlist.Wishes = null;
                 wishlist.Chat = new();
                 if (wishlist != null)
                 {
-                    wishlist.OwnerId = wishlistCF.OwnerId;
+                    wishlist.OwnerId = wishlistDto.OwnerId;
 
                     try
                     {

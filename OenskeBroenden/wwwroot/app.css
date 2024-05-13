@@ -67,3 +67,6 @@ h1:focus {
 }
 
 
+.clickable {
+    cursor: pointer;
+}

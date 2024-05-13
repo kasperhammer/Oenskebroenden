@@ -4,7 +4,7 @@ using Models.Forms;
 
 namespace ComponentLib
 {
-    partial class WishlistModal : ComponentBase
+    partial class CreateWishlistModal : ComponentBase
     {
         public List<string> Emojis { get; set; } = new();
         public WishlistCreateForm NewWishlist { get; set; } = new();

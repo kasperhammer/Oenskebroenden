@@ -42,5 +42,15 @@ namespace Repository
             return null;
         }
 
+        public async Task<bool> CreateWishAsync(WishCreateForm wish, UserDTO cookie)
+        {
+            cookie = await tokenRepo.TokenValidationPackage(cookie);
+            if (wish != null && cookie != null)
+            {
+                return await WishService.CreateWishAsync(wish, cookie);
+            }
+            return false;
+        }
+
     }
 }
