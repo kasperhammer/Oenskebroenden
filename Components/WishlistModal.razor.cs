@@ -2,9 +2,9 @@
 using Models;
 using Models.Forms;
 
-namespace OenskeBroenden.Components.Modals
+namespace ComponentLib
 {
-    partial class WishlistModal
+    partial class WishlistModal : ComponentBase
     {
         public List<string> Emojis { get; set; } = new();
         public WishlistCreateForm NewWishlist { get; set; } = new();

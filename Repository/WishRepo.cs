@@ -26,7 +26,6 @@ namespace Repository
             cookie = await tokenRepo.TokenValidationPackage(cookie);
             if (wishList != null && cookie != null)
             {
-                wishList.OwnerId = cookie.Id;
                 return await WishService.CreateWishListAsync(wishList, cookie);
             }
             return false;

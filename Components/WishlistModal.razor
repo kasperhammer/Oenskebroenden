@@ -1,4 +1,6 @@
-﻿<!--Background-->
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<!--Background-->
 <div class="form-bg">
     <EditForm Model="@NewWishlist" OnValidSubmit="Submit">
         <!-- form -->
@@ -18,7 +20,7 @@
                 <div class="container-selections">
                     <div>
                         <p class="input-description">Navn på listen</p>
-                        <InputText class="input-name" type="text" placeholder="Min nye liste..." @bind-Value="NewWishlist.Name" />
+                        <InputText class="input-custom" type="text" placeholder="Min nye liste..." @bind-Value="NewWishlist.Name" />
                     </div>
                     <div class="container-emoji">
                         <p class="emoji-description">Valgt emoji</p>

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Models.DtoModels;
 using Models.EntityModels;
+using Models.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,18 +46,18 @@ namespace Repo
         }
 
 
-        public async Task<bool> CreateWishlistAsync(WishListDTO wishlistDTO)
+        public async Task<bool> CreateWishlistAsync(WishlistCreateForm wishlistCF)
         {
-            if (wishlistDTO != null)
+            if (wishlistCF != null)
             {
                 //Jeg anvender min AutoMapper til at konvertere min DTO model om til en EntityModel
-                WishList wishlist = autoMapper.mapper.Map<WishList>(wishlistDTO);
+                WishList wishlist = autoMapper.mapper.Map<WishList>(wishlistCF);
                 wishlist.Owner = null;
                 wishlist.Wishes = null;
                 wishlist.Chat = new();
                 if (wishlist != null)
                 {
-                    wishlist.OwnerId = wishlistDTO.OwnerId;
+                    wishlist.OwnerId = wishlistCF.OwnerId;
 
                     try
                     {
