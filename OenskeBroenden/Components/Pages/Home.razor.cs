@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ComponentLib;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Models;
 using Models.DtoModels;
+using Models.Forms;
 using OenskeBroenden.Utils;
 using Repository;
 using System;
@@ -21,8 +24,9 @@ namespace OenskeBroenden.Components.Pages
         [Inject]
         Auth Auth { get; set; }
         UserDTO cookie { get; set; }
-
+    
         public bool ready;
+        bool modal;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -49,7 +53,16 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task ShowCreateListModal(bool show)
         {
-
+            modal = show;
+            StateHasChanged();
         }
+
+        public async Task CreateWishlist(WishlistCreateForm NewWishlist)
+        {
+            await wishrepo.CreateWishListAsync(NewWishlist, cookie);
+        }
+
+
+        
     }
 }

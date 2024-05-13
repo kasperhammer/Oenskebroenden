@@ -9,8 +9,7 @@ namespace ComponentLib
         public List<string> Emojis { get; set; } = new();
         public WishlistCreateForm NewWishlist { get; set; } = new();
 
-        [Parameter]
-        public Modal Modal { get; set; }
+     
         [Parameter]
         public EventCallback CloseModal { get; set; }
         [Parameter]

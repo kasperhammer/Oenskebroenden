@@ -5,12 +5,9 @@
 
 
 .form-bg {
-    display: flex;
-    height: 100vh;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(10px);
+    position:absolute;
+    top:30vh;
+
 }
 
 .form-body {
@@ -101,4 +98,10 @@
     align-items: center;
     display: flex;
     border-radius: 5px;
+}
+
+.modal {
+    display: block;
+    opacity: 100%;
+    background-color: #00000073;
 }
