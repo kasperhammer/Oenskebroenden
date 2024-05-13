@@ -110,6 +110,7 @@ namespace ServiceLayer
             {
                 try
                 {
+                    person.ConnectionId = "";
                     // Konverterer person-objektet til JSON-format.
                     string jsonData = JsonConvert.SerializeObject(person);
                     // Opretter en HTTP-anmodningsindhold med JSON-data.

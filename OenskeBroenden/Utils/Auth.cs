@@ -24,14 +24,14 @@ namespace OenskeBroenden.Utils
 
         private readonly ITokenRepo tokenRepo;
 
-        private readonly ITokenUpdateService tokenUpdateService;
+        private readonly TokenUpdateService tokenUpdateService;
 
         //jeg for med i min constructer 4 services. 1. protectedLocalStorage til at store og loade min Session Cookie.
         // 2. IAccount repo, dette repo indeholder min Login Metode.
         // 3. tokenUpdateService TokenUpdate Service indeholder en eventhandler jeg kan subscribe til.
         // så når der kommer en frisk Jwt token ind bliver min Auth.cs notificieret og ved at den skal opdatere min Cookie
         // 4. tokenRepo, den indeholder min Validate token metode samt metoden for at refreshe eventuelle tokens.
-        public Auth(ProtectedLocalStorage protectedLocalStorage, IAccountRepo repo, ITokenUpdateService tokenUpdateService, ITokenRepo tokenRepo)
+        public Auth(ProtectedLocalStorage protectedLocalStorage, IAccountRepo repo, TokenUpdateService tokenUpdateService, ITokenRepo tokenRepo)
         {
             this.repo = repo;
             this.protectedLocalStorage = protectedLocalStorage;

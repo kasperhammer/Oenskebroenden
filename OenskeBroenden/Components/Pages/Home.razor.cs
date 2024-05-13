@@ -11,31 +11,31 @@ using System;
 
 namespace OenskeBroenden.Components.Pages
 {
-    // Home-klassen, der er mærket med [Authorize], indikerer, at denne side kræver godkendelse for at blive tilgået.
+    [Authorize]
 
     public partial class Home
     {
-       
+
         [Inject]
         IAccountRepo repo { get; set; }
 
-   
+
         [Inject]
         IWishRepo wishrepo { get; set; }
 
-  
+
         [Inject]
         Auth Auth { get; set; }
 
 
         UserDTO cookie { get; set; }
 
-    
+
         public bool ready;
 
         bool modal;
 
-   
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -43,8 +43,10 @@ namespace OenskeBroenden.Components.Pages
                 // Henter brugerens token fra godkendelsesservice.
                 cookie = await Auth.GetUserClaimAsync();
 
-                // Henter brugerens ønskelister via WishRepo og gemmer dem i brugerens cookie.
+
+
                 cookie.WishLists = await wishrepo.GetUseresWishLists(cookie);
+
 
                 // Opretter en ny ønskeliste, hvis brugeren ikke har nogen.
                 if (cookie.WishLists == null)
@@ -64,9 +66,10 @@ namespace OenskeBroenden.Components.Pages
         }
 
 
+
         public async Task LoadWishlistAsync(int wishlistId)
         {
-          
+
         }
 
         // Metode til at vise eller skjule oprettelse af en ønskeliste modal.
@@ -89,5 +92,6 @@ namespace OenskeBroenden.Components.Pages
             await ShowCreateListModal(false);
         }
     }
-
 }
+
+

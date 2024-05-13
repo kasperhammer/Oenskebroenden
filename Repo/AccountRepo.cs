@@ -22,7 +22,7 @@ namespace Repo
         AutoMapper autoMapper;
         readonly TokenGeneration Token;
         int tokenLiveTime = 120;
-        int refreshTokenliveTime = 120;
+      
         readonly IConfiguration _configuration;
         public AccountRepo(IConfiguration configuration)
         {

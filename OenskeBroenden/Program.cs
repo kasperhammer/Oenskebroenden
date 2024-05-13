@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
-builder.Services.AddSingleton<ITokenUpdateService,TokenUpdateService>();
-builder.Services.AddScoped<ITokenRepo, TokenRepo>();
+builder.Services.AddSingleton<TokenUpdateService>();
+builder.Services.AddSingleton<ITokenRepo, TokenRepo>();
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
 builder.Services.AddScoped<IWishRepo, WishRepo>();
 

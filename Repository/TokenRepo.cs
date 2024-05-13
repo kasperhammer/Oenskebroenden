@@ -10,13 +10,16 @@ namespace Repository
 {
     public class TokenRepo : ITokenRepo
     {
-        private readonly ITokenUpdateService tokenUpdateService;
+        private static TokenUpdateService tokenUpdateService;
         AccountService service;
 
-        public TokenRepo(ITokenUpdateService tokenUpdateService)
+        public TokenRepo(TokenUpdateService _tokenUpdateService)
         {
             service = new();
-            tokenUpdateService = tokenUpdateService;
+            if (tokenUpdateService == null)
+            {
+                tokenUpdateService = _tokenUpdateService; 
+            }
         }
 
         //Denne motde kalder min Api og henter en Frisk Token, såfremt burgerns
