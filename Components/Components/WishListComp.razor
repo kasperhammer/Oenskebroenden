@@ -1,5 +1,50 @@
-﻿<h3>WishListComp</h3>
+﻿@if (ready)
+{
+    <div class="comp">
+        <div class="TextHolder">
+            @if (selected)
+            {
 
-@code {
+                <b class="row">
+                    <p style="padding-right:2px;" class="selectList">Mine Lister</p>
+                    <p @onclick="ShowCreateListModal" class="selectList plus">+</p>
+                </b>
 
+                <p @onclick="ChangeListAsync" class="selectList">Tidligere lister</p>
+            }
+            else
+            {
+                <div class="row">
+                    <p style="padding-right:2px;" @onclick="ChangeListAsync" class="selectList">Mine Lister</p>
+                    <p @onclick="ShowCreateListModal" class="selectList plus">+</p>
+                </div>
+                <p class="selectList"><b>Tidligere lister</b></p>
+            }
+
+        </div>
+
+        <div class="ListHolder">
+            <div class="list">
+                @if (cookie.WishLists != null)
+                {
+                    @foreach (var item in cookie.WishLists)
+                    {
+                        <div class="item">
+                            <div @onclick="(() => LoadListAsync(item.Id))" style="background-color:@backgroundColor[GenerateRandomNumber()]" class="emojidiv"><h1 class="emojistring">@item.Emoji</h1></div>
+                            <h2 class="wishlistname">@item.Name</h2>
+                            @if (item.Wishes != null)
+                            {
+                                <h4 class="itemcount">@item.Wishes.Count ønsker</h4>
+                            }
+                            else
+                            {
+                                <h4 class="itemcount">0 ønsker</h4>
+                            }
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
 }

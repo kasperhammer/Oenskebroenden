@@ -58,23 +58,40 @@ namespace ServiceLayer
         }
 
 
-        //public async Task<List<WishListDTO>> GetWishlistsFromUser(int userId)
-        //{
-        //    apiEndpoint = "GetWishlistsFromUser";
-        //    HttpClient httpClient = new HttpClient();
-        //    var response = await httpClient.GetAsync(apiUrl + apiEndpoint);
+        public async Task<List<WishListDTO>> GetWishlistsFromUser(UserDTO person)
+        {
+            if (person != null)
+            {
+                try
+                {
+                    // Opretter en ny HTTP-klient.
+                    HttpClient client = new();
+                    // Tilføjer autorisationsheaderen til anmodningen med det givne token.
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", person.Token);
+                    // Sender en POST-anmodning med brugeroplysninger og det nuværende token til URL'en med endepunktet "RefreshToken".
+                    HttpResponseMessage response = await client.GetAsync(apiUrl + "GetWishlists?userId="+person.Id);
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var jsonContent = await response.Content.ReadAsStringAsync();
-        //        return JsonConvert.DeserializeObject<List<WishListDTO>>(jsonContent);
-        //    }
-        //    else
-        //    {
-        //        throw new Exception($"Failed to fetch wishlists for user {userId}. Status code: {response.StatusCode}");
-        //    }
+                    // Kontrollerer om anmodningen blev udført succesfuldt.
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Opretter et nyt UserDTO-objekt og udfylder det med svaret fra serveren.
+                        List<WishListDTO> wishlists = JsonConvert.DeserializeObject<List<WishListDTO>>(await response.Content.ReadAsStringAsync());
+                        // Kontrollerer om det nye brugerobjekt blev opdateret korrekt.
+                        if (wishlists != null)
+                        {
+                            return wishlists; // Returnerer det opdaterede brugerobjekt.
+                        }
+                    }
+                }
+                catch
+                {
+                    // Håndterer fejl, hvis der opstår en under opdateringen af tokenet.
+                }
+            }
 
-        //}
+            return null; // Returnerer null, hvis opdateringen fejler eller person-objektet er null.
+
+        }
 
 
 
