@@ -16,8 +16,8 @@ namespace OenskeBroenden.Components.Modals
         [Parameter]
         public EventCallback<WishlistCreateForm> CreateModal { get; set; }
 
-       
 
+      
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
