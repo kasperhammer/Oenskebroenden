@@ -100,7 +100,11 @@ namespace ServiceLayer
             apiEndpoint = "CreateWish";
             using (HttpClient client = new HttpClient())
             {
-
+                wish.ReservedUserId = 0;
+                if(wish.Link == null)
+                {
+                    wish.Link = "";
+                }
                 // Set JWT token in the Authorization header
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", cookie.Token);
                 // Serialize the object to JSON

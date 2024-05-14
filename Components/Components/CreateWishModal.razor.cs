@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Models.Forms;
 using Models;
+using Models.EntityModels;
 
-namespace ComponentLib
+namespace ComponentLib.Components
 {
     public partial class CreateWishModal : ComponentBase
     {
         public WishCreateForm Wish { get; set; } = new();
+
         [Parameter]
-        public Modal Modal { get; set; }
+        public int WishListId { get; set; }
         [Parameter]
         public EventCallback CloseModal { get; set; }
         [Parameter]
@@ -44,7 +46,7 @@ namespace ComponentLib
         {
             if (firstRender)
             {
-
+           
 
                 StateHasChanged();
             }
@@ -53,6 +55,7 @@ namespace ComponentLib
 
         public async Task Submit()
         {
+            Wish.WishListId = WishListId;
             await CreateModal.InvokeAsync(Wish);
         }
 

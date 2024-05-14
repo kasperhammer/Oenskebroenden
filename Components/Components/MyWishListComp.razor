@@ -1,0 +1,33 @@
+﻿
+
+<div class="CompDiv">
+    <div class="Headers">
+
+        @if (!string.IsNullOrEmpty(wishList.Name))
+        {
+            <div class="Name">
+                <div style="background-color:@color ;" class="emojipic">
+                    <h2 class="Emoji">@wishList.Emoji</h2>
+                </div>
+                <h2 class="tag">@wishList.Name</h2>
+          
+            </div>
+        }
+        else
+        {
+           <div class="Name">
+                <div style="background-color:@color ;" class="emojipic">
+                    <h2 class="Emoji">❓</h2>
+                </div>
+                <h2 class="tag">Vælg ønskeliste</h2>
+          
+            </div>
+        }
+       
+        <button @onclick="AddWish" class="btn ønskebtn btn-primary">Tilføj nyt ønske +</button>
+    </div>
+    <div class="List">
+
+    </div>
+
+</div>

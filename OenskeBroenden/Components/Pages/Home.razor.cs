@@ -30,10 +30,18 @@ namespace OenskeBroenden.Components.Pages
 
         UserDTO cookie { get; set; }
 
+        WishListDTO selectedList { get; set; } = new();
+
+
+
 
         public bool ready;
 
         bool modal;
+
+        bool addWish;
+
+        string color;
 
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -69,7 +77,8 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task LoadWishlistAsync(int wishlistId)
         {
-
+            selectedList = cookie.WishLists.FirstOrDefault(x => x.Id == wishlistId);
+            StateHasChanged();
         }
 
         // Metode til at vise eller skjule oprettelse af en ønskeliste modal.
@@ -90,6 +99,22 @@ namespace OenskeBroenden.Components.Pages
 
             // Skjuler modalen efter oprettelsen af ønskelisten.
             await ShowCreateListModal(false);
+        }
+
+        public async Task CreateWish(WishCreateForm newWish)
+        {
+     
+            if (await wishrepo.CreateWishAsync(newWish, cookie))
+            {
+                cookie.WishLists = await wishrepo.GetUseresWishLists(cookie);
+                await ToggleAddWish(); 
+            }
+        }
+
+        public async Task ToggleAddWish()
+        {
+            addWish = !addWish;
+            StateHasChanged();
         }
     }
 }
