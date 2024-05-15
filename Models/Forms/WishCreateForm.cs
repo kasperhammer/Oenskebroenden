@@ -16,14 +16,10 @@ namespace Models.Forms
         public string Link { get; set; }
         [Required]
         public double Price { get; set; }
-        [Required]
         public string Description { get; set; }
-        [Required]
         public string PictureURL { get; set; }
 
         public int WishListId { get; set; }
-     
-        public int? ReservedUserId { get; set; }
     }
 }
 
