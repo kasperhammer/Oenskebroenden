@@ -1,27 +1,28 @@
 ﻿body {
 }
 
-.CompDiv{
-    display:grid;
-    height:100vh;
-    width:100%;
-    grid-template-rows:18vh auto;
-    font-family:'Poppins';
+.CompDiv {
+    display: grid;
+    height: 100vh;
+    width: 100%;
+    grid-template-rows: 18vh auto;
+    font-family: 'Poppins';
 }
 
-.Headers{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    padding-left:10vw;
-    padding-right:10vw;
+.Headers {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-left: 10vw;
+    padding-right: 10vw;
 }
+
 .emojipic {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 3vw;
-    height:3vw;
+    height: 3vw;
     border-radius: 5px;
 }
 
@@ -29,23 +30,79 @@
     font-size: 1.5vw;
     margin-bottom: 0px;
 }
+
 .Name {
     display: flex;
     align-items: flex-end;
     border-bottom: 1px solid black;
     padding-bottom: 0.5vh;
-    padding-right:2vw;
+    padding-right: 2vw;
 }
 
 .tag {
     margin-bottom: 0px;
-    margin-left:1vw;
-    font-size:2vw;
-  
+    margin-left: 1vw;
+    font-size: 2vw;
 }
 
 .ønskebtn {
     background-color: #5BC0EB;
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
 }
+
+.List {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: 60vw;
+    height: 72vh;
+    margin-left: 10vw;
+    margin-top:5vh;
+    overflow:auto;
+}
+
+.Ønske {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image {
+    border: 1px solid black;
+    width: 10vw;
+    height: 10vw;
+}
+
+.text {
+    align-self: flex-start;
+    padding-left: 2.6vw;
+    margin-top:0.5vh;
+}
+
+.gifttitle {
+    height: 2.8vh;
+    width: 10vw;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #5BC0EB;
+    border-radius: 3px;
+    max-height: 30px;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #55b0d7;
+    }

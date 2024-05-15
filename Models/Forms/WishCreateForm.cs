@@ -20,9 +20,9 @@ namespace Models.Forms
         public string Description { get; set; }
         [Required]
         public string PictureURL { get; set; }
-        [Required]
+
         public int WishListId { get; set; }
-        [Required]
+     
         public int? ReservedUserId { get; set; }
     }
 }

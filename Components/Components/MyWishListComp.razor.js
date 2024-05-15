@@ -1,8 +1,8 @@
 ﻿
 
-$(function () {
-    console.log("ready!");
-});
+
+
+
 
 export async function GetColor(id) {
     
