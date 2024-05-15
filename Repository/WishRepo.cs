@@ -22,6 +22,12 @@ namespace Repository
 
         }
 
+        /// <summary>
+        /// Metode til at oprette en Ønskeliste for en bruger
+        /// </summary>
+        /// <param name="wishList"></param>
+        /// <param name="cookie"></param>
+        /// <returns>retunere True hvis ønskelisten blev oprettet</returns>
         public async Task<bool> CreateWishListAsync(WishlistCreateForm wishList, UserDTO cookie)
         {
             cookie = await tokenRepo.TokenValidationPackage(cookie);
@@ -50,6 +56,12 @@ namespace Repository
         }
 
 
+        /// <summary>
+        /// Metode til at oprette et ønske for en bruger, på en ønskeliste
+        /// </summary>
+        /// <param name="wish"></param>
+        /// <param name="cookie"></param>
+        /// <returns>retunere True hvis ønsket blev oprettet</returns>
         public async Task<bool> CreateWishAsync(WishCreateForm wish, UserDTO cookie)
         {
             cookie = await tokenRepo.TokenValidationPackage(cookie);
@@ -59,6 +71,5 @@ namespace Repository
             }
             return false;
         }
-
     }
 }

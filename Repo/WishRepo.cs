@@ -22,6 +22,11 @@ namespace Repo
             autoMapper = new();
         }
 
+        /// <summary>
+        /// Metode til at oprette et ønske for en bruger
+        /// </summary>
+        /// <param name="wishDTO"></param>
+        /// <returns>Retunere True hvis ønskelisten blev oprettet</returns>
         public async Task<bool> CreateWishAsync(WishDTO wishDTO)
         {
             if (wishDTO != null)
@@ -45,7 +50,11 @@ namespace Repo
             return false;
         }
 
-
+        /// <summary>
+        /// Metode til at oprette en ønskeliste for en bruger
+        /// </summary>
+        /// <param name="wishlistDto"></param>
+        /// <returns>Retunere True hvis ønskelisten blev oprettet</returns>
         public async Task<bool> CreateWishlistAsync(WishListDTO wishlistDto)
         {
             if (wishlistDto != null)
@@ -72,7 +81,11 @@ namespace Repo
         }
 
 
-
+        /// <summary>
+        /// Metode til at Hente en brugeres ønskeliste
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Retunere en liste af brugerens ønskelister</returns>
         public async Task<List<WishListDTO>> GetWishlistsFromUser(int userId)
         {
             List<WishList> tWishlists = await dBLayer.WishLists.Where(w => w.OwnerId == userId).Include(w => w.Wishes).ToListAsync();
@@ -102,6 +115,11 @@ namespace Repo
             return false;
         }
 
+        /// <summary>
+        /// Metode til at slette et ønske
+        /// </summary>
+        /// <param name="wishId"></param>
+        /// <returns>Retunere om et ønske blev slettet</returns>
         public async Task<bool> DeleteWishAsync(int wishId)
         {
             if (wishId != 0)
@@ -119,5 +137,33 @@ namespace Repo
             }
             return false;
         }
+
+
+        /// <summary>
+        /// Metode til at resevere et ønske
+        /// </summary>
+        /// <param name="wishId"></param>
+        /// <param name="userId"></param>
+        /// <returns>Retunere True hvis ønsket blev reseveret</returns>
+        public async Task<bool> ReserveWishAsync(int wishId, int userId)
+        {
+            if (wishId != 0)
+            {
+                Wish wish = await dBLayer.Wishes.FirstOrDefaultAsync(wish => wish.Id == wishId);
+
+                if (wish != null)
+                {
+                    try
+                    {
+                        int rows = await dBLayer.Wishes.Where(w=> w.Id == wishId).ExecuteUpdateAsync(x => x.SetProperty(r => r.ReservedUserId, r =>  userId));
+                        await dBLayer.SaveChangesAsync();
+                        return rows > 0;
+                    }
+                    catch { }
+                }
+            }
+            return false;
+        }
+
     }
 }
