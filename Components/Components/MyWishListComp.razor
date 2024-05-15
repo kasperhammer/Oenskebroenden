@@ -33,7 +33,15 @@
             {
                 <div id="Wish @item.Id" class="Ønske">
                     <div class="imageHolder">
-                        <a href="@item.Link"><img class="image" src="@item.PictureURL" /></a>
+                        @if (item.PictureURL != "")
+                        {
+                            <a href="@item.Link"><img class="image" src="@item.PictureURL" /></a>
+                        }
+                        else
+                        {
+                            <a href="@item.Link"><img class="image" src="../Images/questionmark.png" /></a>
+                        }
+                     
                     </div>
                     <div class="text">
                         <h5  class="gifttitle">@item.Name</h5>
