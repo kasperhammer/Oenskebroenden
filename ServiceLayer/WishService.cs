@@ -100,7 +100,6 @@ namespace ServiceLayer
             apiEndpoint = "CreateWish";
             using (HttpClient client = new HttpClient())
             {
-                wish.ReservedUserId = 0;
                 if(wish.Link == null)
                 {
                     wish.Link = "";
