@@ -1,23 +1,9 @@
 ﻿@page "/AuthorPage"
-@using ComponentLib
+@using ComponentLib.Components
 
 
 
-@if (WishlistModal != null && WishlistModal.ShowModal)
-{
-    <CreateWishlistModal Modal="WishlistModal" CloseModal="WishlistModalClose" CreateModal="CreateWishlist" />
 
-}
-else if (WishModal != null && WishModal.ShowModal)
-{
-    <CreateWishModal Modal="WishModal" CloseModal="WishModalClose" CreateModal="CreateWish" />
+<EditDeleteWishlistModal CloseModal="EditWishlistModalClose" EditModal="EditWishlistModalClose" DeleteModal="DeleteWishAsync" WishlistToEdit="WishlistToEdit" />
 
-}
 
-<div @onclick="WishModalOpen">
-    SHOW WISH
-</div>
-
-<div @onclick="WishlistModalOpen">
-    SHOW WISHLIST
-</div>

@@ -8,24 +8,25 @@ using System.Threading.Tasks;
 
 namespace ComponentLib.Components
 {
-    public partial class CreateWishlistModal : ComponentBase
+    public partial class EditDeleteWishlistModal : ComponentBase
     {
         public List<string> Emojis { get; set; } = new();
-        public WishlistCreateForm NewWishlist { get; set; } = new();
+        [Parameter]
+        public WishlistCreateForm WishlistToEdit { get; set; } = new();
 
 
         [Parameter]
         public EventCallback CloseModal { get; set; }
         [Parameter]
-        public EventCallback<WishlistCreateForm> CreateModal { get; set; }
-
+        public EventCallback<WishlistCreateForm> EditModal { get; set; }
+        [Parameter]
+        public EventCallback DeleteModal { get; set; }
 
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                NewWishlist.Emoji = "💎";
                 LoadEmojis();
                 StateHasChanged();
             }
@@ -33,13 +34,18 @@ namespace ComponentLib.Components
 
         public async Task Submit()
         {
-            await CreateModal.InvokeAsync(NewWishlist);
+            await EditModal.InvokeAsync(WishlistToEdit);
         }
 
         public async void CloseModalAsync()
         {
             await CloseModal.InvokeAsync();
         }
+        public async Task DeleteWishlistAsync()
+        {
+            await DeleteModal.InvokeAsync();
+        }
+
 
         void LoadEmojis()
         {
@@ -72,9 +78,8 @@ namespace ComponentLib.Components
 
         public void EmojiSelected(string emoji)
         {
-            NewWishlist.Emoji = emoji;
+            WishlistToEdit.Emoji = emoji;
             StateHasChanged();
         }
-
     }
 }

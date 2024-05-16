@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="form-bg">
+                <EditForm Model="@Wish" OnValidSubmit="Submit">
+                    <DataAnnotationsValidator />
+                    <!-- form -->
+                    <div class="form-body">
+                        <!-- Content -->
+                        <div class="form-content">
+                            <div class="form-header">
+                                <div></div>
+                                <p class="title">Rediger Ønske</p>
+                                <div class="clickable" @onclick="CloseModal">X</div>
+                            </div>
+
+                            <!-- input field -->
+                            <div class="container-input">
+                                <div>
+                                    <p class="input-description">Navn</p>
+                                    <InputText class="input-custom" type="text" placeholder="Mit nye ønske..." @bind-Value="@Wish.Name" />
+                                </div>
+                                <div>
+                                    <p class="input-description">Beskrivelse</p>
+                                    <InputText class="input-custom" type="text" placeholder="Indtast en beskrivelse..." @bind-Value="@Wish.Description" />
+                                </div>
+                                <div>
+                                    <p class="input-description">Pris</p>
+                                    <div class="container-price">
+                                        <InputText class="input-custom-price" type="text" placeholder="250" @bind-Value="@Price" />
+                                        <div class="input-custom-price-currency">
+                                            DKK
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <p class="input-description">Link til ønsket</p>
+                                    <InputText class="input-custom" type="text" placeholder="www.example.dk/ønske..." @bind-Value="@Wish.Link" />
+
+                                </div>
+                                <div>
+                                    <p class="input-description">billede af varen</p>
+                                    <InputText class="input-custom" type="text" placeholder="www.example.dk/ønske/ønske.png..." @bind-Value="@Wish.PictureURL" />
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <input type="button" @onclick="DeleteWishAsync" class="button-delete" value="Slet">
+                                <input type="submit" class="button-submit" value="Gem">
+                            </div>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
