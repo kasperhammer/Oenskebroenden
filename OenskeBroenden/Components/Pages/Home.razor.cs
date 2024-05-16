@@ -77,6 +77,8 @@ namespace OenskeBroenden.Components.Pages
                     {
                         //This WishList is not one of our Own
                         wishListOwner = false;
+                        selectedList = await wishrepo.GetOneWishListAsync(cookie, WishListId);
+                        //Add To history
                     }
                     else
                     {

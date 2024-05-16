@@ -94,7 +94,7 @@ namespace ComponentLib.Components
 
         public async Task GenerateLink()
         {
-            string link = navMan.Uri;
+            string link = navMan.BaseUri;
             await module.InvokeVoidAsync("DisplayLink", "Link : " + link+WishList.Id);
         }
 
