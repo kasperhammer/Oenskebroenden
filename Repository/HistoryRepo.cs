@@ -1,4 +1,5 @@
 ﻿using Models.DtoModels;
+using Models.EntityModels;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,19 @@ namespace Repository
             }
 
             return false;
+        }
+
+        public async Task<List<HistoryDTO>> GetHistoryDTOsAsync(UserDTO cookie)
+        {
+            cookie = await tokenRepo.TokenValidationPackage(cookie);
+
+            // Tjekker om token valideringen var succesfuld.
+            if (cookie != null)
+            {
+                return await Service.GetHistory(cookie.Token);
+            }
+
+            return null;
         }
     }
 }

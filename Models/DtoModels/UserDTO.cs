@@ -14,7 +14,7 @@ namespace Models.DtoModels
         public string Email { get; set; }
         public string Password { get; set; }
         public List<WishListDTO>? WishLists { get; set; }
-        public List<History>? WishListHistory { get; set; }
+        public List<HistoryDTO>? WishListHistory { get; set; }
 
 
         public string Token { get; set; }
