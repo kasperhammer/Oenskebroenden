@@ -21,8 +21,10 @@ namespace API.Controllers
 
         // Metode til at hente ønskelister til en bestemt bruger
         [HttpGet("GetWishlists")]
-        public async Task<IActionResult> GetWishlistsFromUser(int userId)
+        public async Task<IActionResult> GetWishlistsFromUser()
         {
+            int userId = GetUserIdFromClaims(); // Tildeler ejerens ID fra JWT-claims
+            if (userId <= 0) return BadRequest(); // Returnerer fejlmeddelelse, hvis ejerens ID ikke er gyldigt
             List<WishListDTO> rWishlists = await repo.GetWishlistsFromUser(userId);
 
             if (rWishlists != null && rWishlists.Count > 0)
