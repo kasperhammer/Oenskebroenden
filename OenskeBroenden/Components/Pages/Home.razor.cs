@@ -32,7 +32,8 @@ namespace OenskeBroenden.Components.Pages
 
         WishListDTO selectedList { get; set; } = new();
 
-
+        [Parameter]
+        public int WishListId { get; set; }
 
 
         public bool ready;
@@ -62,6 +63,10 @@ namespace OenskeBroenden.Components.Pages
                     cookie.WishLists = new();
                 }
 
+                if(WishListId != 0)
+                {
+
+                }
                 // Kalder en testmetode på konto repository med brugerens cookie.
                 await repo.TestMetode("SomeParam", cookie);
 
@@ -107,6 +112,7 @@ namespace OenskeBroenden.Components.Pages
             if (await wishrepo.CreateWishAsync(newWish, cookie))
             {
                 cookie.WishLists = await wishrepo.GetUseresWishLists(cookie);
+                selectedList = cookie.WishLists.FirstOrDefault(x => x.Id == selectedList.Id);
                 await ToggleAddWish(); 
             }
         }

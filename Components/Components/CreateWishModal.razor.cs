@@ -56,6 +56,15 @@ namespace ComponentLib.Components
         public async Task Submit()
         {
             Wish.WishListId = WishListId;
+            if (Wish.PictureURL == null)
+            {
+                Wish.PictureURL = "";
+            }
+            if (Wish.Description == null)
+            {
+                Wish.Description = "";
+            }
+
             await CreateModal.InvokeAsync(Wish);
         }
 

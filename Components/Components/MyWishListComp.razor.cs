@@ -31,6 +31,7 @@ namespace ComponentLib.Components
         }
 
         private IJSObjectReference module;
+ 
         [Inject]
         IJSRuntime jsRuntime { get; set; }
 
@@ -60,6 +61,8 @@ namespace ComponentLib.Components
 
         public async Task ChangeColor()
         {
+    
+       
             string tempColor = await module.InvokeAsync<string>("GetColor", wishList.Id.ToString());
             if (tempColor != null)
             {

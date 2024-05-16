@@ -10,23 +10,46 @@
                     <h2 class="Emoji">@wishList.Emoji</h2>
                 </div>
                 <h2 class="tag">@wishList.Name</h2>
-          
+
             </div>
         }
         else
         {
-           <div class="Name">
+            <div class="Name">
                 <div style="background-color:@color ;" class="emojipic">
                     <h2 class="Emoji">❓</h2>
                 </div>
                 <h2 class="tag">Vælg ønskeliste</h2>
-          
+
             </div>
         }
-       
+
         <button @onclick="AddWish" class="btn ønskebtn btn-primary">Tilføj nyt ønske +</button>
     </div>
     <div class="List">
+        @if (WishList.Wishes != null)
+        {
+            @foreach (var item in WishList.Wishes)
+            {
+                <div id="Wish @item.Id" class="Ønske">
+                    <div class="imageHolder">
+                        @if (item.PictureURL != "")
+                        {
+                            <a href="@item.Link"><img class="image" src="@item.PictureURL" /></a>
+                        }
+                        else
+                        {
+                            <a href="@item.Link"><img class="image" src="../Images/questionmark.png" /></a>
+                        }
+                     
+                    </div>
+                    <div class="text">
+                        <h5  class="gifttitle">@item.Name</h5>
+                        <h6 class="price"><b>@item.Price DKK</b></h6>
+                    </div>
+                </div>
+            }
+        }
 
     </div>
 

@@ -18,7 +18,7 @@ namespace Models.Forms
         public double Price { get; set; }
         public string Description { get; set; }
         public string PictureURL { get; set; }
-        [Required]
+
         public int WishListId { get; set; }
     }
 }
