@@ -37,7 +37,7 @@ namespace Repo
                     if (histories.First() != history.WishListId)
                     {
                         await dBLayer.Histories.AddAsync(history);
-                        return await dBLayer.SaveChangesAsync() > 0; 
+                        return await dBLayer.SaveChangesAsync() > 0;
                     }
 
                 }
@@ -45,6 +45,27 @@ namespace Repo
 
             }
             return false;
+        }
+
+        public async Task<List<HistoryDTO>> GetHistoryAsync(int userId)
+        {
+            if (userId != null)
+            {
+                List<History> history = await dBLayer.Histories.Where(x => x.UserId == userId).ToListAsync();
+                if (history != null)
+                {
+                    if (history.Count != 0)
+                    {
+                        List<HistoryDTO> histories = new();
+                        foreach (var item in history)
+                        {
+                            histories.Add(autoMapper.mapper.Map<HistoryDTO>(item));
+                        }
+                        return histories;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

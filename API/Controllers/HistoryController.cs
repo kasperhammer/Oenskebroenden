@@ -37,5 +37,22 @@ namespace API.Controllers
 
             return BadRequest(); // Returnerer fejlmeddelelse, hvis oprettelsen mislykkes
         }
+
+        [HttpGet("GetHistory")]
+        public async Task<IActionResult> GetHistores()
+        {
+            var claims = User.Claims;
+            string idFromToken = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            int idFromTokenInt = Convert.ToInt32(idFromToken);
+            List<HistoryDTO> histories = await repo.GetHistoryAsync(idFromTokenInt);
+            if (histories != null)
+            {
+                if (histories.Count != 0)
+                {
+                    return Ok(histories);
+                }
+            }
+            return BadRequest(); // Returnerer fejlmeddelelse, hvis oprettelsen mislykkes
+        }
     }
 }
