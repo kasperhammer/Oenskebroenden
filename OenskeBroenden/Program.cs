@@ -12,7 +12,7 @@ builder.Services.AddSingleton<TokenUpdateService>();
 builder.Services.AddSingleton<ITokenRepo, TokenRepo>();
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
 builder.Services.AddScoped<IWishRepo, WishRepo>();
-
+builder.Services.AddScoped<IHistoryRepo, HistoryRepo>();
 
 builder.Services.AddScoped<Auth>();
 builder.Services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<Auth>());

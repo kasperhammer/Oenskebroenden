@@ -24,6 +24,9 @@ namespace OenskeBroenden.Components.Pages
         [Inject]
         IWishRepo wishrepo { get; set; }
 
+        [Inject]
+        IHistoryRepo historyRepo { get; set; }
+
 
         [Inject]
         Auth Auth { get; set; }
@@ -79,12 +82,14 @@ namespace OenskeBroenden.Components.Pages
                         wishListOwner = false;
                         selectedList = await wishrepo.GetOneWishListAsync(cookie, WishListId);
                         //Add To history
+                        await historyRepo.AddHistoryAsync(cookie, WishListId);
                     }
                     else
                     {
                         wishListOwner = true;
                         await LoadWishlistAsync(WishListId);
                         //this is one of my own wishlists
+               
                     }
                 }
                 // Kalder en testmetode på konto repository med brugerens cookie.

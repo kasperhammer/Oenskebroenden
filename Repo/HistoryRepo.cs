@@ -1,4 +1,5 @@
 ﻿using DbAccess;
+using Microsoft.EntityFrameworkCore;
 using Models.DtoModels;
 using Models.EntityModels;
 using Models.Forms;
@@ -30,8 +31,14 @@ namespace Repo
                 {
                     history.User = null;
                     history.WishList = null;
-                    await dBLayer.Histories.AddAsync(history);
-                    return await dBLayer.SaveChangesAsync() > 0;
+
+                    List<int> histories = await dBLayer.Histories.Where(h => h.UserId == history.UserId).Take(5).Select(h => h.WishListId).ToListAsync();
+
+                    if (histories.First() != history.WishListId)
+                    {
+                        await dBLayer.Histories.AddAsync(history);
+                        return await dBLayer.SaveChangesAsync() > 0; 
+                    }
 
                 }
 
