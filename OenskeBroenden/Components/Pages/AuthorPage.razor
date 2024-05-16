@@ -3,29 +3,7 @@
 
 
 
-@if (WishlistModal != null && WishlistModal.ShowModal)
-{
-    <CreateWishlistModal Modal="WishlistModal" CloseModal="WishlistModalClose" CreateModal="CreateWishlist" />
 
-}
-else if (WishModal != null && WishModal.ShowModal)
-{
-    <CreateWishModal Modal="WishModal" CloseModal="WishModalClose" CreateModal="CreateWish" />
+<EditDeleteWishModal CloseModal="EditWishModalClose" EditModal="EditWishModalClose" DeleteModal="DeleteWishAsync" Wish="WishToEdit" />
 
-}
-else if (EditWishModal != null && EditWishModal.ShowModal)
-{
-    <EditDeleteWishModal Modal="EditWishModal" CloseModal="EditWishModalClose" EditModal="EditWishModalClose" DeleteModal="DeleteWishAsync"/>
 
-}
-
-<div @onclick="WishModalOpen">
-    SHOW WISH
-</div>
-
-<div @onclick="EditWishModalOpen" style="background-color:fuchsia">
-    SHOW Edit Wish
-</div>
-<div @onclick="WishlistModalOpen">
-    SHOW WISHLIST
-</div>

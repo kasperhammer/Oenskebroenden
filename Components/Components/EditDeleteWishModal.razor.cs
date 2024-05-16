@@ -27,24 +27,21 @@ namespace ComponentLib.Components
             get => price.ToString();
             set
             {
-
                 if (double.TryParse(value, out price))
                 {
                     Wish.Price = price;
-
                 }
-
-
             }
         }
+
+
         
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-
-
+                Price = Wish.Price.ToString();
                 StateHasChanged();
             }
         }

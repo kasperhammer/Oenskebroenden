@@ -20,6 +20,7 @@ namespace OenskeBroenden.Components.Pages
         public Modal EditWishModal { get; set; }
         public Modal EditWishlistModal { get; set; }
 
+        public WishCreateForm WishToEdit { get; set; } = new();
 
         [Inject]
         IWishRepo WishRepo { get; set; }
@@ -31,7 +32,15 @@ namespace OenskeBroenden.Components.Pages
         {
             if (firstRender)
             {
-
+                WishToEdit = new()
+                {
+                    WishListId = 7,
+                    Name = "Test",
+                    Link = "example.com",
+                    Price = 107,
+                    Description = "",
+                    PictureURL = "chrome://branding/content/about-logo.png"
+                };
                 StateHasChanged();
                 
             }
@@ -97,7 +106,6 @@ namespace OenskeBroenden.Components.Pages
             WishModal = new();
             StateHasChanged();
         }
-
 
         public async Task EditWishListAsync(WishlistCreateForm NewWishlist)
         {

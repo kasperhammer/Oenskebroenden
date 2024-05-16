@@ -24,7 +24,7 @@
                                 </div>
                                 <div>
                                     <p class="input-description">Beskrivelse</p>
-                                    <InputText class="input-custom" type="text" placeholder="Skateboard i farven gul..." @bind-Value="@Wish.Description" />
+                                    <InputText class="input-custom" type="text" placeholder="Indtast en beskrivelse..." @bind-Value="@Wish.Description" />
                                 </div>
                                 <div>
                                     <p class="input-description">Pris</p>
@@ -47,7 +47,10 @@
                                 </div>
                             </div>
 
-                            <input type="submit" class="button-submit" value="Opret">
+                            <div class="modal-footer">
+                                <input type="button" @onclick="DeleteWishAsync" class="button-delete" value="Slet">
+                                <input type="submit" class="button-submit" value="Gem">
+                            </div>
                         </div>
                     </div>
                 </EditForm>
