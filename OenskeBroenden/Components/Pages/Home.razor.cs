@@ -66,6 +66,7 @@ namespace OenskeBroenden.Components.Pages
 
 
                 cookie.WishLists = await wishrepo.GetUseresWishLists(cookie);
+                
 
 
                 // Opretter en ny ønskeliste, hvis brugeren ikke har nogen.

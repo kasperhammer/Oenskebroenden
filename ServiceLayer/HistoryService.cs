@@ -45,5 +45,41 @@ namespace ServiceLayer
             }
             return false; // Returnerer null, hvis oprettelsen fejler eller person-objektet er null.
         }
+
+        public async Task<List<HistoryDTO>> GetHistory(string token)
+        {
+            // Kontrollerer om person-objektet er gyldigt og ikke er null.
+            if (!string.IsNullOrEmpty(token))
+            {
+                try
+                {
+
+                    // Opretter en ny HTTP-klient.
+                    HttpClient client = new();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    // Sender en POST-anmodning med JSON-data til URL'en med endepunktet "CreateAccount".
+                    HttpResponseMessage response = await client.GetAsync(URL + "GetHistory");
+
+                    // Kontrollerer om anmodningen blev udført succesfuldt.
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        // Opretter et nyt UserDTO-objekt og udfylder det med svaret fra serveren.
+                        List<HistoryDTO> histories = JsonConvert.DeserializeObject<List<HistoryDTO>>(await response.Content.ReadAsStringAsync());
+                        // Kontrollerer om det nye brugerobjekt blev opdateret korrekt.
+                        if (histories != null)
+                        {
+                            return histories; // Returnerer det opdaterede brugerobjekt.
+                        }
+                   
+                    }
+                }
+                catch
+                {
+                    // Håndterer fejl, hvis der opstår en under oprettelsen af brugeren.
+                }
+            }
+            return null; // Returnerer null, hvis oprettelsen fejler eller person-objektet er null.
+        }
     }
 }
