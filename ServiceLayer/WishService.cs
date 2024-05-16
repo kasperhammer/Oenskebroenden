@@ -20,13 +20,13 @@ namespace ServiceLayer
         string apiEndpoint = "";
        
 
-        public async Task<bool> CreateWishListAsync(WishlistCreateForm wishList, UserDTO cookie)
+        public async Task<bool> CreateWishListAsync(WishlistCreateForm wishList, UserDTO user)
         {
             apiEndpoint = "CreateWishList";
             using (HttpClient client = new HttpClient())
             {
                 // Set JWT token in the Authorization header
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", cookie.Token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", user.Token);
                 // Serialize the object to JSON
                 var jsonContent = JsonConvert.SerializeObject(wishList);
                 var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -130,7 +130,7 @@ namespace ServiceLayer
         }
 
 
-        public async Task<bool> CreateWishAsync(WishCreateForm wish, UserDTO cookie)
+        public async Task<bool> CreateWishAsync(WishCreateForm wish, UserDTO user)
         {
             apiEndpoint = "CreateWish";
             using (HttpClient client = new HttpClient())
@@ -140,7 +140,7 @@ namespace ServiceLayer
                     wish.Link = "";
                 }
                 // Set JWT token in the Authorization header
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", cookie.Token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", user.Token);
                 // Serialize the object to JSON
                 // Serialize the object to JSON
                 var jsonContent = JsonConvert.SerializeObject(wish);
