@@ -69,7 +69,7 @@ namespace ServiceLayer
                     // Tilføjer autorisationsheaderen til anmodningen med det givne token.
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", person.Token);
                     // Sender en POST-anmodning med brugeroplysninger og det nuværende token til URL'en med endepunktet "RefreshToken".
-                    HttpResponseMessage response = await client.GetAsync(apiUrl + "GetWishlists?userId="+person.Id);
+                    HttpResponseMessage response = await client.GetAsync(apiUrl + "GetWishlists");
 
                     // Kontrollerer om anmodningen blev udført succesfuldt.
                     if (response.IsSuccessStatusCode)
