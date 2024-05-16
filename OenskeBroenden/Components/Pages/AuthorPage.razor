@@ -1,5 +1,5 @@
 ﻿@page "/AuthorPage"
-@using ComponentLib
+@using ComponentLib.Components
 
 
 
@@ -13,11 +13,19 @@ else if (WishModal != null && WishModal.ShowModal)
     <CreateWishModal Modal="WishModal" CloseModal="WishModalClose" CreateModal="CreateWish" />
 
 }
+else if (EditWishModal != null && EditWishModal.ShowModal)
+{
+    <EditDeleteWishModal Modal="EditWishModal" CloseModal="EditWishModalClose" EditModal="EditWishModalClose" DeleteModal="DeleteWishAsync"/>
+
+}
 
 <div @onclick="WishModalOpen">
     SHOW WISH
 </div>
 
+<div @onclick="EditWishModalOpen" style="background-color:fuchsia">
+    SHOW Edit Wish
+</div>
 <div @onclick="WishlistModalOpen">
     SHOW WISHLIST
 </div>

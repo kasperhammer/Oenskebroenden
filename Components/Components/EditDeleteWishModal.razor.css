@@ -1,0 +1,121 @@
+﻿p {
+    padding: 0;
+    margin: 0;
+}
+
+.title {
+    font-size: var(--font-size-titel);
+}
+
+.form-bg {
+    position: absolute;
+    top: 10vh;
+}
+
+
+.form-body {
+    background-color: var(--form-bg-color);
+    display: flex;
+    width: 100%;
+    padding: 15px 30px 15px 30px;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.form-header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    padding: 25px;
+}
+
+.form-content {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 400px;
+}
+
+.container-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.form-input {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.input-description {
+    font-weight: 500;
+}
+
+
+.button-submit {
+    background-color: var(--action-btn-color);
+    text-decoration: none;
+    color: white;
+    width: 299px;
+    height: 45px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 5px;
+}
+
+
+.toggle-selector {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 22px;
+}
+
+.toggle-button {
+    height: 22px;
+    display: flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    color: black;
+    font-weight: bold; /* Optional: For a bolder look */
+    transition: 0.3s;
+}
+
+    .toggle-button:hover {
+        background-color: #ccc;
+    }
+
+.container-price {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.modal {
+    display: block;
+    opacity: 100%;
+    background-color: #00000073;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .form-body {
+        width: 100vw;
+        height: 100vh;
+    }
+}
