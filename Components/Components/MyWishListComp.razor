@@ -9,7 +9,7 @@
                 <div style="background-color:@color ;" class="emojipic">
                     <h2 class="Emoji">@wishList.Emoji</h2>
                 </div>
-                <h2 class="tag">@wishList.Name</h2>
+                <h2 class="tag">@wishList.Name <i @onclick="GenerateLink" class="fa-solid fa-link"></i></h2>
 
             </div>
         }
@@ -23,28 +23,49 @@
 
             </div>
         }
+        @if (WishListOwner)
+        {
+            <button @onclick="AddWish" class="btn ønskebtn btn-primary">Tilføj nyt ønske +</button>
+        }
+        else
+        {
+              <div class="input-group">
+                <input  placeholder="Intast link..." autocomplete="off" class="form-control input" @bind-value="link" />
+                    <div class="input-group-append">
+                    <div @onclick="GoToLink" class="inputbutton"><span class="input-group-text inputarea"><i class="fa-solid fa-magnifying-glass"></i></span></div>
+                    </div>
+                </div>
+        }
 
-        <button @onclick="AddWish" class="btn ønskebtn btn-primary">Tilføj nyt ønske +</button>
     </div>
     <div class="List">
         @if (WishList.Wishes != null)
         {
             @foreach (var item in WishList.Wishes)
             {
-                <div id="Wish @item.Id" class="Ønske">
-                    <div class="imageHolder">
+               
+                <div id="Wish_@item.Id" class="Ønske">
+                    <div @onmouseenter="(() => ToolTip(item.Id,true))" @onmouseleave="(() => ToolTip(item.Id,false))" class="imageHolder">
                         @if (item.PictureURL != "")
                         {
-                            <a href="@item.Link"><img class="image" src="@item.PictureURL" /></a>
+                            <a href="@item.Link"><img class="image img1" src="@item.PictureURL" /></a>
                         }
                         else
                         {
-                            <a href="@item.Link"><img class="image" src="../Images/questionmark.png" /></a>
+                            <a href="@item.Link"><img class="image img1" src="../Images/questionmark.png" /></a>
                         }
-                     
+                        @if (item.Description != "")
+                        {
+                            <a  class="image description" href="@item.Link"><p class="MaxWidth"> @item.Description</p></a>
+                        }
+                        else
+                        {
+                            <a  class="image description" href="@item.Link"><p>There is no discription for this element</p></a>
+                        }
+
                     </div>
                     <div class="text">
-                        <h5  class="gifttitle">@item.Name</h5>
+                        <h5 class="gifttitle">@item.Name</h5>
                         <h6 class="price"><b>@item.Price DKK</b></h6>
                     </div>
                 </div>

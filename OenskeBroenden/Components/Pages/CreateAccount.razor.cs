@@ -18,6 +18,9 @@ namespace OenskeBroenden.Components.Pages
         [Inject]
         IAccountRepo repo { get; set; }
 
+        [Inject]
+        NavigationManager navMan { get; set; }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -45,6 +48,7 @@ namespace OenskeBroenden.Components.Pages
                 {
                     errorMessages = new();
                     StateHasChanged();
+                    navMan.NavigateTo("/login");
                     //Navigate to Login or Index
                 }
             }

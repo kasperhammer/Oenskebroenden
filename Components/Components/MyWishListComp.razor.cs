@@ -18,6 +18,9 @@ namespace ComponentLib.Components
         [Parameter]
         public UserDTO cookie { get; set; }
 
+        [Parameter]
+        public bool WishListOwner { get; set; }
+
         private WishListDTO wishList { get; set; }
 
         [Parameter]
@@ -35,7 +38,12 @@ namespace ComponentLib.Components
         [Inject]
         IJSRuntime jsRuntime { get; set; }
 
+        [Inject]
+        NavigationManager navMan { get; set; }
+
         string color = "rgb(172, 215, 239)";
+
+        string link = "";
 
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -61,17 +69,39 @@ namespace ComponentLib.Components
 
         public async Task ChangeColor()
         {
-    
-       
-            string tempColor = await module.InvokeAsync<string>("GetColor", wishList.Id.ToString());
-            if (tempColor != null)
+
+            try
             {
-                color = tempColor;
-                StateHasChanged();
+
+                string tempColor = await module.InvokeAsync<string>("GetColor", wishList.Id.ToString());
+                if (tempColor != null)
+                {
+                    color = tempColor;
+                    StateHasChanged();
+
+                }
+            }
+            catch 
+            {
 
             }
         }
+        
+        public async Task ToolTip(int id,bool show)
+        {
+            await module.InvokeVoidAsync("ToogleToolTip",id,show);
+        }
 
+        public async Task GenerateLink()
+        {
+            string link = navMan.Uri;
+            await module.InvokeVoidAsync("DisplayLink", "Link : " + link+WishList.Id);
+        }
+
+        public async Task GoToLink()
+        {
+            navMan.NavigateTo(link,true);
+        }
 
 
     }
