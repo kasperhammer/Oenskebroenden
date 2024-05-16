@@ -165,5 +165,22 @@ namespace Repo
             return false;
         }
 
+        public async Task<WishListDTO> GetOneWishList(int wishlistId)
+        {
+            if (wishlistId != 0)
+            {
+                WishList wishList = await dBLayer.WishLists.Include(x => x.Wishes).Include(x => x.Chat).FirstOrDefaultAsync(x => x.Id == wishlistId);
+                if (wishList != null)
+                {
+                    WishListDTO wishListDTO = autoMapper.mapper.Map<WishListDTO>(wishList);
+                    if (wishListDTO != null)
+                    {
+                        return wishListDTO;
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 }

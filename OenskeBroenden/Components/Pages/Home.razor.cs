@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Models;
 using Models.DtoModels;
+using Models.EntityModels;
 using Models.Forms;
 using OenskeBroenden.Utils;
 using Repository;
@@ -23,6 +24,9 @@ namespace OenskeBroenden.Components.Pages
         [Inject]
         IWishRepo wishrepo { get; set; }
 
+        [Inject]
+        IHistoryRepo historyRepo { get; set; }
+
 
         [Inject]
         Auth Auth { get; set; }
@@ -35,6 +39,11 @@ namespace OenskeBroenden.Components.Pages
         [Parameter]
         public int WishListId { get; set; }
 
+        [Inject]
+        NavigationManager navMan { get; set; }
+
+        bool wishListOwner = false;
+
 
         public bool ready;
 
@@ -44,6 +53,8 @@ namespace OenskeBroenden.Components.Pages
 
         string color;
 
+
+      
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -65,7 +76,21 @@ namespace OenskeBroenden.Components.Pages
 
                 if(WishListId != 0)
                 {
-
+                    if (cookie.WishLists.FirstOrDefault(x => x.Id == WishListId) == null)
+                    {
+                        //This WishList is not one of our Own
+                        wishListOwner = false;
+                        selectedList = await wishrepo.GetOneWishListAsync(cookie, WishListId);
+                        //Add To history
+                        await historyRepo.AddHistoryAsync(cookie, WishListId);
+                    }
+                    else
+                    {
+                        wishListOwner = true;
+                        await LoadWishlistAsync(WishListId);
+                        //this is one of my own wishlists
+               
+                    }
                 }
                 // Kalder en testmetode på konto repository med brugerens cookie.
                 await repo.TestMetode("SomeParam", cookie);
@@ -83,6 +108,7 @@ namespace OenskeBroenden.Components.Pages
         public async Task LoadWishlistAsync(int wishlistId)
         {
             selectedList = cookie.WishLists.FirstOrDefault(x => x.Id == wishlistId);
+            wishListOwner = true;
             StateHasChanged();
         }
 
