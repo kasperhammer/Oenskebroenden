@@ -10,10 +10,14 @@
 }
 
 .form-body {
+   
     background-color: var(--form-bg-color);
-    width: 567px;
-    height: 336px;
+    display: flex;
+    width: 100%;
+    padding: 15px 30px 15px 30px;
     border-radius: 15px;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-header {
@@ -72,6 +76,7 @@
     font-size: 24px;
     cursor: pointer;
     user-select: none;
+
 }
 
     .emoji-size-draw:hover {
@@ -84,7 +89,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 35%;
+    height: 200px;
+    margin:15px;
     overflow-y: scroll;
 }
 
