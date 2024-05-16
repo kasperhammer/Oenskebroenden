@@ -89,29 +89,6 @@
 }
 
 
-.toggle-selector {
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    height: 22px;
-}
-
-.toggle-button {
-    height: 22px;
-    display: flex;
-    align-items: center;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    color: black;
-    font-weight: bold; /* Optional: For a bolder look */
-    transition: 0.3s;
-}
-
-    .toggle-button:hover {
-        background-color: #ccc;
-    }
-
 .container-price {
     display: flex;
     flex-direction: row;

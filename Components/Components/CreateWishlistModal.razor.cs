@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ComponentLib.Components
 {
-    public partial class CreateWishlistModal
+    public partial class CreateWishlistModal : ComponentBase
     {
         public List<string> Emojis { get; set; } = new();
         public WishlistCreateForm NewWishlist { get; set; } = new();

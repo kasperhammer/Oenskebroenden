@@ -21,6 +21,7 @@ namespace OenskeBroenden.Components.Pages
         public Modal EditWishlistModal { get; set; }
 
         public WishCreateForm WishToEdit { get; set; } = new();
+        public WishlistCreateForm WishlistToEdit { get; set; } = new();
 
         [Inject]
         IWishRepo WishRepo { get; set; }
@@ -41,6 +42,15 @@ namespace OenskeBroenden.Components.Pages
                     Description = "",
                     PictureURL = "chrome://branding/content/about-logo.png"
                 };
+
+
+                WishlistToEdit = new()
+                {
+                    Name = "Min liste",
+                    Emoji = "🌠",
+                };
+
+    
                 StateHasChanged();
                 
             }
