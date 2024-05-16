@@ -35,6 +35,19 @@ namespace API.Controllers
             return BadRequest(); // Returnerer fejlmeddelelse, hvis ingen ønskelister blev fundet
         }
 
+        [HttpGet("GetOneWishList")]
+        public async Task<IActionResult> GetOneWishList(int wishListId)
+        {
+            WishListDTO rWishlists = await repo.GetOneWishList(wishListId);
+
+            if (rWishlists != null)
+            {
+                return Ok(rWishlists); // Returnerer OK med ønskelister, hvis der er nogen
+            }
+
+            return BadRequest(); // Returnerer fejlmeddelelse, hvis ingen ønskelister blev fundet
+        }
+
 
         // Metode til at oprette en ny ønskeliste
         [HttpPost("CreateWishList")]

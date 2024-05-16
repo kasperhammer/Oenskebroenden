@@ -34,8 +34,9 @@ namespace API.Controllers
         { this.repo = repo; }
 
 
-
+       
         [HttpPost("CreateAccount")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateAccountAsync(UserCreateForm user)
         {
             //Jeg for kaldt min CreateAccount Metode med den UserModel som bliver sent med fra brugeren
