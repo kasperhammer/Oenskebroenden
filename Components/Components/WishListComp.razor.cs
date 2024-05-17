@@ -18,11 +18,10 @@ namespace ComponentLib.Components
         public EventCallback<bool> ShowCreateModal { get; set; }
 
         [Parameter]
-        public UserDTO cookie { get; set; }
+        public UserDTO Cookie { get; set; }
 
         public List<string> backgroundColor = new List<string> { "#EFC8AC;", "#EFACAC;", "#ACD7EF;", "#EFE8AC;" };
 
-      
         public bool ready;
 
         public bool selected = true;

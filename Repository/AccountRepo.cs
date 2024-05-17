@@ -29,7 +29,7 @@ namespace Repository
                 try
                 {
                     //Kalder videre ned i mit Service Lag mhb på at oprette brugeren.
-                    return await service.CreateUser(userForm);
+                    return await service.CreateUserAsync(userForm);
                 }
                 catch { }
             }
@@ -39,7 +39,7 @@ namespace Repository
 
         public async Task<bool> TestMetode(string someParam, UserDTO cookie)
         {
-            cookie = await tokenRepo.TokenValidationPackage(cookie);
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
             if (cookie != null)
             {
                 //Skriv metode logik her !

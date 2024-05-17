@@ -25,7 +25,7 @@ namespace API.Controllers
         {
             int userId = GetUserIdFromClaims(); // Tildeler ejerens ID fra JWT-claims
             if (userId <= 0) return BadRequest(); // Returnerer fejlmeddelelse, hvis ejerens ID ikke er gyldigt
-            List<WishListDTO> rWishlists = await repo.GetWishlistsFromUser(userId);
+            List<WishListDTO> rWishlists = await repo.GetWishlistsFromUserAsync(userId);
 
             if (rWishlists != null && rWishlists.Count > 0)
             {
@@ -38,7 +38,7 @@ namespace API.Controllers
         [HttpGet("GetOneWishList")]
         public async Task<IActionResult> GetOneWishList(int wishListId)
         {
-            WishListDTO rWishlists = await repo.GetOneWishList(wishListId);
+            WishListDTO rWishlists = await repo.GetOneWishListAsync(wishListId);
 
             if (rWishlists != null)
             {

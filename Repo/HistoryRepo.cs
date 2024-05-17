@@ -22,7 +22,7 @@ namespace Repo
             autoMapper = new();
         }
 
-        public async Task<bool> AddHistory(HistoryForm historyUI)
+        public async Task<bool> AddHistoryAsync(HistoryForm historyUI)
         {
             if (historyUI != null)
             {

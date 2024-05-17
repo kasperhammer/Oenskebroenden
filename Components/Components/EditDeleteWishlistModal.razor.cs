@@ -10,7 +10,7 @@ namespace ComponentLib.Components
 {
     public partial class EditDeleteWishlistModal : ComponentBase
     {
-        public List<string> Emojis { get; set; } = new();
+    
         [Parameter]
         public WishlistCreateForm WishlistToEdit { get; set; } = new();
 
@@ -22,6 +22,7 @@ namespace ComponentLib.Components
         [Parameter]
         public EventCallback DeleteModal { get; set; }
 
+        public List<string> emojis { get; set; } = new();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -32,7 +33,7 @@ namespace ComponentLib.Components
             }
         }
 
-        public async Task Submit()
+        public async Task SubmitAsync()
         {
             await EditModal.InvokeAsync(WishlistToEdit);
         }
@@ -72,7 +73,7 @@ namespace ComponentLib.Components
                 "🚔, 🚊, 🐉, 🌎, 🏉, 🛅, 🔉, 🕡, 🐪, 🚍, 🏇, 🐓, 🚣, 🛃, 🔂, " +
                 "🌒, 🚞, 🕤, 🚮, 🔄, 🕜, 🐐, 🐖, 🚳, 🚈, 🐋, 🚆";
 
-            Emojis = emojiString.Split(", ").ToList();
+            emojis = emojiString.Split(", ").ToList();
         }
 
 

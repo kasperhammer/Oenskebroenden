@@ -11,7 +11,7 @@ namespace ServiceLayer
         protected string URL = "https://localhost:7212/api/Account/";
 
         // Metode til at oprette en bruger ved at sende en POST-anmodning med brugeroplysninger til en given URL.
-        public async Task<UserDTO> CreateUser(UserCreateForm person)
+        public async Task<UserDTO> CreateUserAsync(UserCreateForm person)
         {
             // Kontrollerer om person-objektet er gyldigt og ikke er null.
             if (person != null)
@@ -74,7 +74,7 @@ namespace ServiceLayer
         }
 
         // Metode til at validere gyldigheden af et token ved at sende en GET-anmodning med token til en given URL.
-        public async Task<bool> ValidateToken(string token)
+        public async Task<bool> ValidateTokenAsync(string token)
         {
             // Kontrollerer om token er gyldigt og ikke er tom.
             if (!string.IsNullOrEmpty(token))

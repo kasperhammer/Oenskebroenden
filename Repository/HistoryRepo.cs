@@ -13,24 +13,24 @@ namespace Repository
     public class HistoryRepo : IHistoryRepo
     {
 
-        HistoryService Service { get; set; }
+        HistoryService service;
         public ITokenRepo tokenRepo;
 
         public HistoryRepo(ITokenRepo tokenRepo)
         {
             this.tokenRepo = tokenRepo;
-            Service = new();
+            service = new();
 
         }
 
         public async Task<bool> AddHistoryAsync(UserDTO cookie, int wishListId)
         {
-            cookie = await tokenRepo.TokenValidationPackage(cookie);
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
 
             // Tjekker om token valideringen var succesfuld.
             if (cookie != null && wishListId != 0)
             {
-                return await Service.AddHistory(wishListId, cookie.Token);
+                return await service.AddHistoryAsync(wishListId, cookie.Token);
             }
 
             return false;
@@ -38,12 +38,12 @@ namespace Repository
 
         public async Task<List<HistoryDTO>> GetHistoryDTOsAsync(UserDTO cookie)
         {
-            cookie = await tokenRepo.TokenValidationPackage(cookie);
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
 
             // Tjekker om token valideringen var succesfuld.
             if (cookie != null)
             {
-                return await Service.GetHistory(cookie.Token);
+                return await service.GetHistoryAsync(cookie.Token);
             }
 
             return null;

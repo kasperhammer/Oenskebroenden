@@ -39,7 +39,7 @@ namespace Repository
         {
             if (!string.IsNullOrEmpty(token))
             {
-                return await service.ValidateToken(token);
+                return await service.ValidateTokenAsync(token);
             }
             return false;
         }
@@ -52,7 +52,7 @@ namespace Repository
 
         //Samlet pakke som kan bruges af de andre repos i toppen af deres metoder til at kontrollere at 
         //brugerns token stadig er valid og såfremt der er brug for det også få udstet en frisk token
-        public async Task<UserDTO> TokenValidationPackage(UserDTO cookie)
+        public async Task<UserDTO> TokenValidationPackageAsync(UserDTO cookie)
         {
             //Først tjekker jeg om min token stadig er valid
             if (await ValidateTokenAsync(cookie.Token))

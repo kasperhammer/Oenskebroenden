@@ -6,7 +6,7 @@ namespace Repository
     {
         bool IsTokenAboutToExpire(DateTime tokenExpiration);
         Task<UserDTO> RefreshTokenAsync(UserDTO person);
-        Task<UserDTO> TokenValidationPackage(UserDTO cookie);
+        Task<UserDTO> TokenValidationPackageAsync(UserDTO cookie);
         Task<bool> ValidateTokenAsync(string token);
     }
 }

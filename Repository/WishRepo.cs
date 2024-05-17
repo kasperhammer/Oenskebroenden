@@ -12,13 +12,13 @@ namespace Repository
 {
     public class WishRepo : IWishRepo
     {
-        WishService WishService { get; set; }
+        public WishService wishService;
         public ITokenRepo tokenRepo;
 
         public WishRepo(ITokenRepo tokenRepo)
         {
             this.tokenRepo = tokenRepo;
-            WishService = new();
+            wishService = new();
 
         }
 
@@ -30,25 +30,25 @@ namespace Repository
         /// <returns>retunere True hvis ønskelisten blev oprettet</returns>
         public async Task<bool> CreateWishListAsync(WishlistCreateForm wishList, UserDTO cookie)
         {
-            cookie = await tokenRepo.TokenValidationPackage(cookie);
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
             if (wishList != null && cookie != null)
             {
-                return await WishService.CreateWishListAsync(wishList, cookie);
+                return await wishService.CreateWishListAsync(wishList, cookie);
             }
             return false;
         }
 
         // Denne metode henter ønskelister for en bruger.
-        public async Task<List<WishListDTO>> GetUseresWishLists(UserDTO cookie)
+        public async Task<List<WishListDTO>> GetUseresWishListsAsync(UserDTO cookie)
         {
             // Validerer brugerens token ved at kalde TokenValidationPackage fra tokenRepo.
-            cookie = await tokenRepo.TokenValidationPackage(cookie);
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
 
             // Tjekker om token valideringen var succesfuld.
             if (cookie != null)
             {
                 // Hvis valideringen var succesfuld, hentes ønskelister for brugeren via WishService.
-                return await WishService.GetWishlistsFromUser(cookie);
+                return await wishService.GetWishlistsFromUserAsync(cookie);
             }
 
             // Returnerer null hvis token valideringen fejlede eller hvis brugeren ikke har nogen ønskelister.
@@ -64,10 +64,10 @@ namespace Repository
         /// <returns>retunere True hvis ønsket blev oprettet</returns>
         public async Task<bool> CreateWishAsync(WishCreateForm wish, UserDTO cookie)
         {
-            cookie = await tokenRepo.TokenValidationPackage(cookie);
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
             if (wish != null && cookie != null)
             {
-                return await WishService.CreateWishAsync(wish, cookie);
+                return await wishService.CreateWishAsync(wish, cookie);
             }
             return false;
         }
@@ -75,10 +75,10 @@ namespace Repository
 
         public async Task<WishListDTO> GetOneWishListAsync(UserDTO cookie, int wishListId)
         {
-            cookie = await tokenRepo.TokenValidationPackage(cookie);
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
             if (wishListId != 0 && cookie != null)
             {
-                return await WishService.GetOneWishListASync(cookie.Token, wishListId);
+                return await wishService.GetOneWishListASync(cookie.Token, wishListId);
             }
             return null;
         }

@@ -47,7 +47,7 @@ namespace ComponentLib.Components
         }
 
 
-        public async Task Submit()
+        public async Task SubmitAsync()
         {
             
             await EditModal.InvokeAsync(Wish);

@@ -86,7 +86,7 @@ namespace Repo
         /// </summary>
         /// <param name="userId"></param>
         /// <returns>Retunere en liste af brugerens ønskelister</returns>
-        public async Task<List<WishListDTO>> GetWishlistsFromUser(int userId)
+        public async Task<List<WishListDTO>> GetWishlistsFromUserAsync(int userId)
         {
             List<WishList> tWishlists = await dBLayer.WishLists.Where(w => w.OwnerId == userId).Include(w => w.Wishes).ToListAsync();
             List<WishListDTO> rWishlists = new();
@@ -165,7 +165,7 @@ namespace Repo
             return false;
         }
 
-        public async Task<WishListDTO> GetOneWishList(int wishlistId)
+        public async Task<WishListDTO> GetOneWishListAsync(int wishlistId)
         {
             if (wishlistId != 0)
             {

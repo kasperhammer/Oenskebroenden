@@ -12,16 +12,16 @@
 
     @if (addWish)
     {
-        <CreateWishModal CloseModal="ToggleAddWish" CreateModal="CreateWish" WishListId="selectedList.Id" />
+        <CreateWishModal CloseModal="ToggleAddWish" CreateModal="CreateWish" WishListId="SelectedList.Id" />
     }
 
         <div class="PageCss">
             <div class="sideBar">
                 <h1 class="sidebarHeader"><b>Dine</b> Ønskelister</h1>
-                <WishListComp cookie="cookie" ShowCreateModal="ShowCreateListModal" LoadWishList="LoadWishlistAsync" />
+                <WishListComp Cookie="Cookie" ShowCreateModal="ShowCreateListModal" LoadWishList="LoadWishlistAsync" />
             </div>
             <div class="mainpage">
-            <MyWishListComp cookie="cookie" WishList="selectedList" addWish="ToggleAddWish" WishListOwner="wishListOwner" />
+            <MyWishListComp Cookie="Cookie" WishList="SelectedList" AddWish="ToggleAddWish" WishListOwner="wishListOwner" />
         </div>
 
         </div>

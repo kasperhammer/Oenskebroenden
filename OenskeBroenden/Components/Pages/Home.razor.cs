@@ -18,32 +18,31 @@ namespace OenskeBroenden.Components.Pages
     {
 
         [Inject]
-        IAccountRepo repo { get; set; }
+        IAccountRepo Repo { get; set; }
 
 
         [Inject]
-        IWishRepo wishrepo { get; set; }
+        IWishRepo WishRepo { get; set; }
 
         [Inject]
-        IHistoryRepo historyRepo { get; set; }
+        IHistoryRepo HistoryRepo { get; set; }
 
 
         [Inject]
         Auth Auth { get; set; }
 
 
-        UserDTO cookie { get; set; }
+        UserDTO Cookie { get; set; }
 
-        WishListDTO selectedList { get; set; } = new();
+        WishListDTO SelectedList { get; set; } = new();
 
         [Parameter]
         public int WishListId { get; set; }
 
         [Inject]
-        NavigationManager navMan { get; set; }
+        NavigationManager NavMan { get; set; }
 
         bool wishListOwner = false;
-
 
         public bool ready;
 
@@ -61,29 +60,29 @@ namespace OenskeBroenden.Components.Pages
             if (firstRender)
             {
                 // Henter brugerens token fra godkendelsesservice.
-                cookie = await Auth.GetUserClaimAsync();
+                Cookie = await Auth.GetUserClaimAsync();
 
 
 
-                cookie.WishLists = await wishrepo.GetUseresWishLists(cookie);
-                cookie.WishListHistory = await historyRepo.GetHistoryDTOsAsync(cookie);
+                Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
+                Cookie.WishListHistory = await HistoryRepo.GetHistoryDTOsAsync(Cookie);
 
 
                 // Opretter en ny ønskeliste, hvis brugeren ikke har nogen.
-                if (cookie.WishLists == null)
+                if (Cookie.WishLists == null)
                 {
-                    cookie.WishLists = new();
+                    Cookie.WishLists = new();
                 }
 
                 if(WishListId != 0)
                 {
-                    if (cookie.WishLists.FirstOrDefault(x => x.Id == WishListId) == null)
+                    if (Cookie.WishLists.FirstOrDefault(x => x.Id == WishListId) == null)
                     {
                         //This WishList is not one of our Own
                         wishListOwner = false;
-                        selectedList = await wishrepo.GetOneWishListAsync(cookie, WishListId);
+                        SelectedList = await WishRepo.GetOneWishListAsync(Cookie, WishListId);
                         //Add To history
-                        await historyRepo.AddHistoryAsync(cookie, WishListId);
+                        await HistoryRepo.AddHistoryAsync(Cookie, WishListId);
                     }
                     else
                     {
@@ -94,7 +93,7 @@ namespace OenskeBroenden.Components.Pages
                     }
                 }
                 // Kalder en testmetode på konto repository med brugerens cookie.
-                await repo.TestMetode("SomeParam", cookie);
+                await Repo.TestMetode("SomeParam", Cookie);
 
                 // Indikerer, at komponenten er klar til visning.
                 ready = true;
@@ -108,7 +107,7 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task LoadWishlistAsync(int wishlistId)
         {
-            selectedList = cookie.WishLists.FirstOrDefault(x => x.Id == wishlistId);
+            SelectedList = Cookie.WishLists.FirstOrDefault(x => x.Id == wishlistId);
             wishListOwner = true;
             StateHasChanged();
         }
@@ -124,10 +123,10 @@ namespace OenskeBroenden.Components.Pages
         public async Task CreateWishlist(WishlistCreateForm NewWishlist)
         {
             // Opretter en ny ønskeliste ved hjælp af WishRepo med den nye ønskeliste og brugerens cookie.
-            await wishrepo.CreateWishListAsync(NewWishlist, cookie);
+            await WishRepo.CreateWishListAsync(NewWishlist, Cookie);
 
             // Opdaterer brugerens ønskelister i brugerens cookie.
-            cookie.WishLists = await wishrepo.GetUseresWishLists(cookie);
+            Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
 
             // Skjuler modalen efter oprettelsen af ønskelisten.
             await ShowCreateListModal(false);
@@ -136,10 +135,10 @@ namespace OenskeBroenden.Components.Pages
         public async Task CreateWish(WishCreateForm newWish)
         {
      
-            if (await wishrepo.CreateWishAsync(newWish, cookie))
+            if (await WishRepo.CreateWishAsync(newWish, Cookie))
             {
-                cookie.WishLists = await wishrepo.GetUseresWishLists(cookie);
-                selectedList = cookie.WishLists.FirstOrDefault(x => x.Id == selectedList.Id);
+                Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
+                SelectedList = Cookie.WishLists.FirstOrDefault(x => x.Id == SelectedList.Id);
                 await ToggleAddWish(); 
             }
         }

@@ -10,14 +10,17 @@ namespace ComponentLib.Components
 {
     public partial class CreateWishlistModal : ComponentBase
     {
-        public List<string> Emojis { get; set; } = new();
-        public WishlistCreateForm NewWishlist { get; set; } = new();
-
-
         [Parameter]
         public EventCallback CloseModal { get; set; }
         [Parameter]
         public EventCallback<WishlistCreateForm> CreateModal { get; set; }
+
+        public List<string> Emojis { get; set; } = new();
+
+        public WishlistCreateForm NewWishlist { get; set; } = new();
+
+
+
 
 
 
@@ -31,7 +34,7 @@ namespace ComponentLib.Components
             }
         }
 
-        public async Task Submit()
+        public async Task SubmitAsync()
         {
             await CreateModal.InvokeAsync(NewWishlist);
         }

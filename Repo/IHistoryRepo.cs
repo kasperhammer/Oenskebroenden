@@ -5,7 +5,7 @@ namespace Repo
 {
     public interface IHistoryRepo
     {
-        Task<bool> AddHistory(HistoryForm historyUI);
+        Task<bool> AddHistoryAsync(HistoryForm historyUI);
         Task<List<HistoryDTO>> GetHistoryAsync(int userId);
     }
 }

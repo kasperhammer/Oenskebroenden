@@ -46,11 +46,7 @@ namespace ServiceLayer
                     }
                     return response.IsSuccessStatusCode;
                 }
-                catch (Exception e)
-                {
-
-                    throw;
-                }
+                catch{}
           
 
                
@@ -58,7 +54,7 @@ namespace ServiceLayer
         }
 
 
-        public async Task<List<WishListDTO>> GetWishlistsFromUser(UserDTO person)
+        public async Task<List<WishListDTO>> GetWishlistsFromUserAsync(UserDTO person)
         {
             if (person != null)
             {

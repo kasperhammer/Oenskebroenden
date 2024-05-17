@@ -9,17 +9,17 @@ namespace OenskeBroenden.Components.Pages
 {
     public partial class CreateAccount
     {
-        public UserCreateForm createForm { get; set; } = new();
+        public UserCreateForm CreateForm { get; set; } = new();
+
+        [Inject]
+        IAccountRepo Repo { get; set; }
+
+        [Inject]
+        NavigationManager NavMan { get; set; }
 
         public int showInput = 0;
 
         List<string> errorMessages = new List<string>();
-
-        [Inject]
-        IAccountRepo repo { get; set; }
-
-        [Inject]
-        NavigationManager navMan { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -43,12 +43,12 @@ namespace OenskeBroenden.Components.Pages
             //Lav logik for at tjekke Email !
             if (model.Validate())
             {
-                UserDTO userDto = await repo.CreateAccountAsync(createForm);
+                UserDTO userDto = await Repo.CreateAccountAsync(CreateForm);
                 if (userDto != null)
                 {
                     errorMessages = new();
                     StateHasChanged();
-                    navMan.NavigateTo("/login");
+                    NavMan.NavigateTo("/login");
                     //Navigate to Login or Index
                 }
             }

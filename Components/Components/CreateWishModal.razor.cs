@@ -7,12 +7,13 @@ namespace ComponentLib.Components
 {
     public partial class CreateWishModal : ComponentBase
     {
-        public WishCreateForm Wish { get; set; } = new();
 
         [Parameter]
         public int WishListId { get; set; }
+
         [Parameter]
         public EventCallback CloseModal { get; set; }
+
         [Parameter]
         public EventCallback<WishCreateForm> CreateModal { get; set; }
 
@@ -20,20 +21,22 @@ namespace ComponentLib.Components
 
         public bool IsManual { get; set; } = true;
 
+        public WishCreateForm Wish { get; set; } = new();
+        
         double price;
+
         public string Price { get => price.ToString();
             set
             {
-                
                 if(double.TryParse(value, out price))
                 {
                     Wish.Price = price;
 
                 }
-
-               
             }
         }
+
+
 
         void OnRadioSelected(string value)
         {
@@ -53,7 +56,7 @@ namespace ComponentLib.Components
         }
 
 
-        public async Task Submit()
+        public async Task SubmitAsync()
         {
             Wish.WishListId = WishListId;
             if (Wish.PictureURL == null)

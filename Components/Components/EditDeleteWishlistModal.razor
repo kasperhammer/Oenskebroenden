@@ -5,7 +5,7 @@
         <div class="modal-content">
             <!--Background-->
             <div class="form-bg">
-                <EditForm Model="@WishlistToEdit" OnValidSubmit="Submit">
+                <EditForm Model="@WishlistToEdit" OnValidSubmit="SubmitAsync">
                     <!-- form -->
                     <div class="form-body">
                         <!-- Content -->
@@ -36,9 +36,9 @@
                                 </div>
                             </div>
                             <div class="emoji-draw">
-                                @if (Emojis != null)
+                                @if (emojis != null)
                                 {
-                                    @foreach (string s in Emojis)
+                                    @foreach (string s in emojis)
                                     {
                                         <div class="emoji-size-draw" @onclick="()=>EmojiSelected(s)">@s</div>
                                     }

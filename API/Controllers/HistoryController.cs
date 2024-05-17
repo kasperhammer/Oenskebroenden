@@ -29,7 +29,7 @@ namespace API.Controllers
                 string idFromToken = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
                 int idFromTokenInt = Convert.ToInt32(idFromToken);
 
-                if (await repo.AddHistory(new HistoryForm { UserId = idFromTokenInt, WishListId = wishListId }))
+                if (await repo.AddHistoryAsync(new HistoryForm { UserId = idFromTokenInt, WishListId = wishListId }))
                 {
                     return Ok();
                 }

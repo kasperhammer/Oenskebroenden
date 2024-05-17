@@ -13,34 +13,32 @@ namespace ComponentLib.Components
     public partial class MyWishListComp
     {
         [Parameter]
-        public EventCallback addWish { get; set; }
+        public EventCallback AddWish { get; set; }
 
         [Parameter]
-        public UserDTO cookie { get; set; }
+        public UserDTO Cookie { get; set; }
 
         [Parameter]
         public bool WishListOwner { get; set; }
 
-        private WishListDTO wishList { get; set; }
+        [Inject]
+        IJSRuntime JsRuntime { get; set; }
+
+        [Inject]
+        NavigationManager NavMan { get; set; }
+
+        private WishListDTO wishList;
 
         [Parameter]
         public WishListDTO WishList
         {
-            get
-            {
-                return wishList;
-            }
-            set { wishList = value; ChangeColor(); }
+            get => wishList;
+            
+            set { wishList = value; ChangeColorAsync(); }
         }
 
         private IJSObjectReference module;
  
-        [Inject]
-        IJSRuntime jsRuntime { get; set; }
-
-        [Inject]
-        NavigationManager navMan { get; set; }
-
         string color = "rgb(172, 215, 239)";
 
         string link = "";
@@ -50,7 +48,7 @@ namespace ComponentLib.Components
         {
             if (firstRender)
             {
-                module = await jsRuntime.InvokeAsync<IJSObjectReference>(
+                module = await JsRuntime.InvokeAsync<IJSObjectReference>(
                   "import", "./_content/ComponentLib/Components/MyWishListComp.razor.js");
 
 
@@ -58,49 +56,44 @@ namespace ComponentLib.Components
             }
         }
 
-        public async Task AddWish()
+        public async Task AddWishASync()
         {
-            if(wishList.Id != 0)
+            if(WishList.Id != 0)
             {
-                await addWish.InvokeAsync();
+                await AddWish.InvokeAsync();
             }
          
         }
 
-        public async Task ChangeColor()
+        public async Task ChangeColorAsync()
         {
-
             try
             {
 
-                string tempColor = await module.InvokeAsync<string>("GetColor", wishList.Id.ToString());
+                string tempColor = await module.InvokeAsync<string>("GetColor", WishList.Id.ToString());
                 if (tempColor != null)
                 {
                     color = tempColor;
                     StateHasChanged();
 
                 }
-            }
-            catch 
-            {
-
-            }
+            }catch {}
         }
         
-        public async Task ToolTip(int id,bool show)
+        public async Task ToolTipAsync(int id,bool show)
         {
             await module.InvokeVoidAsync("ToogleToolTip",id,show);
         }
 
-        public async Task GenerateLink()
+        public async Task GenerateLinkAsync()
         {
-            string link = navMan.BaseUri;
+            string link = NavMan.BaseUri;
             await module.InvokeVoidAsync("DisplayLink", "Link : " + link+WishList.Id);
         }
 
-        public async Task GoToLink()
+        public void GoToLink()
         {
-            navMan.NavigateTo(link,true);
+            NavMan.NavigateTo(link,true);
         }
 
 

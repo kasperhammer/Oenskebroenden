@@ -16,7 +16,7 @@ namespace ServiceLayer
         protected string URL = "https://localhost:7212/api/History/";
 
         // Metode til at oprette en bruger ved at sende en POST-anmodning med brugeroplysninger til en given URL.
-        public async Task<bool> AddHistory(int wishListId,string token)
+        public async Task<bool> AddHistoryAsync(int wishListId,string token)
         {
             // Kontrollerer om person-objektet er gyldigt og ikke er null.
             if (wishListId != 0)
@@ -46,7 +46,7 @@ namespace ServiceLayer
             return false; // Returnerer null, hvis oprettelsen fejler eller person-objektet er null.
         }
 
-        public async Task<List<HistoryDTO>> GetHistory(string token)
+        public async Task<List<HistoryDTO>> GetHistoryAsync(string token)
         {
             // Kontrollerer om person-objektet er gyldigt og ikke er null.
             if (!string.IsNullOrEmpty(token))

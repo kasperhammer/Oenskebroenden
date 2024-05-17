@@ -10,20 +10,19 @@ namespace OenskeBroenden.Components.Pages
     public partial class LoginPage
     {
        
-        public UserLoginForm loginForm { get; set; } = new();
+        public UserLoginForm LoginForm { get; set; } = new();
 
+        [Inject]
+        IAccountRepo Repo { get; set; }
+
+        [Inject]
+        NavigationManager NavMan { get; set; }
+
+        [Inject]
+        Auth Auth { get; set; }
 
 
         List<string> errorMessages = new List<string>();
-
-        [Inject]
-        IAccountRepo repo { get; set; }
-
-        [Inject]
-        NavigationManager navMan { get; set; }
-
-        [Inject]
-        Auth auth { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -38,7 +37,7 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task GoToSignUp()
         {
-            navMan.NavigateTo("/signup");
+            NavMan.NavigateTo("/signup");
         }
 
 
@@ -51,9 +50,9 @@ namespace OenskeBroenden.Components.Pages
             {
                 //Jeg kalder min Auth.cs som indeholer min Login Metode hvor min Cookie bliver oprettet mm.
                   
-                if (await auth.LoginAsync(new UserDTO { Name = loginForm.Name,Password = loginForm.Password}))
+                if (await Auth.LoginAsync(new UserDTO { Name = LoginForm.Name,Password = LoginForm.Password}))
                 {
-                    navMan.NavigateTo("/");
+                    NavMan.NavigateTo("/");
                     
                   
                     //Navigate to Login or Index
@@ -77,7 +76,7 @@ namespace OenskeBroenden.Components.Pages
                 }
               
             }
-            loginForm = new();
+            LoginForm = new();
             StateHasChanged();
         }
     }
