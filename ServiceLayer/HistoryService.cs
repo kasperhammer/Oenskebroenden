@@ -28,7 +28,7 @@ namespace ServiceLayer
                     HttpClient client = new();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                     // Sender en POST-anmodning med JSON-data til URL'en med endepunktet "CreateAccount".
-                    HttpResponseMessage response = await client.PostAsync(URL + "AddHistory?wishListId="+wishListId,null);
+                    HttpResponseMessage response = await client.PostAsync(URL + "AddHistory?wishListId=" + wishListId,null);
 
                     // Kontrollerer om anmodningen blev udført succesfuldt.
                     if (response.IsSuccessStatusCode)

@@ -25,26 +25,53 @@
 
         <div class="ListHolder">
             <div class="list">
-                @if (Cookie.WishLists != null)
+                @if (selected)
                 {
-                    @foreach (var item in Cookie.WishLists)
-                    {
-                        <div class="item">
+                     if (Cookie.WishLists != null)
+                     {
+                         foreach (var item in Cookie.WishLists)
+                         {
+                              <div class="item">
+    
+                                   <div id="@item.Id" @onclick="(() => LoadListAsync(item.Id))" style="background-color:@backgroundColor[GenerateRandomNumber()]" class="emojidiv"><h1 class="emojistring">@item.Emoji</h1></div>
+                                   <h2 class="wishlistname">@item.Name</h2>
+                                   @if (item.Wishes != null)
+                                   {
+                                     <h4 class="itemcount">@item.Wishes.Count ønsker</h4>
+                                   }
+                                   else
+                                   {
+                                    <h4 class="itemcount">0 ønsker</h4>
+                                   }
 
-                            <div id="@item.Id" @onclick="(() => LoadListAsync(item.Id))" style="background-color:@backgroundColor[GenerateRandomNumber()]" class="emojidiv"><h1 class="emojistring">@item.Emoji</h1></div>
-                            <h2 class="wishlistname">@item.Name</h2>
-                            @if (item.Wishes != null)
-                            {
-                                <h4 class="itemcount">@item.Wishes.Count ønsker</h4>
-                            }
-                            else
-                            {
-                                <h4 class="itemcount">0 ønsker</h4>
-                            }
-
-                        </div>
-                    }
+                              </div>
+                         }
+                     }
                 }
+                else
+                {
+                   if (Cookie.WishListHistory != null)
+                     {
+                         foreach (var item in Cookie.WishListHistory)
+                         {
+                              <div class="item">
+    
+                                   <div id="@item.Id" @onclick="(() => LoadListAsync(item.WishList.Id))" style="background-color:@backgroundColor[GenerateRandomNumber()]" class="emojidiv"><h1 class="emojistring">@item.WishList.Emoji</h1></div>
+                                   <h2 class="wishlistname">@item.WishList.Name</h2>
+                                   @if (item.WishList.Wishes != null)
+                                   {
+                                     <h4 class="itemcount">@item.WishList.Wishes.Count ønsker</h4>
+                                   }
+                                   else
+                                   {
+                                    <h4 class="itemcount">0 ønsker</h4>
+                                   }
+
+                              </div>
+                         }
+                     } 
+                }
+             
             </div>
         </div>
     </div>

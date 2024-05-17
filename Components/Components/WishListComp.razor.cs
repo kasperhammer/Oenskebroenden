@@ -49,6 +49,7 @@ namespace ComponentLib.Components
 
         public async Task ChangeListAsync()
         {
+
             selected = !selected;
             StateHasChanged();
         }

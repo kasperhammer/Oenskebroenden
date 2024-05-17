@@ -34,11 +34,19 @@ namespace Repo
 
                     List<int> histories = await dBLayer.Histories.Where(h => h.UserId == history.UserId).Take(5).Select(h => h.WishListId).ToListAsync();
 
-                    if (histories.First() != history.WishListId)
+
+                    if (histories.Count != 0)
                     {
+                        if (histories.First() == history.WishListId)
+                        {
+                            return false;
+
+                        } 
+                    }
                         await dBLayer.Histories.AddAsync(history);
                         return await dBLayer.SaveChangesAsync() > 0;
-                    }
+                    
+                  
 
                 }
 
@@ -51,7 +59,7 @@ namespace Repo
         {
             if (userId != null)
             {
-                List<History> history = await dBLayer.Histories.Include(x => x.WishList).Where(x => x.UserId == userId).ToListAsync();
+                List<History> history = await dBLayer.Histories.Include(x => x.WishList).ThenInclude(x => x.Wishes).Where(x => x.UserId == userId).ToListAsync();
                 if (history != null)
                 {
                     if (history.Count != 0)

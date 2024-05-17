@@ -1,6 +1,7 @@
 ﻿using ComponentLib;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.JSInterop;
 using Models;
 using Models.DtoModels;
@@ -57,7 +58,7 @@ namespace OenskeBroenden.Components.Pages
         public WishCreateForm WishCreateForm { get; set; } = new();
 
 
-      
+
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -78,7 +79,7 @@ namespace OenskeBroenden.Components.Pages
                     Cookie.WishLists = new();
                 }
 
-                if(WishListId != 0)
+                if (WishListId != 0)
                 {
                     if (Cookie.WishLists.FirstOrDefault(x => x.Id == WishListId) == null)
                     {
@@ -93,7 +94,7 @@ namespace OenskeBroenden.Components.Pages
                         wishListOwner = true;
                         await LoadWishlistAsync(WishListId);
                         //this is one of my own wishlists
-               
+
                     }
                 }
                 // Kalder en testmetode på konto repository med brugerens cookie.
@@ -111,8 +112,22 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task LoadWishlistAsync(int wishlistId)
         {
-            SelectedList = Cookie.WishLists.FirstOrDefault(x => x.Id == wishlistId);
-            wishListOwner = true;
+
+
+
+            WishListDTO tempList = Cookie.WishLists.FirstOrDefault(x => x.Id == wishlistId);
+            if (tempList != null)
+            {
+                SelectedList = tempList;
+                wishListOwner = true;
+            }
+            else
+            {
+                SelectedList = await WishRepo.GetOneWishListAsync(Cookie, wishlistId);
+                wishListOwner = false;
+            }
+
+
             StateHasChanged();
         }
 
@@ -138,12 +153,12 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task CreateWish(WishCreateForm newWish)
         {
-     
+
             if (await WishRepo.CreateWishAsync(newWish, Cookie))
             {
                 Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
                 SelectedList = Cookie.WishLists.FirstOrDefault(x => x.Id == SelectedList.Id);
-                await ToggleAddWish(); 
+                await ToggleAddWish();
             }
         }
 
@@ -165,7 +180,7 @@ namespace OenskeBroenden.Components.Pages
         {
             if (w != null)
             {
-                WishCreateForm = new WishCreateForm { Id = w.Id,Description = w.Description,Link = w.Link,Name = w.Name,PictureURL = w.PictureURL,Price = w.Price,WishListId = w.WishListId};
+                WishCreateForm = new WishCreateForm { Id = w.Id, Description = w.Description, Link = w.Link, Name = w.Name, PictureURL = w.PictureURL, Price = w.Price, WishListId = w.WishListId };
             }
             editWish = !editWish;
             StateHasChanged();
