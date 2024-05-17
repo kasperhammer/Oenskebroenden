@@ -176,16 +176,36 @@ namespace OenskeBroenden.Components.Pages
             StateHasChanged();
         }
 
-        public async Task ToggleEditWishAsync(WishDTO? w)
+        public async Task ToggleEditWishAsync(WishCreateForm? w)
         {
             if (w != null)
             {
-                WishCreateForm = new WishCreateForm { Id = w.Id, Description = w.Description, Link = w.Link, Name = w.Name, PictureURL = w.PictureURL, Price = w.Price, WishListId = w.WishListId };
+                WishCreateForm = w;
             }
             editWish = !editWish;
             StateHasChanged();
         }
 
+        public async Task UpdateWish(WishCreateForm? w)
+        {
+            if (w != null)
+            {
+                if (w.Name != "")
+                {
+                    await WishRepo.UpdateWishAsync(w, Cookie);
+
+                }
+                else
+                {
+                    await WishRepo.DeleteWishAsync(Cookie, w.Id);
+                }
+
+                Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
+                SelectedList = Cookie.WishLists.FirstOrDefault(x => x.Id == SelectedList.Id);
+                WishCreateForm = new();
+                await ToggleEditWishAsync(null);
+            }
+        }
         public async Task ReserveWishAsync(int wishId)
         {
             await WishRepo.ReserveWishAsync(Cookie, wishId);

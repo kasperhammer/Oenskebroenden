@@ -186,5 +186,70 @@ namespace ServiceLayer
 
         }
 
+
+        public async Task<bool> UpdateWishASync(WishCreateForm wish, string token)
+        {
+            // Kontrollerer om person-objektet er gyldigt og ikke er null.
+            if (wish != null)
+            {
+                try
+                {
+
+                    // Opretter en ny HTTP-klient.
+                    HttpClient client = new();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                    var jsonContent = JsonConvert.SerializeObject(wish);
+                    var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                    // Sender en POST-anmodning med JSON-data til URL'en med endepunktet "CreateAccount".
+                    HttpResponseMessage response = await client.PutAsync(apiUrl + "UpdateWish", httpContent);
+
+                    // Kontrollerer om anmodningen blev udført succesfuldt.
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        return true; // Returnerer det oprettede brugerobjekt.
+
+                    }
+                }
+                catch
+                {
+                    // Håndterer fejl, hvis der opstår en under oprettelsen af brugeren.
+                }
+            }
+            return false; // Returnerer null, hvis oprettelsen fejler eller person-objektet er null.
+        }
+
+        public async Task<bool> DeleteWishAsync(string token,int wishId)
+        {
+            // Kontrollerer om person-objektet er gyldigt og ikke er null.
+            if (wishId != 0)
+            {
+                try
+                {
+
+                    // Opretter en ny HTTP-klient.
+                    HttpClient client = new();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                  
+                    // Sender en POST-anmodning med JSON-data til URL'en med endepunktet "CreateAccount".
+                    HttpResponseMessage response = await client.DeleteAsync(apiUrl + "DeleteWish?wishId="+wishId);
+
+                    // Kontrollerer om anmodningen blev udført succesfuldt.
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                        return true; // Returnerer det oprettede brugerobjekt.
+
+                    }
+                }
+                catch
+                {
+                    // Håndterer fejl, hvis der opstår en under oprettelsen af brugeren.
+                }
+            }
+            return false; // Returnerer null, hvis oprettelsen fejler eller person-objektet er null.
+        }
     }
 }

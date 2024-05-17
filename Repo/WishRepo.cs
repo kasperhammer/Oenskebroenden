@@ -110,7 +110,7 @@ namespace Repo
                         return await dBLayer.SaveChangesAsync() > 0;
                     }
                 }
-                catch{}
+                catch { }
             }
             return false;
         }
@@ -136,6 +136,14 @@ namespace Repo
                 }
             }
             return false;
+        }
+
+        public async Task<bool> EditWishAsync(WishCreateForm wishCreate)
+        {
+            Wish wish = autoMapper.mapper.Map<Wish>(wishCreate);
+            dBLayer.Wishes.Update(wish);
+            return await dBLayer.SaveChangesAsync() > 0;
+          
         }
 
 
@@ -169,9 +177,9 @@ namespace Repo
                         }
                         wish.ReservedUser = null;
                         dBLayer.Wishes.Update(wish);
-                    //    int rows = await dBLayer.Wishes.Where(w=> w.Id == wishId).ExecuteUpdateAsync(x => x.SetProperty(r => r.ReservedUserId, r =>  userId));
+                        //    int rows = await dBLayer.Wishes.Where(w=> w.Id == wishId).ExecuteUpdateAsync(x => x.SetProperty(r => r.ReservedUserId, r =>  userId));
                         return await dBLayer.SaveChangesAsync() > 0;
-                      
+
                     }
                     catch { }
                 }

@@ -5,7 +5,9 @@
         <div class="modal-content">
             <div class="form-bg">
                 <EditForm Model="@Wish" OnValidSubmit="SubmitAsync">
+
                     <DataAnnotationsValidator />
+
                     <!-- form -->
                     <div class="form-body">
                         <!-- Content -->
@@ -13,7 +15,7 @@
                             <div class="form-header">
                                 <div></div>
                                 <p class="title">Rediger Ønske</p>
-                                <div class="clickable" @onclick="CloseModal">X</div>
+                                <div class="clickable" @onclick="CloseModalAsync">X</div>
                             </div>
 
                             <!-- input field -->

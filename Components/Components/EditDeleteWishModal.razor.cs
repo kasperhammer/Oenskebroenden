@@ -16,7 +16,7 @@ namespace ComponentLib.Components
         public WishCreateForm Wish { get; set; }
 
         [Parameter]
-        public EventCallback CloseModal { get; set; }
+        public EventCallback<WishCreateForm?> CloseModal { get; set; }
 
         [Inject]
         public IWishRepo Repo { get; set; }
@@ -49,19 +49,21 @@ namespace ComponentLib.Components
 
         public async Task SubmitAsync()
         {
-            //await Repo.EditWishAsync(Wish);
+
+            await CloseModal.InvokeAsync(Wish);
             CloseModalAsync();
         }
 
         public async Task DeleteWishAsync()
         {
-            //await Repo.DeleteWishAsync(Wish.Id);
+            Wish = new WishCreateForm { Id = Wish.Id,Name = "" };
+            await CloseModal.InvokeAsync(Wish);
             CloseModalAsync();
         }
 
         public async void CloseModalAsync()
         {
-            await CloseModal.InvokeAsync();
+            await CloseModal.InvokeAsync(null);
         }
     }
 }

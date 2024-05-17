@@ -2,6 +2,7 @@
 using Microsoft.JSInterop;
 using Models.DtoModels;
 using Models.EntityModels;
+using Models.Forms;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace ComponentLib.Components
         public EventCallback AddWish { get; set; }
 
         [Parameter]
-        public EventCallback<WishDTO?> EditWish { get; set; }
+        public EventCallback<WishCreateForm?> EditWish { get; set; }
 
         [Parameter]
         public EventCallback<int> ReserveWish { get; set; }
@@ -106,9 +107,9 @@ namespace ComponentLib.Components
             NavMan.NavigateTo(link,true);
         }
 
-        public async Task EditWishAsync(WishDTO wish)
+        public async Task EditWishAsync(WishDTO w)
         {
-            await EditWish.InvokeAsync(wish);
+            await EditWish.InvokeAsync(new WishCreateForm { Id = w.Id, Description = w.Description = w.Description, Link = w.Link, Name = w.Name, PictureURL = w.PictureURL, Price = w.Price,WishListId =w.WishListId });
 
         }
 

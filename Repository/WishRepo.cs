@@ -92,5 +92,25 @@ namespace Repository
             }
             return false;
         }
+
+        public async Task<bool> UpdateWishAsync(WishCreateForm wish, UserDTO cookie)
+        {
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
+            if (wish != null && cookie != null)
+            {
+                return await wishService.UpdateWishASync(wish, cookie.Token);
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteWishAsync(UserDTO cookie, int wishId)
+        {
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
+            if (wishId != 0 && cookie != null)
+            {
+                return await wishService.DeleteWishAsync(cookie.Token, wishId);
+            }
+            return false;
+        }
     }
 }

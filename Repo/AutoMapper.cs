@@ -34,6 +34,10 @@ namespace Repo
                 cfg.CreateMap<HistoryDTO, HistoryForm>();
                 cfg.CreateMap<HistoryForm, History>();
                 cfg.CreateMap<History, HistoryForm>();
+                cfg.CreateMap<WishCreateForm, WishDTO>();
+                cfg.CreateMap<WishDTO, WishCreateForm>();
+                cfg.CreateMap<Wish, WishCreateForm>();
+                cfg.CreateMap<WishCreateForm, Wish>();
             });
 
             mapper = conf.CreateMapper();

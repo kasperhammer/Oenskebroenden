@@ -46,6 +46,8 @@ namespace ServiceLayer
             return false; // Returnerer null, hvis oprettelsen fejler eller person-objektet er null.
         }
 
+       
+
         public async Task<List<HistoryDTO>> GetHistoryAsync(string token)
         {
             // Kontrollerer om person-objektet er gyldigt og ikke er null.

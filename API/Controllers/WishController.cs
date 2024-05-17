@@ -119,8 +119,16 @@ namespace API.Controllers
             return BadRequest(); // Returnerer fejlmeddelelse, hvis reservationen mislykkes
         }
 
-       
 
+        [HttpPut("UpdateWish")]
+        public async Task<IActionResult> UpdateWishAsync(WishCreateForm wish) 
+        {
+            if (wish != null)
+            {
+                return Ok(await repo.EditWishAsync(wish));
+            }
+            return BadRequest();
+        }
 
 
         /// <summary>
