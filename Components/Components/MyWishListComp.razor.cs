@@ -16,6 +16,9 @@ namespace ComponentLib.Components
         public EventCallback AddWish { get; set; }
 
         [Parameter]
+        public EventCallback<WishDTO?> EditWish { get; set; }
+
+        [Parameter]
         public UserDTO Cookie { get; set; }
 
         [Parameter]
@@ -94,6 +97,12 @@ namespace ComponentLib.Components
         public void GoToLink()
         {
             NavMan.NavigateTo(link,true);
+        }
+
+        public async Task EditWishAsync(WishDTO wish)
+        {
+            await EditWish.InvokeAsync(wish);
+
         }
 
 

@@ -50,7 +50,11 @@ namespace OenskeBroenden.Components.Pages
 
         bool addWish;
 
+        bool editWish;
+
         string color;
+
+        public WishCreateForm WishCreateForm { get; set; } = new();
 
 
       
@@ -148,6 +152,26 @@ namespace OenskeBroenden.Components.Pages
             addWish = !addWish;
             StateHasChanged();
         }
+
+        public void HomeButton()
+        {
+            SelectedList = new();
+            WishListId = 0;
+            wishListOwner = false;
+            StateHasChanged();
+        }
+
+        public async Task ToggleEditWishAsync(WishDTO? w)
+        {
+            if (w != null)
+            {
+                WishCreateForm = new WishCreateForm { Id = w.Id,Description = w.Description,Link = w.Link,Name = w.Name,PictureURL = w.PictureURL,Price = w.Price,WishListId = w.WishListId};
+            }
+            editWish = !editWish;
+            StateHasChanged();
+        }
+
+
     }
 }
 

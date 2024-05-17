@@ -15,13 +15,18 @@
         <CreateWishModal CloseModal="ToggleAddWish" CreateModal="CreateWish" WishListId="SelectedList.Id" />
     }
 
+    @if(editWish)
+    {
+        <EditDeleteWishModal CloseModal="(() =>ToggleEditWishAsync(null))" Wish="WishCreateForm" />
+    }
+
         <div class="PageCss">
             <div class="sideBar">
-                <h1 class="sidebarHeader"><b>Dine</b> Ønskelister</h1>
+                <h1 @onclick="HomeButton" class="sidebarHeader"><b>Dine</b> Ønskelister</h1>
                 <WishListComp Cookie="Cookie" ShowCreateModal="ShowCreateListModal" LoadWishList="LoadWishlistAsync" />
             </div>
             <div class="mainpage">
-            <MyWishListComp Cookie="Cookie" WishList="SelectedList" AddWish="ToggleAddWish" WishListOwner="wishListOwner" />
+            <MyWishListComp Cookie="Cookie" WishList="SelectedList" AddWish="ToggleAddWish" WishListOwner="wishListOwner" EditWish="ToggleEditWishAsync" />
         </div>
 
         </div>

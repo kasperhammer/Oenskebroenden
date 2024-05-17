@@ -48,20 +48,31 @@
                     <div @onmouseenter="(() => ToolTipAsync(item.Id,true))" @onmouseleave="(() => ToolTipAsync(item.Id,false))" class="imageHolder">
                         @if (item.PictureURL != "")
                         {
-                            <a href="@item.Link"><img class="image img1" src="@item.PictureURL" /></a>
+                            <div class="imagecontainer" ><img class="image img1" src="@item.PictureURL" /></div>
                         }
                         else
                         {
-                            <a href="@item.Link"><img class="image img1" src="../Images/questionmark.png" /></a>
+                            <div class="imagecontainer" ><img class="image img1" src="../Images/questionmark.png" /></div>
                         }
+                        @if (WishListOwner)
+                        {
+                            <div @onclick="(() =>EditWishAsync(item))" class="EditWish"> <i class="fa-solid fa-pen-to-square"></i> </div>
+                        }
+                        else
+                        {
+                            <div class="BookMark"></div>
+                        }
+
                         @if (item.Description != "")
                         {
-                            <a  class="image description" href="@item.Link"><p class="MaxWidth"> @item.Description</p></a>
+                            <a href="@item.Link" class="description"><div><p class="MaxWidth"> @item.Description</p></div></a>
                         }
                         else
                         {
-                            <a  class="image description" href="@item.Link"><p>There is no discription for this element</p></a>
+                            <a href="@item.Link" class="description"><p>There is no discription for this element</p></a>
                         }
+
+                       
 
                     </div>
                     <div class="text">

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Models.Forms;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,9 @@ namespace ComponentLib.Components
 
         [Parameter]
         public EventCallback CloseModal { get; set; }
-        [Parameter]
-        public EventCallback<WishlistCreateForm> EditModal { get; set; }
-        [Parameter]
-        public EventCallback DeleteModal { get; set; }
+
+        [Inject]
+        public IWishRepo Repo { get; set; }
 
         public List<string> emojis { get; set; } = new();
 
@@ -35,7 +35,8 @@ namespace ComponentLib.Components
 
         public async Task SubmitAsync()
         {
-            await EditModal.InvokeAsync(WishlistToEdit);
+            //await Repo.EditWishList
+            CloseModalAsync();
         }
 
         public async void CloseModalAsync()
@@ -44,7 +45,8 @@ namespace ComponentLib.Components
         }
         public async Task DeleteWishlistAsync()
         {
-            await DeleteModal.InvokeAsync();
+            //await Repo.DeleteWishList
+            CloseModalAsync();
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Models.Forms;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,9 @@ namespace ComponentLib.Components
 
         [Parameter]
         public EventCallback CloseModal { get; set; }
-        [Parameter]
-        public EventCallback<WishCreateForm> EditModal { get; set; }
-        [Parameter]
-        public EventCallback DeleteModal { get; set; }
+
+        [Inject]
+        public IWishRepo Repo { get; set; }
 
         double price;
         public string Price
@@ -49,13 +49,14 @@ namespace ComponentLib.Components
 
         public async Task SubmitAsync()
         {
-            
-            await EditModal.InvokeAsync(Wish);
+            //await Repo.EditWishAsync(Wish);
+            CloseModalAsync();
         }
 
         public async Task DeleteWishAsync()
         {
-            await DeleteModal.InvokeAsync();
+            //await Repo.DeleteWishAsync(Wish.Id);
+            CloseModalAsync();
         }
 
         public async void CloseModalAsync()
