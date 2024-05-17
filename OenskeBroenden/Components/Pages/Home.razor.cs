@@ -171,6 +171,13 @@ namespace OenskeBroenden.Components.Pages
             StateHasChanged();
         }
 
+        public async Task ReserveWishAsync(int wishId)
+        {
+            await WishRepo.ReserveWishAsync(Cookie, wishId);
+            SelectedList = await WishRepo.GetOneWishListAsync(Cookie, SelectedList.Id);
+            StateHasChanged();
+        }
+
 
     }
 }

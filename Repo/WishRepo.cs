@@ -155,9 +155,23 @@ namespace Repo
                 {
                     try
                     {
-                        int rows = await dBLayer.Wishes.Where(w=> w.Id == wishId).ExecuteUpdateAsync(x => x.SetProperty(r => r.ReservedUserId, r =>  userId));
-                        await dBLayer.SaveChangesAsync();
-                        return rows > 0;
+
+                        if (wish.ReservedUserId == null)
+                        {
+                            wish.ReservedUserId = userId;
+                        }
+                        else
+                        {
+                            if (wish.ReservedUserId == userId)
+                            {
+                                wish.ReservedUserId = null;
+                            }
+                        }
+                        wish.ReservedUser = null;
+                        dBLayer.Wishes.Update(wish);
+                    //    int rows = await dBLayer.Wishes.Where(w=> w.Id == wishId).ExecuteUpdateAsync(x => x.SetProperty(r => r.ReservedUserId, r =>  userId));
+                        return await dBLayer.SaveChangesAsync() > 0;
+                      
                     }
                     catch { }
                 }

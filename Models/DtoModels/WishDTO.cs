@@ -18,5 +18,6 @@ namespace Models.DtoModels
         public string Description { get; set; }
         public string PictureURL { get; set; }
         public int WishListId { get; set; }
+        public int? ReservedUserId { get; set; }
     }
 }

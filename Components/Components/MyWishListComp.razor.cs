@@ -2,6 +2,7 @@
 using Microsoft.JSInterop;
 using Models.DtoModels;
 using Models.EntityModels;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,9 @@ namespace ComponentLib.Components
         public EventCallback<WishDTO?> EditWish { get; set; }
 
         [Parameter]
+        public EventCallback<int> ReserveWish { get; set; }
+
+        [Parameter]
         public UserDTO Cookie { get; set; }
 
         [Parameter]
@@ -29,6 +33,9 @@ namespace ComponentLib.Components
 
         [Inject]
         NavigationManager NavMan { get; set; }
+
+        [Inject]
+        IWishRepo Repo { get; set; }
 
         private WishListDTO wishList;
 
@@ -103,6 +110,11 @@ namespace ComponentLib.Components
         {
             await EditWish.InvokeAsync(wish);
 
+        }
+
+        public async Task ReserveWishAsync(int wishId)
+        {
+            await ReserveWish.InvokeAsync(wishId);
         }
 
 

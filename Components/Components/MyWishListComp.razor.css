@@ -240,3 +240,33 @@
     grid-column: 1;
     z-index: 2;
 }
+
+.blue {
+    color: #5BC0EB !important;
+    position: relative;
+    left: 9vw;
+    height: 1vw;
+    width: 1vw;
+  
+    z-index: 4;
+    grid-row: 1;
+    grid-column: 1;
+}
+
+    .blue:hover {
+        transform: scale(1.5);
+        cursor: pointer;
+     
+    }
+
+.grey {
+    color: #808080;
+    position: relative;
+    left: 9vw;
+    height: 1vw;
+    width: 1vw;
+  
+    z-index: 4;
+    grid-row: 1;
+    grid-column: 1;
+}

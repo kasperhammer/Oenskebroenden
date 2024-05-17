@@ -82,5 +82,15 @@ namespace Repository
             }
             return null;
         }
+
+        public async Task<bool> ReserveWishAsync(UserDTO cookie, int wishId)
+        {
+            cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
+            if (wishId != 0 && cookie != null)
+            {
+                return await wishService.ReserveWishAsync(cookie.Token, wishId);
+            }
+            return false;
+        }
     }
 }

@@ -60,8 +60,26 @@
                         }
                         else
                         {
-                            <div class="BookMark"></div>
+                            @if(item.ReservedUserId != null)
+                            {
+                                if(item.ReservedUserId == Cookie.Id)
+                                {
+                                         <div @onclick="(() =>ReserveWishAsync(item.Id))" class="blue"> <i class="fa-solid fa-bookmark"></i> </div>
+                                }
+                                else
+                                {
+                                         <div class="grey"> <i class="fa-solid fa-bookmark"></i> </div>
+                                }
+                            }
+                            else
+                            {
+                                  <div @onclick="(() =>ReserveWishAsync(item.Id))" class="EditWish"> <i class="fa-regular fa-bookmark"></i> </div>
+                            }
+
+                          
                         }
+
+                        
 
                         @if (item.Description != "")
                         {

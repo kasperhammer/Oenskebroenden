@@ -157,5 +157,34 @@ namespace ServiceLayer
                 return response.IsSuccessStatusCode;
             }
         }
+        public async Task<bool> ReserveWishAsync(string token, int wishId)
+        {
+            if (!string.IsNullOrEmpty(token) && wishId != 0)
+            {
+                try
+                {
+                    // Opretter en ny HTTP-klient.
+                    HttpClient client = new();
+                    // Tilføjer autorisationsheaderen til anmodningen med det givne token.
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    // Sender en POST-anmodning med brugeroplysninger og det nuværende token til URL'en med endepunktet "RefreshToken".
+                    HttpResponseMessage response = await client.PutAsync(apiUrl + "ReserveWish?wishId="+wishId,null);
+
+                    // Kontrollerer om anmodningen blev udført succesfuldt.
+                    return response.IsSuccessStatusCode;
+                    
+                        
+                    
+                }
+                catch
+                {
+                    // Håndterer fejl, hvis der opstår en under opdateringen af tokenet.
+                }
+            }
+
+            return false; // Returnerer null, hvis opdateringen fejler eller person-objektet er null.
+
+        }
+
     }
 }
