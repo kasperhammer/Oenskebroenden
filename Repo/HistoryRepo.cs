@@ -41,12 +41,12 @@ namespace Repo
                         {
                             return false;
 
-                        } 
+                        }
                     }
-                        await dBLayer.Histories.AddAsync(history);
-                        return await dBLayer.SaveChangesAsync() > 0;
-                    
-                  
+                    await dBLayer.Histories.AddAsync(history);
+                    return await dBLayer.SaveChangesAsync() > 0;
+
+
 
                 }
 

@@ -36,8 +36,7 @@ namespace OenskeBroenden.Components.Pages
         [Inject]
         SignalRUtil SignalR { get; set; }
 
-        [Inject]
-        SignalREvents MessageEvents { get; set; }
+   
 
         UserDTO Cookie { get; set; }
 
@@ -73,7 +72,7 @@ namespace OenskeBroenden.Components.Pages
                 // Henter brugerens token fra godkendelsesservice.
                 Cookie = await Auth.GetUserClaimAsync();
                 Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
-                //MessageEvents.notification += OnEventNotification;
+           
                 // Opretter en ny ønskeliste, hvis brugeren ikke har nogen.
                 if (Cookie.WishLists == null)
                 {
@@ -111,10 +110,7 @@ namespace OenskeBroenden.Components.Pages
             }
         }
 
-        private void MessageEvents_notification(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public async Task LoadWishlistAsync(int wishlistId)
         {
@@ -204,9 +200,9 @@ namespace OenskeBroenden.Components.Pages
             StateHasChanged();
         }
 
-        public async Task OnEventNotification()
+       public async Task SendMessageAsync(ChatMessageForm message)
         {
-
+            await SignalR.SendMessage(message);
         }
 
     }

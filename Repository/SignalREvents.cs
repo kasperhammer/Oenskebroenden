@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Models.DtoModels;
+using Models.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,20 +8,21 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
+
     public class SignalREvents
     {
 
 
-        public event EventHandler notification;
+        public event EventHandler<ChatMessageForm> notification;
 
-        public void RaiseEvent()
+        public void RaiseEvent(ChatMessageForm message)
         {
-            OnNotificationUpdated();
+            OnNotificationUpdated(message);
         }
 
-        protected virtual void OnNotificationUpdated()
+        protected virtual void OnNotificationUpdated( ChatMessageForm message)
         {
-            notification?.Invoke(this, EventArgs.Empty);
+            notification?.Invoke(this, message);
         }
     }
 }

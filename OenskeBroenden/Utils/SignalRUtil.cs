@@ -39,7 +39,7 @@ namespace OenskeBroenden.Utils
                 sigConnector.hubConnection.On<ChatMessageForm>("ReciveMessage", (request) =>
                 {
                     //Invoke Event
-                    events.RaiseEvent();
+                    events.RaiseEvent(request);
 
                 });
             }
