@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Repository;
 using System.Security.Claims;
 using Models.DtoModels;
+using Microsoft.AspNetCore.Components;
 
 namespace OenskeBroenden.Utils
 {
@@ -25,6 +26,8 @@ namespace OenskeBroenden.Utils
         private readonly ITokenRepo tokenRepo;
 
         private readonly TokenUpdateService tokenUpdateService;
+
+
 
         //jeg for med i min constructer 4 services. 1. protectedLocalStorage til at store og loade min Session Cookie.
         // 2. IAccount repo, dette repo indeholder min Login Metode.

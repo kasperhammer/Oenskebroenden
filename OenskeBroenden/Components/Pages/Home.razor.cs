@@ -66,13 +66,8 @@ namespace OenskeBroenden.Components.Pages
             {
                 // Henter brugerens token fra godkendelsesservice.
                 Cookie = await Auth.GetUserClaimAsync();
-
-
-
                 Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
-                Cookie.WishListHistory = await HistoryRepo.GetHistoryDTOsAsync(Cookie);
-
-
+          
                 // Opretter en ny ønskeliste, hvis brugeren ikke har nogen.
                 if (Cookie.WishLists == null)
                 {
@@ -97,6 +92,8 @@ namespace OenskeBroenden.Components.Pages
 
                     }
                 }
+
+                Cookie.WishListHistory = await HistoryRepo.GetHistoryDTOsAsync(Cookie);
                 // Kalder en testmetode på konto repository med brugerens cookie.
                 await Repo.TestMetode("SomeParam", Cookie);
 
@@ -110,9 +107,6 @@ namespace OenskeBroenden.Components.Pages
 
         public async Task LoadWishlistAsync(int wishlistId)
         {
-
-
-
             WishListDTO tempList = Cookie.WishLists.FirstOrDefault(x => x.Id == wishlistId);
             if (tempList != null)
             {
@@ -122,6 +116,8 @@ namespace OenskeBroenden.Components.Pages
             else
             {
                 SelectedList = await WishRepo.GetOneWishListAsync(Cookie, wishlistId);
+                await HistoryRepo.AddHistoryAsync(Cookie, wishlistId);
+                Cookie.WishListHistory = await HistoryRepo.GetHistoryDTOsAsync(Cookie);
                 wishListOwner = false;
             }
 
@@ -178,6 +174,7 @@ namespace OenskeBroenden.Components.Pages
             StateHasChanged();
         }
 
+    
 
         public async Task UpdateCookie()
         {

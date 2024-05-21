@@ -32,7 +32,7 @@ namespace Repo
                     history.User = null;
                     history.WishList = null;
 
-                    List<int> histories = await dBLayer.Histories.Where(h => h.UserId == history.UserId).Take(5).Select(h => h.WishListId).ToListAsync();
+                    List<int> histories = await dBLayer.Histories.Where(h => h.UserId == history.UserId).OrderByDescending(x => x.Id).Take(5).Select(h => h.WishListId).ToListAsync();
 
 
                     if (histories.Count != 0)
@@ -69,6 +69,7 @@ namespace Repo
                         {
                             histories.Add(autoMapper.mapper.Map<HistoryDTO>(item));
                         }
+                        histories = histories.OrderByDescending(x => x.Id).ToList();
                         return histories;
                     }
                 }
