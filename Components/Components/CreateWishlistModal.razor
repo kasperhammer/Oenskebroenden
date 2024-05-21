@@ -5,7 +5,7 @@
         <div class="modal-content">
             <!--Background-->
             <div class="form-bg">
-                <EditForm Model="@NewWishlist" OnValidSubmit="SubmitAsync">
+                <EditForm Model="@NewWishlist" OnValidSubmit="CreateWishlist">
                     <!-- form -->
                     <div class="form-body">
                         <!-- Content -->
@@ -14,7 +14,7 @@
                                 <div>
                                 </div>
                                 <h2>Opret liste</h2>
-                                <div class="clickable" @onclick="CloseModalAsync">
+                                <div class="clickable" @onclick="(() => CloseModalAsync(false))">
                                     X
                                 </div>
                             </div>

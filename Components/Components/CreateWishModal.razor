@@ -4,7 +4,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="form-bg">
-                <EditForm Model="@Wish" OnValidSubmit="SubmitAsync">
+                <EditForm Model="@Wish" OnValidSubmit="CreateWish">
                     <DataAnnotationsValidator/>
                     <!-- form -->
                     <div class="form-body">
@@ -13,7 +13,7 @@
                             <div class="form-header">
                                 <div></div>
                                 <p class="title">Opret Ønske</p>
-                                <div class="clickable" @onclick="CloseModal">X</div>
+                                <div class="clickable" @onclick="(() => CloseModalAsync(false))">X</div>
                             </div>
 
                             <div class="toggle-selector">

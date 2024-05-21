@@ -7,26 +7,26 @@
 {
     @if (modal)
     {
-        <CreateWishlistModal CloseModal="(() => ShowCreateListModal(false))" CreateModal="CreateWishlist" />
+        <CreateWishlistModal CloseModal="ToggleCreateList" />
     }
 
     @if (addWish)
     {
-        <CreateWishModal CloseModal="ToggleAddWish" CreateModal="CreateWish" WishListId="SelectedList.Id" />
+        <CreateWishModal Cookie="Cookie" CloseModal="ToggleAddWish" WishListId="SelectedList.Id" />
     }
 
     @if(editWish)
     {
-        <EditDeleteWishModal CloseModal="UpdateWish" Wish="WishCreateForm" />
+        <EditDeleteWishModal Cookie="Cookie" CloseModal="ToggleEditWish" Wish="WishCreateForm" />
     }
 
         <div class="PageCss">
             <div class="sideBar">
                 <h1 @onclick="HomeButton" class="sidebarHeader"><b>Dine</b> Ønskelister</h1>
-                <WishListComp Cookie="Cookie" ShowCreateModal="ShowCreateListModal" LoadWishList="LoadWishlistAsync" />
+                <WishListComp Cookie="Cookie" ShowCreateModal="ToggleCreateList" LoadWishList="LoadWishlistAsync" />
             </div>
             <div class="mainpage">
-            <MyWishListComp Cookie="Cookie" WishList="SelectedList" AddWish="ToggleAddWish" WishListOwner="wishListOwner" EditWish="ToggleEditWishAsync" ReserveWish="ReserveWishAsync" />
+            <MyWishListComp Cookie="Cookie" WishList="SelectedList" AddWish="ToggleAddWish" WishListOwner="wishListOwner" EditWish="ToggleEditWish" />
         </div>
 
         </div>

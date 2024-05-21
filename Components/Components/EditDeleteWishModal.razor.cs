@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Models.DtoModels;
 using Models.Forms;
 using Repository;
 using System;
@@ -16,10 +17,15 @@ namespace ComponentLib.Components
         public WishCreateForm Wish { get; set; }
 
         [Parameter]
+        public UserDTO Cookie { get; set; }
+
+        [Parameter]
         public EventCallback<WishCreateForm?> CloseModal { get; set; }
 
         [Inject]
         public IWishRepo Repo { get; set; }
+
+
 
         double price;
         public string Price
@@ -50,20 +56,29 @@ namespace ComponentLib.Components
         public async Task SubmitAsync()
         {
 
-            await CloseModal.InvokeAsync(Wish);
-            CloseModalAsync();
+            await Repo.UpdateWishAsync(Wish, Cookie);
+            CloseModalAsync(true);
         }
 
         public async Task DeleteWishAsync()
         {
-            Wish = new WishCreateForm { Id = Wish.Id,Name = "" };
-            await CloseModal.InvokeAsync(Wish);
-            CloseModalAsync();
+            await Repo.DeleteWishAsync(Cookie, Wish.Id);
+            CloseModalAsync(true);
         }
 
-        public async void CloseModalAsync()
+        public async void CloseModalAsync(bool success)
         {
-            await CloseModal.InvokeAsync(null);
+            if (success)
+            {
+                await CloseModal.InvokeAsync(null);
+            }
+            else
+            {
+                await CloseModal.InvokeAsync(Wish);
+            }
+          
         }
+
+       
     }
 }

@@ -2,6 +2,8 @@
 using Models.Forms;
 using Models;
 using Models.EntityModels;
+using Models.DtoModels;
+using Repository;
 
 namespace ComponentLib.Components
 {
@@ -12,10 +14,14 @@ namespace ComponentLib.Components
         public int WishListId { get; set; }
 
         [Parameter]
-        public EventCallback CloseModal { get; set; }
+        public EventCallback<bool> CloseModal { get; set; }
 
         [Parameter]
-        public EventCallback<WishCreateForm> CreateModal { get; set; }
+        public UserDTO Cookie { get; set; }
+
+        [Inject]
+        IWishRepo Repo { get; set; }
+
 
         public string SelectedValue { get; set; } = "m"; // Set the default selected value, can be "m" or "a"
 
@@ -45,18 +51,14 @@ namespace ComponentLib.Components
             StateHasChanged();
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-           
 
-                StateHasChanged();
-            }
+        public async void CloseModalAsync(bool success)
+        {
+            await CloseModal.InvokeAsync(success);
         }
 
 
-        public async Task SubmitAsync()
+        public async Task CreateWish()
         {
             Wish.WishListId = WishListId;
             if (Wish.PictureURL == null)
@@ -67,15 +69,9 @@ namespace ComponentLib.Components
             {
                 Wish.Description = "";
             }
-
-            await CreateModal.InvokeAsync(Wish);
+            await Repo.CreateWishAsync(Wish, Cookie);
+            CloseModalAsync(true);
         }
 
-        public async void CloseModalAsync()
-        {
-            await CloseModal.InvokeAsync();
-        }
-
-     
     }
 }

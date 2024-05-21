@@ -108,8 +108,6 @@ namespace OenskeBroenden.Components.Pages
             }
         }
 
-
-
         public async Task LoadWishlistAsync(int wishlistId)
         {
 
@@ -132,41 +130,45 @@ namespace OenskeBroenden.Components.Pages
         }
 
         // Metode til at vise eller skjule oprettelse af en ønskeliste modal.
-        public async Task ShowCreateListModal(bool show)
+        public async Task ToggleCreateList(bool success)
         {
-            modal = show;
-            StateHasChanged();
-        }
-
-        // Metode til at oprette en ønskeliste.
-        public async Task CreateWishlist(WishlistCreateForm NewWishlist)
-        {
-            // Opretter en ny ønskeliste ved hjælp af WishRepo med den nye ønskeliste og brugerens cookie.
-            await WishRepo.CreateWishListAsync(NewWishlist, Cookie);
-
-            // Opdaterer brugerens ønskelister i brugerens cookie.
-            Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
-
-            // Skjuler modalen efter oprettelsen af ønskelisten.
-            await ShowCreateListModal(false);
-        }
-
-        public async Task CreateWish(WishCreateForm newWish)
-        {
-
-            if (await WishRepo.CreateWishAsync(newWish, Cookie))
+            if (success)
             {
-                Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
-                SelectedList = Cookie.WishLists.FirstOrDefault(x => x.Id == SelectedList.Id);
-                await ToggleAddWish();
+                await UpdateCookie();
             }
-        }
-
-        public async Task ToggleAddWish()
-        {
-            addWish = !addWish;
+            modal = !modal;
             StateHasChanged();
         }
+
+        public async Task ToggleAddWish(bool success)
+        {
+            if (success)
+            {
+                await UpdateCookie();
+                addWish = false;
+            }
+            else
+            {
+                addWish = true;
+            }
+          
+            StateHasChanged();
+        }
+
+        public async Task ToggleEditWish(WishCreateForm? w)
+        {
+            if (w == null)
+            {
+                await UpdateCookie();
+            }
+            else
+            {
+                WishCreateForm = w;
+            }
+            editWish = !editWish;
+            StateHasChanged();
+        }
+
 
         public void HomeButton()
         {
@@ -176,43 +178,23 @@ namespace OenskeBroenden.Components.Pages
             StateHasChanged();
         }
 
-        public async Task ToggleEditWishAsync(WishCreateForm? w)
+
+        public async Task UpdateCookie()
         {
-            if (w != null)
+            Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
+            Cookie.WishListHistory = await HistoryRepo.GetHistoryDTOsAsync(Cookie);
+            if (SelectedList.Id != 0)
             {
-                WishCreateForm = w;
-            }
-            editWish = !editWish;
-            StateHasChanged();
-        }
-
-        public async Task UpdateWish(WishCreateForm? w)
-        {
-            if (w != null)
-            {
-                if (w.Name != "")
-                {
-                    await WishRepo.UpdateWishAsync(w, Cookie);
-
-                }
-                else
-                {
-                    await WishRepo.DeleteWishAsync(Cookie, w.Id);
-                }
-
-                Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
+                int id = SelectedList.Id;
                 SelectedList = Cookie.WishLists.FirstOrDefault(x => x.Id == SelectedList.Id);
-                WishCreateForm = new();
-                await ToggleEditWishAsync(null);
+                if (SelectedList == null)
+                {
+                    SelectedList = await WishRepo.GetOneWishListAsync(Cookie, id); 
+                }
             }
-        }
-        public async Task ReserveWishAsync(int wishId)
-        {
-            await WishRepo.ReserveWishAsync(Cookie, wishId);
-            SelectedList = await WishRepo.GetOneWishListAsync(Cookie, SelectedList.Id);
+
             StateHasChanged();
         }
-
 
     }
 }

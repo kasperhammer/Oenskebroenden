@@ -15,7 +15,7 @@ namespace ComponentLib.Components
     public partial class MyWishListComp
     {
         [Parameter]
-        public EventCallback AddWish { get; set; }
+        public EventCallback<bool> AddWish { get; set; }
 
         [Parameter]
         public EventCallback<WishCreateForm?> EditWish { get; set; }
@@ -71,7 +71,7 @@ namespace ComponentLib.Components
         {
             if(WishList.Id != 0)
             {
-                await AddWish.InvokeAsync();
+                await AddWish.InvokeAsync(false);
             }
          
         }
@@ -109,13 +109,17 @@ namespace ComponentLib.Components
 
         public async Task EditWishAsync(WishDTO w)
         {
-            await EditWish.InvokeAsync(new WishCreateForm { Id = w.Id, Description = w.Description = w.Description, Link = w.Link, Name = w.Name, PictureURL = w.PictureURL, Price = w.Price,WishListId =w.WishListId });
+            await EditWish.InvokeAsync(new WishCreateForm { Id = w.Id,Description = w.Description,Link = w.Link,Name = w.Name,PictureURL=w.PictureURL,Price=w.Price,WishListId=w.WishListId});
 
         }
 
         public async Task ReserveWishAsync(int wishId)
         {
-            await ReserveWish.InvokeAsync(wishId);
+           
+         await Repo.ReserveWishAsync(Cookie, wishId);
+           
+            await AddWish.InvokeAsync(true);
+
         }
 
 
