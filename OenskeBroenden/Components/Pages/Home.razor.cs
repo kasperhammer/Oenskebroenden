@@ -30,6 +30,15 @@ namespace OenskeBroenden.Components.Pages
         [Inject]
         Auth Auth { get; set; }
 
+        [Inject]
+        NavigationManager NavMan { get; set; }
+
+        [Inject]
+        SignalRUtil SignalR { get; set; }
+
+        [Inject]
+        SignalREvents MessageEvents { get; set; }
+
         UserDTO Cookie { get; set; }
 
         WishListDTO SelectedList { get; set; } = new();
@@ -37,8 +46,7 @@ namespace OenskeBroenden.Components.Pages
         [Parameter]
         public int WishListId { get; set; }
 
-        [Inject]
-        NavigationManager NavMan { get; set; }
+  
 
         bool wishListOwner = false;
 
@@ -61,10 +69,11 @@ namespace OenskeBroenden.Components.Pages
         {
             if (firstRender)
             {
+                  
                 // Henter brugerens token fra godkendelsesservice.
                 Cookie = await Auth.GetUserClaimAsync();
                 Cookie.WishLists = await WishRepo.GetUseresWishListsAsync(Cookie);
-          
+                
                 // Opretter en ny ønskeliste, hvis brugeren ikke har nogen.
                 if (Cookie.WishLists == null)
                 {
@@ -102,6 +111,11 @@ namespace OenskeBroenden.Components.Pages
             }
         }
 
+        private void MessageEvents_notification(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task LoadWishlistAsync(int wishlistId)
         {
             WishListDTO tempList = Cookie.WishLists.FirstOrDefault(x => x.Id == wishlistId);
@@ -117,8 +131,8 @@ namespace OenskeBroenden.Components.Pages
                 Cookie.WishListHistory = await HistoryRepo.GetHistoryDTOsAsync(Cookie);
                 wishListOwner = false;
             }
-
-
+            
+            SignalR.ConnectAsync(Cookie, SelectedList.Id);
             StateHasChanged();
         }
 
@@ -189,6 +203,8 @@ namespace OenskeBroenden.Components.Pages
 
             StateHasChanged();
         }
+
+            
 
     }
 }

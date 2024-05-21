@@ -59,7 +59,7 @@ namespace Repo
         {
             if (userId != null)
             {
-                List<History> history = await dBLayer.Histories.Include(x => x.WishList).ThenInclude(x => x.Wishes).Where(x => x.UserId == userId).ToListAsync();
+                List<History> history = await dBLayer.Histories.Include(x => x.User).Include(x => x.WishList).ThenInclude(x => x.Wishes).Where(x => x.UserId == userId).ToListAsync();
                 if (history != null)
                 {
                     if (history.Count != 0)

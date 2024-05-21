@@ -20,9 +20,11 @@ builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, Authorizati
 
 
 builder.Services.AddAuthentication();
-
-
 builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<SignalREvents>();
+builder.Services.AddTransient<ChatConnector>();
+builder.Services.AddScoped<SignalRUtil>();
 
 var app = builder.Build();
 
