@@ -25,10 +25,11 @@ namespace API.Controllers
         {
             if (wishListId != null)
             {
+                //jeg henter min brugers ID fra min JWT token
                 var claims = User.Claims;
                 string idFromToken = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
                 int idFromTokenInt = Convert.ToInt32(idFromToken);
-
+                //Jeg kalder mit Repo og sender historikken med
                 if (await repo.AddHistoryAsync(new HistoryForm { UserId = idFromTokenInt, WishListId = wishListId }))
                 {
                     return Ok();
@@ -41,14 +42,18 @@ namespace API.Controllers
         [HttpGet("GetHistory")]
         public async Task<IActionResult> GetHistores()
         {
+            //jeg henter min brugers ID fra min JWT token
             var claims = User.Claims;
             string idFromToken = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             int idFromTokenInt = Convert.ToInt32(idFromToken);
+
+            //jeg henter brugerens historik ud fra hans Id
             List<HistoryDTO> histories = await repo.GetHistoryAsync(idFromTokenInt);
             if (histories != null)
             {
                 if (histories.Count != 0)
                 {
+                    //Såfremt histokrikken ikke er tom retunere jeg den.
                     return Ok(histories);
                 }
             }

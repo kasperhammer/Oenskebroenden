@@ -72,7 +72,7 @@ namespace Repository
             return false;
         }
 
-
+        //denne metode bliver brugt til at hente en specifik ønskeliste ud fra dens ID med ønskerne i listen tilføjet
         public async Task<WishListDTO> GetOneWishListAsync(UserDTO cookie, int wishListId)
         {
             cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
@@ -83,6 +83,8 @@ namespace Repository
             return null;
         }
 
+        //Denne metode forsøger at reservere et ønske for en bruger såfremt det ikke allerede er reserveret.
+        // Hvis det er en selv der har tidligere reserveret ønsket bliver reservationen fjernet.
         public async Task<bool> ReserveWishAsync(UserDTO cookie, int wishId)
         {
             cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
@@ -93,6 +95,7 @@ namespace Repository
             return false;
         }
 
+        //Denne metode Opdatere et ønske
         public async Task<bool> UpdateWishAsync(WishCreateForm wish, UserDTO cookie)
         {
             cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
@@ -103,6 +106,7 @@ namespace Repository
             return false;
         }
 
+        //Denne metode sletter et ønske
         public async Task<bool> DeleteWishAsync(UserDTO cookie, int wishId)
         {
             cookie = await tokenRepo.TokenValidationPackageAsync(cookie);

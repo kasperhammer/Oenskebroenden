@@ -23,6 +23,7 @@ namespace Repository
 
         }
 
+        //Denne metode bliver brugt til at tilføje en ønskeliste til en brugers historik.
         public async Task<bool> AddHistoryAsync(UserDTO cookie, int wishListId)
         {
             cookie = await tokenRepo.TokenValidationPackageAsync(cookie);
@@ -30,12 +31,14 @@ namespace Repository
             // Tjekker om token valideringen var succesfuld.
             if (cookie != null && wishListId != 0)
             {
+               
                 return await service.AddHistoryAsync(wishListId, cookie.Token);
             }
 
             return false;
         }
 
+        // Denne metode bliver brugt til at hente en given brugers tidligere ønskelister han har besøgt
         public async Task<List<HistoryDTO>> GetHistoryDTOsAsync(UserDTO cookie)
         {
             cookie = await tokenRepo.TokenValidationPackageAsync(cookie);

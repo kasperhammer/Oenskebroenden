@@ -21,17 +21,14 @@ namespace OenskeBroenden.Components.Pages
         [Inject]
         IAccountRepo Repo { get; set; }
 
-
         [Inject]
         IWishRepo WishRepo { get; set; }
 
         [Inject]
         IHistoryRepo HistoryRepo { get; set; }
 
-
         [Inject]
         Auth Auth { get; set; }
-
 
         UserDTO Cookie { get; set; }
 
