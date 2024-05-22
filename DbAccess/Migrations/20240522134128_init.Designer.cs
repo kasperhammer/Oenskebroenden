@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbAccess.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    [Migration("20240506123028_init_jab")]
-    partial class init_jab
+    [Migration("20240522134128_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,13 @@ namespace DbAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("WishListId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WishListId")
+                        .IsUnique();
 
                     b.ToTable("ChatLobbies");
                 });
@@ -166,8 +172,9 @@ namespace DbAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("LobbyId")
-                        .HasColumnType("int");
+                    b.Property<string>("Emoji")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -178,11 +185,20 @@ namespace DbAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LobbyId");
-
                     b.HasIndex("OwnerId");
 
                     b.ToTable("WishLists");
+                });
+
+            modelBuilder.Entity("Models.EntityModels.ChatLobby", b =>
+                {
+                    b.HasOne("Models.EntityModels.WishList", "WishList")
+                        .WithOne("Chat")
+                        .HasForeignKey("Models.EntityModels.ChatLobby", "WishListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WishList");
                 });
 
             modelBuilder.Entity("Models.EntityModels.ChatMessage", b =>
@@ -196,7 +212,7 @@ namespace DbAccess.Migrations
                     b.HasOne("Models.EntityModels.User", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Lobby");
@@ -242,19 +258,11 @@ namespace DbAccess.Migrations
 
             modelBuilder.Entity("Models.EntityModels.WishList", b =>
                 {
-                    b.HasOne("Models.EntityModels.ChatLobby", "Chat")
-                        .WithMany()
-                        .HasForeignKey("LobbyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Models.EntityModels.User", "Owner")
                         .WithMany("WishLists")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Chat");
 
                     b.Navigation("Owner");
                 });
@@ -273,6 +281,9 @@ namespace DbAccess.Migrations
 
             modelBuilder.Entity("Models.EntityModels.WishList", b =>
                 {
+                    b.Navigation("Chat")
+                        .IsRequired();
+
                     b.Navigation("Wishes");
                 });
 #pragma warning restore 612, 618

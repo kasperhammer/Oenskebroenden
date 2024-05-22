@@ -36,8 +36,12 @@ namespace DbAccess
                 .HasForeignKey(h => h.WishListId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<WishList>().HasOne(x => ChatLobbies).WithOne().OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<ChatMessage>()
+                 .HasOne(h => h.Sender)
+                 .WithMany()
+                 .HasForeignKey(h => h.SenderId)
+                 .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

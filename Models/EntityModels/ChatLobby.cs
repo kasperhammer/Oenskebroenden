@@ -12,6 +12,9 @@ namespace Models.EntityModels
     {
         [Key]
         public int Id { get; set; }
+        public int WishListId { get; set; }
+        [ForeignKey(nameof(WishListId))]
+        public WishList WishList { get; set; }
         public List<ChatMessage> Messages { get; set; }
     }
 }

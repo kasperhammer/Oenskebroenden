@@ -12,18 +12,6 @@ namespace DbAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ChatLobbies",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChatLobbies", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -39,56 +27,41 @@ namespace DbAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Messages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SenderId = table.Column<int>(type: "int", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MessageTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LobbyId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Messages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Messages_ChatLobbies_LobbyId",
-                        column: x => x.LobbyId,
-                        principalTable: "ChatLobbies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Messages_Users_SenderId",
-                        column: x => x.SenderId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "WishLists",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OwnerId = table.Column<int>(type: "int", nullable: false),
-                    LobbyId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Emoji = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WishLists", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WishLists_ChatLobbies_LobbyId",
-                        column: x => x.LobbyId,
-                        principalTable: "ChatLobbies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_WishLists_Users_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ChatLobbies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WishListId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatLobbies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChatLobbies_WishLists_WishListId",
+                        column: x => x.WishListId,
+                        principalTable: "WishLists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -148,6 +121,39 @@ namespace DbAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MessageTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LobbyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Messages_ChatLobbies_LobbyId",
+                        column: x => x.LobbyId,
+                        principalTable: "ChatLobbies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Messages_Users_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChatLobbies_WishListId",
+                table: "ChatLobbies",
+                column: "WishListId",
+                unique: true);
+
             migrationBuilder.CreateIndex(
                 name: "IX_Histories_UserId",
                 table: "Histories",
@@ -179,11 +185,6 @@ namespace DbAccess.Migrations
                 column: "WishListId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WishLists_LobbyId",
-                table: "WishLists",
-                column: "LobbyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_WishLists_OwnerId",
                 table: "WishLists",
                 column: "OwnerId");
@@ -202,10 +203,10 @@ namespace DbAccess.Migrations
                 name: "Wishes");
 
             migrationBuilder.DropTable(
-                name: "WishLists");
+                name: "ChatLobbies");
 
             migrationBuilder.DropTable(
-                name: "ChatLobbies");
+                name: "WishLists");
 
             migrationBuilder.DropTable(
                 name: "Users");

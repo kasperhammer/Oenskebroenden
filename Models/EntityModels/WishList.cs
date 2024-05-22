@@ -16,8 +16,7 @@ namespace Models.EntityModels
         [ForeignKey(nameof(OwnerId))]
         public User Owner { get; set; }
         public List<Wish> Wishes { get; set; }
-        public int LobbyId { get; set; }
-        [ForeignKey(nameof(LobbyId))]
+    
         public ChatLobby Chat { get; set; }
 
         public string Name { get; set; }
