@@ -78,12 +78,15 @@ namespace ComponentLib.Components
             try
             {
 
-                string tempColor = await module.InvokeAsync<string>("GetColor", WishList.Id.ToString());
-                if (tempColor != null)
+                if (WishList != null)
                 {
-                    color = tempColor;
-                    StateHasChanged();
+                    string tempColor = await module.InvokeAsync<string>("GetColor", WishList.Id.ToString());
+                    if (tempColor != null)
+                    {
+                        color = tempColor;
+                        StateHasChanged();
 
+                    } 
                 }
             }
             catch { }

@@ -40,7 +40,8 @@ namespace Repo
                 cfg.CreateMap<History, HistoryForm>();
 
 
-
+                cfg.CreateMap<ChatMessage, ChatMessageDTO>();
+                cfg.CreateMap<ChatMessageDTO, ChatMessage>();
                 cfg.CreateMap<ChatLobby, ChatLobbyDTO>();
                 cfg.CreateMap<ChatLobbyDTO, ChatLobby>();
                 cfg.CreateMap<ChatMessageForm, ChatMessage>();

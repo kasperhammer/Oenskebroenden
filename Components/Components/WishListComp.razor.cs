@@ -24,7 +24,8 @@ namespace ComponentLib.Components
 
         public bool ready;
 
-        public bool selected = true;
+        [Parameter]
+        public bool selected { get; set; } = true;
 
         
         protected override async Task OnAfterRenderAsync(bool firstRender)

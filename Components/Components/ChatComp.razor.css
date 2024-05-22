@@ -1,0 +1,168 @@
+﻿body {
+}
+
+.ChatPage{
+    background-color:white;
+    width:16vw;
+    height:40vh;
+    position:absolute;
+    top:60vh;
+    left:80vw;
+    z-index:6;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border:1px solid black;
+    display:grid;
+    grid-template-rows:4vh auto 5vh;
+    font-family:'Poppins';
+}
+
+.ChatPage1 {
+    background-color: white;
+    width: 16vw;
+    height: 4.5vh;
+    position: absolute;
+    top: 95.5vh;
+    left: 80vw;
+    z-index: 6;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid black;
+    display: grid;
+    grid-template-rows: 4vh;
+    font-family: 'Poppins';
+}
+
+.ChatTop {
+    background-color: white;
+    border-bottom: 1px solid black;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+
+.ChatTopText{
+    font-size:1.3vw;
+    margin:0px;
+}
+
+
+.fa-angle-down{
+    margin-bottom:0.5vh;
+    font-size:1vw;
+    cursor:pointer;
+}
+
+.fa-angle-up {
+    margin-bottom: 0.5vh;
+    font-size: 1vw;
+    cursor: pointer;
+}
+
+.ChatBottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.inputarea {
+    height: 100%;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-left: 0px solid black;
+    background-color: #5bc0eb;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 2.2vw;
+}
+
+::deep .input {
+    border: 1px solid #dee2e6;
+    font-size: 0.8vw;
+    outline: none !important;
+    padding: 0.2vh;
+    padding-left: 1vh;
+}
+
+::deep .input-group {
+    font-family: 'Poppins';
+    margin: 2px;
+    width: 14vw;
+}
+
+.ChatMessageName {
+    font-size: 0.7vw;
+ 
+}
+.ChatMessageName1 {
+    font-size: 0.7vw;
+    margin-left: 20%;
+}
+
+::deep .input:focus {
+    outline: none !important;
+    box-shadow: none;
+    border: 1px solid #dee2e6;
+}
+
+::deep .inputbutton {
+    border: none;
+    padding: 0px;
+    height: 100%;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.ChatMessages {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+ 
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #5BC0EB;
+    border-radius: 3px;
+    max-height: 30px;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #55b0d7;
+    }
+.Message{
+    border-radius:5px;
+    background-color:#d9d9d9;
+    padding:5px;
+    margin-top:1vh;
+    width:80%;
+}
+
+.Message1 {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #5bc0eb;
+    color: white;
+    margin-top: 1vh;
+    margin-left: 20%;
+    margin-right:2%;
+    width: 78%;
+}

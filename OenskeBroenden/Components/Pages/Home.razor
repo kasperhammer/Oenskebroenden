@@ -7,7 +7,7 @@
 {
     @if (modal)
     {
-        <CreateWishlistModal CloseModal="ToggleCreateList" />
+        <CreateWishlistModal Cookie="Cookie" CloseModal="ToggleCreateList" />
     }
 
     @if (addWish)
@@ -27,7 +27,7 @@
             </div>
             <div class="mainpage">
             <MyWishListComp Cookie="Cookie" WishList="SelectedList" AddWish="ToggleAddWish" WishListOwner="wishListOwner" EditWish="ToggleEditWish" />
-            <ChatComp Cookie="Cookie" WishList="SelectedList" Message="SendMessageAsync" />
+            <ChatComp Owner="wishListOwner" Cookie="Cookie" WishList="SelectedList" Message="SendMessageAsync" />
         </div>
 
         </div>

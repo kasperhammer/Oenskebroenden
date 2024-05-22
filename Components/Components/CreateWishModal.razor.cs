@@ -52,9 +52,9 @@ namespace ComponentLib.Components
         }
 
 
-        public async void CloseModalAsync(bool success)
+        public async void CloseModalAsync()
         {
-            await CloseModal.InvokeAsync(success);
+            await CloseModal.InvokeAsync(false);
         }
 
 
@@ -70,7 +70,7 @@ namespace ComponentLib.Components
                 Wish.Description = "";
             }
             await Repo.CreateWishAsync(Wish, Cookie);
-            CloseModalAsync(true);
+            CloseModalAsync();
         }
 
     }

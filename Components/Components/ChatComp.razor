@@ -1,1 +1,58 @@
-﻿
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+@if (!Owner && WishList.Name != null)
+{
+    @if (toggle)
+    {
+        <div class="ChatPage">
+            <div class="ChatTop">
+                <h3 class="ChatTopText">Chat</h3>
+                <i @onclick="Toggle" class="fa-solid fa-angle-down"></i>
+            </div>
+            <div class="ChatMessages">
+
+
+                @for (int i = WishList.Chat.Messages.Count; i-- > 0;)
+                {
+                    @if (WishList.Chat.Messages[i].Sender.Id == Cookie.Id)
+                    {
+
+                        <div class="ChatMessageName1">@WishList.Chat.Messages[i].Sender.Name</div>
+                        <div class="Message1">@WishList.Chat.Messages[i].Message</div>
+                    }
+                    else
+                    {
+
+                        <div class="ChatMessageName">@WishList.Chat.Messages[i].Sender.Name</div>
+                        <div class="Message">@WishList.Chat.Messages[i].Message</div>
+                    }
+                }
+
+            </div>
+            <div class="ChatBottom">
+                <form @onsubmit="SendMessageAsync">
+                    <div class="input-group">
+                        <InputText placeholder="Intast Besked..." autocomplete="off" class="form-control input" @bind-Value="messageText" />
+                        <div class="input-group-append">
+                            <button type="submit" class="inputbutton"><span class="input-group-text inputarea"><i class="fa-solid fa-paper-plane"></i></span></button>
+                            <input type="submit" class="visually-hidden">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="ChatPage1">
+            <div class="ChatTop">
+                <h3 class="ChatTopText">Chat</h3>
+                <i @onclick="Toggle" class="fa-solid fa-angle-up"></i>
+            </div>
+
+
+        </div>
+    }
+
+}

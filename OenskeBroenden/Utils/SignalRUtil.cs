@@ -21,7 +21,7 @@ namespace OenskeBroenden.Utils
             person.ConnectionId = sigConnector.hubConnection.ConnectionId;
             await sigConnector.hubConnection.SendAsync("JoinLobby", lobbyId.ToString());
             await NotificationListener();
-            await SendMessage(new ChatMessageForm { LobbyId = lobbyId, Message = "Someone Joined the Chat", MessageTime = DateTime.Now, SenderId = person.Id,SenderName = person.Name });
+          
             return person;
         }
 
@@ -30,6 +30,11 @@ namespace OenskeBroenden.Utils
             await sigConnector.hubConnection.SendAsync("SendMessage", message);
         }
 
+        public async Task<bool> DisconnectAsync(int lobbyId)
+        {
+            await sigConnector.hubConnection.SendAsync("LeaveRoom", lobbyId.ToString());
+            return true;
+        }
 
 
         public async Task NotificationListener()
