@@ -4,6 +4,7 @@ using Models;
 using Models.EntityModels;
 using Models.DtoModels;
 using Repository;
+using System;
 
 namespace ComponentLib.Components
 {
@@ -42,6 +43,19 @@ namespace ComponentLib.Components
             }
         }
 
+        string url = "";
+
+        public string Url
+        {
+            get => url;
+            set
+            {
+                url = value;
+                Wish.Link = url;
+                GetWishFromUrl();
+            }
+        }
+
 
 
         void OnRadioSelected(string value)
@@ -57,6 +71,23 @@ namespace ComponentLib.Components
             await CloseModal.InvokeAsync(false);
         }
 
+       
+        public async void GetWishFromUrl()
+        {
+            if(!IsManual)
+            {
+                Wish = await Repo.GetWishFromUrl(Wish.Link, Cookie);
+                if (Wish != null)
+                {
+                    Price = Wish.Price.ToString();
+                }
+                else
+                {
+                    Wish = new();
+                }
+                StateHasChanged();
+            }
+        }
 
         public async Task CreateWish()
         {

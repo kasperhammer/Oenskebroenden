@@ -1,10 +1,12 @@
 ﻿using Models.DtoModels;
 using Models.EntityModels;
 using Models.Forms;
+using Newtonsoft.Json.Linq;
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -115,6 +117,16 @@ namespace Repository
                 return await wishService.DeleteWishAsync(cookie.Token, wishId);
             }
             return false;
+        }
+
+
+
+        public async Task<WishCreateForm> GetWishFromUrl(string url, UserDTO userCookie)
+        {
+            // lav tjek
+            //userCookie = await tokenRepo.TokenValidationPackageAsync(userCookie);
+            WishCreateForm w = await wishService.GetWishFromUrl(userCookie.Token, url);
+            return w;
         }
     }
 }
