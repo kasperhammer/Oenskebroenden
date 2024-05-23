@@ -12,5 +12,6 @@ namespace Repository
         Task<List<WishListDTO>> GetUseresWishListsAsync(UserDTO cookie);
         Task<bool> ReserveWishAsync(UserDTO cookie, int wishId);
         Task<bool> UpdateWishAsync(WishCreateForm wish, UserDTO cookie);
+        Task<WishCreateForm> GetWishFromUrl(string url, UserDTO userCookie);
     }
 }

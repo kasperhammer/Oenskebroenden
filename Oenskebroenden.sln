@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentLib", "Components\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OenskeBroenden", "OenskeBroenden\OenskeBroenden.csproj", "{0CB09461-DE2C-48FE-805D-157217E4D87B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebScraper", "WebScraper\WebScraper.csproj", "{02E61CB4-6149-40C8-A536-55620E608524}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{0CB09461-DE2C-48FE-805D-157217E4D87B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CB09461-DE2C-48FE-805D-157217E4D87B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CB09461-DE2C-48FE-805D-157217E4D87B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02E61CB4-6149-40C8-A536-55620E608524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E61CB4-6149-40C8-A536-55620E608524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E61CB4-6149-40C8-A536-55620E608524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E61CB4-6149-40C8-A536-55620E608524}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{023F172C-D146-4827-8248-BFF0F9DBB327} = {BD14BC44-1617-4063-AEE0-CECB71843975}
 		{4DB5F8BF-CC45-49CF-BE47-39AEFD3D65F5} = {BD14BC44-1617-4063-AEE0-CECB71843975}
 		{0CB09461-DE2C-48FE-805D-157217E4D87B} = {BD14BC44-1617-4063-AEE0-CECB71843975}
+		{02E61CB4-6149-40C8-A536-55620E608524} = {72AB4F13-A100-44C8-B86F-D5513CB599B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8801272E-ECB0-4027-94CB-68DB8092A249}

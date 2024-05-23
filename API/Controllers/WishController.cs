@@ -5,6 +5,7 @@ using Models.EntityModels;
 using Models.Forms;
 using Repo;
 using System.Security.Claims;
+using WebScraper;
 
 namespace API.Controllers
 {
@@ -128,6 +129,20 @@ namespace API.Controllers
                 return Ok(await repo.EditWishAsync(wish));
             }
             return BadRequest();
+        }
+
+        [HttpGet("GetWishFromWeb")]
+        public async Task<IActionResult> GetWishFromWeb(string url)
+        {
+            if(string.IsNullOrEmpty(url)) return BadRequest("string cannont be empty");
+            if (url.Contains(".zalando.") || url.Contains(".elgiganten."))
+            {
+                Scraper scraper = new();
+                var wish = await scraper.GetWishFromPage(url);
+                return Ok(wish);
+            }
+            
+            return BadRequest("Only Zalando and Elgiganten is supportet");
         }
 
 

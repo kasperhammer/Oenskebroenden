@@ -251,5 +251,31 @@ namespace ServiceLayer
             }
             return false; // Returnerer null, hvis oprettelsen fejler eller person-objektet er null.
         }
+
+        public async Task <WishCreateForm> GetWishFromUrl(string token, string url)
+        {
+            try
+            {
+                // Opretter en ny HTTP-klient.
+                HttpClient client = new();
+                // Tilføjer autorisationsheaderen til anmodningen med det givne token.
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                // Sender en POST-anmodning med brugeroplysninger og det nuværende token til URL'en med endepunktet "RefreshToken".
+                HttpResponseMessage response = await client.GetAsync(apiUrl + "GetWishFromWeb?url=" + url);
+
+                // Kontrollerer om anmodningen blev udført succesfuldt.
+                if (response.IsSuccessStatusCode)
+                {
+                    WishCreateForm wish = JsonConvert.DeserializeObject<WishCreateForm>(await response.Content.ReadAsStringAsync());
+                    return wish;
+                }
+            }
+            catch(Exception ex)
+            {
+                // Håndterer fejl, hvis der opstår en under opdateringen af tokenet.
+            }
+            return null;
+        }
+
     }
 }
