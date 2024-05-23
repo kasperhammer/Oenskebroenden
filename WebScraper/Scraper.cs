@@ -6,6 +6,11 @@ namespace WebScraper
 {
     public class Scraper
     {
+        /// <summary>
+        /// Metode til at bestemme hvilken scrapeing metode der skal bruges
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns>en WishCreateForm eller null</returns>
         public async Task<WishCreateForm> GetWishFromPage(string url)
         {
             if (url.ToLower().Contains(".zalando."))
@@ -19,62 +24,81 @@ namespace WebScraper
             return null;
         }
 
-
-        public async Task<WishCreateForm> ZalandoScrape(string url)
+        //Scraper til zalando produkt
+        async Task<WishCreateForm> ZalandoScrape(string url)
         {
-            var httpClient = new HttpClient();
-            var htmlContent = await httpClient.GetStringAsync(url);
+            //opret HttpClient
+            HttpClient httpClient = new HttpClient();
+            string htmlContent = "";
 
-            var htmlDocument = new HtmlDocument();
+            try
+            {
+                //forsøg at hente siden
+                htmlContent = await httpClient.GetStringAsync(url);
+            }
+            catch (Exception)
+            {
+                //hvis noget gik galt retuner
+                return null;
+            }
+
+            //opret ny HtmlDocument
+            HtmlDocument htmlDocument = new HtmlDocument();
+            //load hjemmesiden
             htmlDocument.LoadHtml(htmlContent);
 
-            // XPath expressions based on typical structure
-            var productNameXPath = "//*[@id=\"main-content\"]/div[2]/div/div[2]/x-wrapper-re-1-3/h1/span";
-            var priceXPath = "//*[@id=\"main-content\"]/div[2]/div/div[2]/x-wrapper-re-1-3/div[2]/div/div/div/p[1]";
-            var imageXPath = "//*[@id=\"main-content\"]/div[2]/div/div[1]/x-wrapper-re-1-2/div/div[1]/div/div/div[2]/ul/li[1]/div/button/div/div/img";
+            // XPath til de relevante elementer
+            string productNameXPath = "//*[@id=\"main-content\"]/div[2]/div/div[2]/x-wrapper-re-1-3/h1/span";
+            string priceXPath = "//*[@id=\"main-content\"]/div[2]/div/div[2]/x-wrapper-re-1-3/div[2]/div/div/div/p[1]";
+            string imageXPath = "//*[@id=\"main-content\"]/div[2]/div/div[1]/x-wrapper-re-1-2/div/div[1]/div/div/div[2]/ul/li[1]/div/button/div/div/img";
 
-            // Get product name
-            var productNameNode = htmlDocument.DocumentNode.SelectSingleNode(productNameXPath);
-            var productName = productNameNode?.InnerText.Trim() ?? "N/A";
+            // Får den gældene node til produkt navnet
+            HtmlNode productNameNode = htmlDocument.DocumentNode.SelectSingleNode(productNameXPath);
+            //får værdien
+            string productName = productNameNode?.InnerText.Trim() ?? "";
 
-            // Get price
-            var priceNode = htmlDocument.DocumentNode.SelectSingleNode(priceXPath);
-            var rawPrice = priceNode?.InnerText.Trim() ?? "N/A";
+            // Får den gældene node til pris
+            HtmlNode priceNode = htmlDocument.DocumentNode.SelectSingleNode(priceXPath);
+            //får værdien
+            string rawPrice = priceNode?.InnerText.Trim() ?? "";
 
-            // Get image URL
-            var imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath);
-            var imageUrl = imageNode?.GetAttributeValue("src", "N/A") ?? "N/A";
+            //  Får den gældene node til billede
+            HtmlNode imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath);
+            //får værdien fra src
+            string imageUrl = imageNode?.GetAttributeValue("src", "") ?? "";
 
 
-            //disse vil ofte være N/A hvis produktet er udsolgt
-            if (productName == "N/A")
+            // --hvis produktet er udsolgt vil der ikke være nogle værdierne
+            //  så vi prøver et andet xPath
+            if (string.IsNullOrEmpty(productName))
             {
-                var productNameXPath2 = "//*[@id=\"main-content\"]/div[1]/div/div[2]/x-wrapper-re-1-3/h1/span";
+                string productNameXPath2 = "//*[@id=\"main-content\"]/div[1]/div/div[2]/x-wrapper-re-1-3/h1/span";
                 productNameNode = htmlDocument.DocumentNode.SelectSingleNode(productNameXPath2);
-                productName = productNameNode?.InnerText.Trim() ?? "N/A";
+                productName = productNameNode?.InnerText.Trim() ?? "";
             }
-            if (rawPrice == "N/A")
+            if (string.IsNullOrEmpty(rawPrice))
             {
-                var priceXPath2 = "//*[@id=\"main-content\"]/div[1]/div/div[2]/x-wrapper-re-1-3/div[2]/div/div/p/span[1]";
+                string priceXPath2 = "//*[@id=\"main-content\"]/div[1]/div/div[2]/x-wrapper-re-1-3/div[2]/div/div/p/span[1]";
                 priceNode = htmlDocument.DocumentNode.SelectSingleNode(priceXPath2);
-                rawPrice = priceNode?.InnerText.Trim() ?? "N/A";
+                rawPrice = priceNode?.InnerText.Trim() ?? "";
             }
-            if (imageUrl == "N/A")
+            if (string.IsNullOrEmpty(imageUrl))
             {
-                var imageXPath2 = "//*[@id=\"main-content\"]/div[1]/div/div[1]/x-wrapper-re-1-2/div/div[1]/div/div/div[2]/ul/li[1]/div/button/div/div/img";
+                string imageXPath2 = "//*[@id=\"main-content\"]/div[1]/div/div[1]/x-wrapper-re-1-2/div/div[1]/div/div/div[2]/ul/li[1]/div/button/div/div/img";
                 imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath2);
-                imageUrl = imageNode?.GetAttributeValue("src", "N/A") ?? "N/A";
+                imageUrl = imageNode?.GetAttributeValue("src", "") ?? "";
             }
-            if (imageUrl == "N/A")
+            //hvis der stadig ikke er et link til billede er det afaik pga at produktet kun har 1 billede, så det henter vi
+            if (string.IsNullOrEmpty(imageUrl))
             {
-                var imageXPath3 = "//*[@id=\"main-content\"]/div[1]/div/div[2]/x-wrapper-re-1-3/div[3]/div[2]/div[2]/ul/li[1]/div/div[2]/div/img";
+                string imageXPath3 = "//*[@id=\"main-content\"]/div[1]/div/div[2]/x-wrapper-re-1-3/div[3]/div[2]/div[2]/ul/li[1]/div/div[2]/div/img";
                 imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath3);
-                imageUrl = imageNode?.GetAttributeValue("src", "N/A") ?? "N/A";
+                imageUrl = imageNode?.GetAttributeValue("src", "") ?? "";
             }
 
-            // XPath expressions based on typical structure
+            // parse pris til double
             double price = -777;
-            double.TryParse(Regex.Match(rawPrice, @"\d+(\.\d+)?").Value, out price);
+            double.TryParse(Regex.Match(rawPrice, @"\d+(\,\d+)?").Value, out price); //regex for at fjerne tegn rundt om tallet
 
             return new WishCreateForm
             {
@@ -88,40 +112,56 @@ namespace WebScraper
 
 
 
-        public async Task<WishCreateForm> ElgigantenScrape(string url)
+        async Task<WishCreateForm> ElgigantenScrape(string url)
         {
             var httpClient = new HttpClient();
-            var htmlContent = await httpClient.GetStringAsync(url);
+            string htmlContent = "";
 
-            var htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(htmlContent);
-
-            // XPath expressions based on typical structure
-            var productNameXPath = "//*[@id=\"main-content\"]/section/div[3]/div/h1/span";
-            var priceXPath = "//*[@id=\"main-content\"]/section/div[5]/div/div[2]/div/div[1]/div[1]/div[1]/div[1]/div/span/span[1]";
-            var imageXPath = "//*[@id=\"main-content\"]/section/div[5]/div/div[1]/div[2]/div[2]/div/div/ul/li[1]/button/img";
-
-            // Get product name
-            var productNameNode = htmlDocument.DocumentNode.SelectSingleNode(productNameXPath);
-            var productName = productNameNode?.InnerText.Trim() ?? "N/A";
-
-            // Get price
-            var priceNode = htmlDocument.DocumentNode.SelectSingleNode(priceXPath);
-            var rawPrice = priceNode?.InnerText.Trim() ?? "N/A";
-
-            // Get image URL
-            var imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath);
-            var imageUrl = imageNode?.GetAttributeValue("src", "N/A") ?? "N/A";
-            if (imageUrl == "N/A")
+            try
             {
-                imageXPath = "//*[@id=\"main-content\"]/section/div[5]/div/div[1]/div[2]/div/div/div/ul/li/button/img";
-                imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath);
-                imageUrl = imageNode?.GetAttributeValue("src", "N/A") ?? "N/A";
+                htmlContent = await httpClient.GetStringAsync(url);
+            }
+            catch (Exception)
+            {
+                //hvis noget gik galt retuner
+                return null;
             }
 
 
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlContent);
+
+            // XPath expressions based on typical structure
+            string productNameXPath = "//*[@id=\"main-content\"]/section/div[3]/div/h1/span";
+            string priceXPath = "//*[@id=\"main-content\"]/section/div[5]/div/div[2]/div/div[1]/div[1]/div[1]/div[1]/div/span/span[1]";
+            string imageXPath = "//*[@id=\"main-content\"]/section/div[5]/div/div[1]/div[2]/div[2]/div/div/ul/li[1]/button/img";
+
+            // Får den gældene node til produkt navnet
+            HtmlNode productNameNode = htmlDocument.DocumentNode.SelectSingleNode(productNameXPath);
+            //får navn
+            string productName = productNameNode?.InnerText.Trim() ?? "";
+
+            // Får den gældene node til pris
+            HtmlNode priceNode = htmlDocument.DocumentNode.SelectSingleNode(priceXPath);
+            //får pris
+            string rawPrice = priceNode?.InnerText.Trim() ?? "";
+
+            // Får den gældene node til billede
+            HtmlNode imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath);
+            //får url til billede
+            string imageUrl = imageNode?.GetAttributeValue("src", "") ?? "";
+
+            //hvis der stadig ikke er et link til billede er det afaik pga at produktet kun har 1 billede, så det henter vi
+            if (string.IsNullOrEmpty(imageUrl))
+            {
+                imageXPath = "//*[@id=\"main-content\"]/section/div[5]/div/div[1]/div[2]/div/div/div/ul/li/button/img";
+                imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath);
+                imageUrl = imageNode?.GetAttributeValue("src", "") ?? "";
+            }
+
+            // parse pris til double
             double price = -777;
-            double.TryParse(Regex.Match(rawPrice, @"\d+(\.\d+)?").Value, out price);
+            double.TryParse(Regex.Match(rawPrice, @"\d+(\,\d+)?").Value, out price); //regex for at fjerne tegn rundt om tallet
 
             return new WishCreateForm
             {

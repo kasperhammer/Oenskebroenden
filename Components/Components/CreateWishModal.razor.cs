@@ -77,10 +77,14 @@ namespace ComponentLib.Components
             if(!IsManual)
             {
                 Wish = await Repo.GetWishFromUrl(Wish.Link, Cookie);
-                if(Wish != null)
+                if (Wish != null)
                 {
                     Price = Wish.Price.ToString();
-                } Wish = new();
+                }
+                else
+                {
+                    Wish = new();
+                }
                 StateHasChanged();
             }
         }
