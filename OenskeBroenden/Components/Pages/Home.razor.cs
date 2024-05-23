@@ -181,8 +181,9 @@ namespace OenskeBroenden.Components.Pages
         }
 
         //bare luk modallen
-        public void CloseAddWishModal()
+        public async void CloseAddWishModal()
         {
+            await UpdateCookie();
             addWish = false;
         }
 

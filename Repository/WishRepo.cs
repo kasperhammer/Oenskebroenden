@@ -123,8 +123,8 @@ namespace Repository
 
         public async Task<WishCreateForm> GetWishFromUrl(string url, UserDTO userCookie)
         {
-            // lav tjek
-            //userCookie = await tokenRepo.TokenValidationPackageAsync(userCookie);
+            if (string.IsNullOrEmpty(url) || !url.Contains("www.")) return null;
+            userCookie = await tokenRepo.TokenValidationPackageAsync(userCookie);
             WishCreateForm w = await wishService.GetWishFromUrl(userCookie.Token, url);
             return w;
         }
