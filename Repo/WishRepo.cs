@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repo
 {
-    public class WishRepo
+    public class WishRepo : IWishRepo
     {
         EntityContext dBLayer;
         AutoMapper autoMapper;
@@ -31,7 +31,7 @@ namespace Repo
         {
             if (wishDTO != null)
             {
-                //Jeg anvender min AutoMapper til at konvertere min DTO model om til en EntityModel
+                //Jeg anvender AutoMapper til at konvertere min DTO model om til en EntityModel
                 Wish wish = autoMapper.mapper.Map<Wish>(wishDTO);
                 wish.ReservedUser = null;
                 wish.ReservedUserId = null;
@@ -59,7 +59,7 @@ namespace Repo
         {
             if (wishlistDto != null)
             {
-                //Jeg anvender min AutoMapper til at konvertere min DTO model om til en EntityModel
+                //Jeg anvender AutoMapper til at konvertere min DTO model om til en EntityModel
                 WishList wishlist = autoMapper.mapper.Map<WishList>(wishlistDto);
                 wishlist.Owner = null;
                 wishlist.Wishes = null;
@@ -143,7 +143,7 @@ namespace Repo
             Wish wish = autoMapper.mapper.Map<Wish>(wishCreate);
             dBLayer.Wishes.Update(wish);
             return await dBLayer.SaveChangesAsync() > 0;
-          
+
         }
 
 
@@ -203,6 +203,5 @@ namespace Repo
             }
             return null;
         }
-
     }
 }

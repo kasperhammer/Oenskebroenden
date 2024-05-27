@@ -33,7 +33,7 @@
                          {
                               <div class="item">
     
-                                   <div id="@item.Id" @onclick="(() => LoadListAsync(item.Id))" style="background-color:@backgroundColor[GenerateRandomNumber()]" class="emojidiv"><h1 class="emojistring">@item.Emoji</h1></div>
+                                   <div id="@item.Id" @onclick="(() => LoadListAsync(item.Id))"  class="emojidiv"><h1 class="emojistring">@item.Emoji</h1></div>
                                    <h2 class="wishlistname">@item.Name</h2>
                                    @if (item.Wishes != null)
                                    {
@@ -56,7 +56,7 @@
                          {
                               <div class="item">
     
-                                   <div id="@item.Id" @onclick="(() => LoadListAsync(item.WishList.Id))" style="background-color:@backgroundColor[GenerateRandomNumber()]" class="emojidiv"><h1 class="emojistring">@item.WishList.Emoji</h1></div>
+                                   <div id="@item.Id" @onclick="(() => LoadListAsync(item.WishList.Id))" class="emojidiv"><h1 class="emojistring">@item.WishList.Emoji</h1></div>
                                    <h2 class="wishlistname">@item.WishList.Name</h2>
                                    @if (item.WishList.Wishes != null)
                                    {
