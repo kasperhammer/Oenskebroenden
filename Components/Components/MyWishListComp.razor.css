@@ -9,11 +9,12 @@
     font-family: 'Poppins';
 }
 
-.fa-link{
-    font-size:0.8vw;
-    position:absolute;
-    cursor:pointer;
+.fa-link {
+    font-size: 0.8vw;
+    position: absolute;
+    cursor: pointer;
 }
+
 .Headers {
     display: flex;
     justify-content: space-between;
@@ -59,7 +60,7 @@
 .List {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows:15vw;
+    grid-template-rows: 15vw;
     width: 60vw;
     height: 72vh;
     margin-left: 10vw;
@@ -67,17 +68,17 @@
     overflow: auto;
 }
 
-.hoverClass{
-    display:none;
-    position:absolute;
-    background-color:white;
-    border-radius:15px;
-    border:2px solid #5bc0eb;
-    padding:1vh;
+.hoverClass {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border-radius: 15px;
+    border: 2px solid #5bc0eb;
+    padding: 1vh;
 }
 
-.hoverheader{
-    font-size:1vw;
+.hoverheader {
+    font-size: 1vw;
 }
 
 .hovertext {
@@ -89,7 +90,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height:15vw;
+    height: 30.25vh;
 }
 
 .image {
@@ -98,11 +99,10 @@
     height: 10vw;
     color: black;
     text-decoration: none;
-
-
 }
-.img1{
-    bottom:0vw;
+
+.img1 {
+    bottom: 0vw;
 }
 
 .imageHolder {
@@ -114,11 +114,11 @@
 
 .MaxWidth {
     scrollbar-gutter: stable;
-  overflow:auto;
+    overflow: auto;
     height: 9.8vw;
-    margin-top:0.1vw;
-    margin-left:1vw;
-   width:8.95vw;
+    margin-top: 0.1vw;
+    margin-left: 1vw;
+    width: 8.95vw;
     word-break: break-all;
 }
 
@@ -131,7 +131,7 @@
 }
 
 .gifttitle {
-    height: 3.6vh;
+    height: 2.8vh;
     width: 10vw;
     overflow: hidden;
 }
@@ -175,16 +175,15 @@
     border: 1px solid #dee2e6;
     font-size: 1vw;
     outline: none !important;
- 
     padding: 0.2vh;
-    padding-left:1vh;
+    padding-left: 1vh;
 }
 
 .input-group {
     font-family: 'Poppins';
     margin: 2px;
     margin-top: 2vh;
-    width:15vw;
+    width: 15vw;
 }
 
 
@@ -199,32 +198,30 @@
     padding: 0px;
     height: 100%;
     border-radius: 25px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .EditWish {
-    position:relative;
-    left:9vw;
+    position: relative;
+    left: 9vw;
     height: 1vw;
     width: 1vw;
-    color:black;
+    color: black;
     z-index: 4;
     grid-row: 1;
     grid-column: 1;
-  
 }
 
     .EditWish:hover {
         transform: scale(1.2);
-        cursor:pointer;
-        color:white;
+        cursor: pointer;
+        color: white;
     }
 
 
 
 .description {
     display: none;
-    position: relative;
     text-align: center;
     width: 10vw;
     height: 10vw;
@@ -235,11 +232,6 @@
     grid-column: 1;
     cursor: pointer;
 }
-    .description p {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-    }
 
 .imagecontainer {
     grid-row: 1;
@@ -253,7 +245,6 @@
     left: 9vw;
     height: 1vw;
     width: 1vw;
-  
     z-index: 4;
     grid-row: 1;
     grid-column: 1;
@@ -262,7 +253,6 @@
     .blue:hover {
         transform: scale(1.5);
         cursor: pointer;
-     
     }
 
 .grey {
@@ -271,7 +261,6 @@
     left: 9vw;
     height: 1vw;
     width: 1vw;
-  
     z-index: 4;
     grid-row: 1;
     grid-column: 1;
