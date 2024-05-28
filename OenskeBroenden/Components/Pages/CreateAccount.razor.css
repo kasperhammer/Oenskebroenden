@@ -3,6 +3,9 @@
     width: 100vw;
     height: 100vh;
     flex-direction: column;
+    grid-template-columns: 20% 80%;
+    background-repeat: no-repeat;
+    background-size: cover;
     background-image: url(../Images/bg.png);
 }
 

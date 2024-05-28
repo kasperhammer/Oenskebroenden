@@ -20,7 +20,6 @@ namespace ComponentLib.Components
         [Parameter]
         public UserDTO Cookie { get; set; }
 
-        public List<string> backgroundColor = new List<string> { "#EFC8AC;", "#EFACAC;", "#ACD7EF;", "#EFE8AC;" };
 
         public bool ready;
 
@@ -54,15 +53,6 @@ namespace ComponentLib.Components
             selected = !selected;
             StateHasChanged();
         }
-
-
-        public int GenerateRandomNumber()
-        {
-            Random rand = new Random();
-            return rand.Next(4); // Generates a random number between 0 (inclusive) and 4 (exclusive)
-        }
-
-
 
     }
 }

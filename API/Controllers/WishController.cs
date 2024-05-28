@@ -15,9 +15,9 @@ namespace API.Controllers
     public class WishController : ControllerBase
     {
 
-        public WishRepo repo;
-        public WishController()
-        { repo = new(); }
+        private readonly IWishRepo repo;
+        public WishController(IWishRepo repo)
+        { this.repo = repo; }
 
 
         // Metode til at hente ønskelister til en bestemt bruger

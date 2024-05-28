@@ -114,11 +114,13 @@ namespace WebScraper
 
         async Task<WishCreateForm> ElgigantenScrape(string url)
         {
+            //opret HttpClient
             var httpClient = new HttpClient();
             string htmlContent = "";
 
             try
             {
+                //forsøg at hente siden
                 htmlContent = await httpClient.GetStringAsync(url);
             }
             catch (Exception)
@@ -127,11 +129,12 @@ namespace WebScraper
                 return null;
             }
 
-
+            //opret ny HtmlDocument
             HtmlDocument htmlDocument = new HtmlDocument();
+            //load hjemmesiden
             htmlDocument.LoadHtml(htmlContent);
 
-            // XPath expressions based on typical structure
+            // XPath til de relevante elementer
             string productNameXPath = "//*[@id=\"main-content\"]/section/div[3]/div/h1/span";
             string priceXPath = "//*[@id=\"main-content\"]/section/div[5]/div/div[2]/div/div[1]/div[1]/div[1]/div[1]/div/span/span[1]";
             string imageXPath = "//*[@id=\"main-content\"]/section/div[5]/div/div[1]/div[2]/div[2]/div/div/ul/li[1]/button/img";
@@ -171,12 +174,6 @@ namespace WebScraper
                 PictureURL = imageUrl,
 
             };
-        }
-
-
-
-
-
-       
+        }       
     }
 }

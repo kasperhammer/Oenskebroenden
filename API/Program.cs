@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IAccountRepo, AccountRepo>();
 builder.Services.AddScoped<IHistoryRepo, HistoryRepo>();
 builder.Services.AddScoped<IChatRepo, ChatRepo>();
+builder.Services.AddScoped<IWishRepo, WishRepo>();
 builder.Services.AddControllers();
 
 builder.Services.AddSignalR();
