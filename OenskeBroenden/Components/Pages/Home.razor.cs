@@ -180,12 +180,7 @@ namespace OenskeBroenden.Components.Pages
             StateHasChanged();
         }
 
-        //bare luk modallen
-        public void CloseAddWishModal()
-        {
-            addWish = false;
-        }
-
+   
         //Når denne metode bliver kaldt tager jeg imod en WishCreateForm
         //såfremt den er Null er det fordi at der er sket en opdatering og så skal den Hente de nyeste Ønsker
         //eftersom der er sket en ændring. Når den ikke er NULL er det fordi at brugeren har klikket på et ønske der skal redigeres
