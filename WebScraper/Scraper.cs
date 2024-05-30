@@ -98,7 +98,7 @@ namespace WebScraper
 
             // parse pris til double
             double price = -777;
-            double.TryParse(Regex.Match(rawPrice, @"\d+(\,\d+)?").Value, out price); //regex for at fjerne tegn rundt om tallet
+            double.TryParse(Regex.Match(rawPrice, @"\d+(\.\d+)?").Value, out price); //regex for at fjerne tegn rundt om tallet
 
             return new WishCreateForm
             {
@@ -164,7 +164,7 @@ namespace WebScraper
 
             // parse pris til double
             double price = -777;
-            double.TryParse(Regex.Match(rawPrice, @"\d+(\,\d+)?").Value, out price); //regex for at fjerne tegn rundt om tallet
+            double.TryParse(Regex.Match(rawPrice, @"\d+(\.\d+)?").Value, out price); //regex for at fjerne tegn rundt om tallet
 
             return new WishCreateForm
             {
