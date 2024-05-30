@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using Models.Forms;
+using System.Runtime.ConstrainedExecution;
 using System.Text.RegularExpressions;
 
 namespace WebScraper
@@ -95,6 +96,35 @@ namespace WebScraper
                 imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath3);
                 imageUrl = imageNode?.GetAttributeValue("src", "") ?? "";
             }
+
+            // --hvis andet går galt prøv det her
+            //  så vi prøver et andet xPath
+            if (string.IsNullOrEmpty(productName))
+            {
+                string productNameXPath3 = "//*[@id=\"main-content\"]/div[1]/div/div[2]/h1/span";
+                productNameNode = htmlDocument.DocumentNode.SelectSingleNode(productNameXPath3);
+                productName = productNameNode?.InnerText.Trim() ?? "";
+            }
+            if (string.IsNullOrEmpty(rawPrice))
+            {
+                string priceXPath3 = "//*[@id=\"main-content\"]/div[1]/div/div[2]/div[2]/div/div/p/span[1]";
+                priceNode = htmlDocument.DocumentNode.SelectSingleNode(priceXPath3);
+                rawPrice = priceNode?.InnerText.Trim() ?? "";
+            }
+            if (string.IsNullOrEmpty(imageUrl))
+            {
+                string imageXPath3 = "//*[@id=\"main-content\"]/div[1]/div/div[1]/div/div[1]/div/div/div[2]/ul/li[1]/div/button/div/div/img";
+                imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath3);
+                imageUrl = imageNode?.GetAttributeValue("src", "") ?? "";
+            }
+            //hvis der stadig ikke er et link til billede er det afaik pga at produktet kun har 1 billede, så det henter vi
+            if (string.IsNullOrEmpty(imageUrl))
+            {
+                string imageXPath4 = "//*[@id=\"main-content\"]/div[1]/div/div[2]/div[3]/div[2]/div[2]/ul/li[1]/div/div[2]/div/img";
+                imageNode = htmlDocument.DocumentNode.SelectSingleNode(imageXPath4);
+                imageUrl = imageNode?.GetAttributeValue("src", "") ?? "";
+            }
+
 
             // parse pris til double
             double price = -777;
